@@ -4,7 +4,7 @@ const db = require('APP/db');
 const router = require('express').Router();
 module.exports = router;
 
-const Orders = db.orders
+const Orders = db.models.orders
 // const Reviews = db.model('reviews');
 // const Albums = db.model('albums');
 // const Artists = db.model('artists');
@@ -32,28 +32,6 @@ router.param('orderId', function (req, res, next){
 	})
 	.catch(next);
 });
-
-// router.param('reviewId', function (req, res, next){
-
-// 	if (isNaN(req.params.reviewId)) {
-// 		let err = Error('Invalid review ID');
-// 		err.status = 404;
-// 		throw err;
-// 	}
-
-// 	Reviews.findById(req.params.reviewId)
-// 	.then(function (review) {
-// 	  if (!review) {
-// 	    const err = Error('review not found');
-// 	    err.status = 404;
-// 	    throw err;
-// 	  }
-// 	  req.review = review;
-// 	  next();
-// 	})
-// 	.catch(next);
-// });
-
 
 /// ORDERS
 

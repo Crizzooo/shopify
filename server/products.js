@@ -4,8 +4,8 @@ const db = require('APP/db');
 const router = require('express').Router();
 module.exports = router;
 
-const Products = db.products;
-const Reviews = db.reviews;
+const Products = db.models.products;
+const Reviews = db.models.reviews;
 // const Albums = db.model('albums');
 // const Artists = db.model('artists');
 
@@ -63,7 +63,7 @@ router.get('/', function (req, res, next){
 });
 
 router.get('/:productId', function (req, res, next){
-	Products.findById()
+	Products.findById(req.params.productId)
 	.then( product => res.status(200).json(product))
 	.catch(next);
 });
