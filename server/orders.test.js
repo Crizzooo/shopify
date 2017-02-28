@@ -3,7 +3,7 @@
 const request = require('supertest-as-promised');
 const {expect} = require('chai');
 const db = require('APP/db');
-const User = require('APP/db/models/user');
+const Order = require('APP/db/models/orders');
 const app = require('./start');
 
 

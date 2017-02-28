@@ -8,7 +8,7 @@ const Products = db.models.products;
 const Reviews = db.models.reviews;
 // const Albums = db.model('albums');
 // const Artists = db.model('artists');
-
+console.log('DATABSE:  ', db);
 
 // PARAMS
 
@@ -118,4 +118,3 @@ router.delete('/:productId/reviews/:reviewId', function (req, res, next){
 	.then(() => res.status(204).send('Succesfully Deleted'))
 	.catch(next)
 });
-

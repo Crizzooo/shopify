@@ -62,4 +62,3 @@ router.delete('/:orderId', function (req, res, next){
 	.then( () => res.status(204).send('Succesfully Deleted'))
 	.catch(next)
 });
-
