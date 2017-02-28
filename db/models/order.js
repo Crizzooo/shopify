@@ -4,6 +4,7 @@
 const Sequelize = require('sequelize')
 const db = require('APP/db')
 
+
 const Order = db.define('orders', {
   status: {
     type: Sequelize.ENUM('Created', 'Processing', 'Cancelled', 'Completed'),
@@ -15,6 +16,21 @@ const Order = db.define('orders', {
   },
   items: {
     type: Sequelize.ARRAY(Sequelize.INTEGER)
+  }
+}, {
+  getterMethods: {
+    cartContents(){
+      const cart = {}
+      this.items.forEach(item => {
+        if (cart[item]) cart[item]++;
+        else cart[item] = 1
+      })
+    }
+  },
+  instanceMethods: {
+    addToCart(product){
+      this.items.push(product.id)
+    }
   }
 })
 

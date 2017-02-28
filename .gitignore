@@ -2,6 +2,7 @@
 node_modules/*
 bower_components
 
+
 # ...except the symlink to ourselves.
 !node_modules/APP
 
@@ -27,3 +28,9 @@ Thumbs.db
 # IDE files
 .idea
 .vscode
+
+#Linter
+.eslintrc.json
+
+#package.json
+package.json

@@ -3,6 +3,7 @@
 
 const Sequelize = require('sequelize')
 const db = require('APP/db')
+const Album = require('./album')
 
 const Product = db.define('products', {
   title: {
@@ -34,6 +35,14 @@ const Product = db.define('products', {
   product_type: Sequelize.ENUM('album', 'clothing'),
   tags: {
     type: Sequelize.ARRAY(Sequelize.STRING)
+    }
+  }, {
+    hooks: {
+      beforeCreate: function(product){
+        if (product.type === 'album'){
+          product.title = Album.getAlbumTitle()
+        }
+      }
   }
 })
 //TODO: add product hook that truncates description for a quick description/product view.

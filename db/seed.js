@@ -19,12 +19,14 @@ const seedReviews = () => db.Promise.map([
 
 const seedProducts = () => db.Promise.map([
   {title: 'Some album', description: 'great album, you should buy it!', imageURL: 'www.google.com', price: 19.99, quantity: 5, product_type: 'album', tags: []},
+  {title: 'Another album', description: 'decent album, you shouldn\'t buy it!', imageURL: 'www.google.com', price: 19.99, quantity: 5, product_type: 'album', tags: []},
   {title: 'Awesome T-Shirt', description: 't-shirt description here', imageURL: 'www.google.com', price: 9.95, quantity: 10, product_type: 'clothing', tags: ['trending now']},
+  {title: 'Sick trucker hat', description: 'wear this hat to the beach', imageURL: 'www.google.com', price: 4.95, quantity: 10, product_type: 'clothing', tags: ['on sale']}
 ], product => db.model('products').create(product))
 
 const seedAlbums = () => db.Promise.map([
-  {name: 'Zenith', genre: 'instrumental', year: 1995, artist_id: 1},
-  {name: 'Ghosts I-IV', genre: 'ambient', year: 2010, artist_id: 2},
+  {name: 'Zenith', genre: 'instrumental', year: 1995, artist_id: 1, product_id: 1},
+  {name: 'Ghosts I-IV', genre: 'ambient', year: 2010, artist_id: 2, product_id: 2},
 ], album => db.model('albums').create(album))
 
 const seedArtists = () => db.Promise.map([
@@ -33,8 +35,8 @@ const seedArtists = () => db.Promise.map([
 ], artist => db.model('artists').create(artist))
 
 const seedClothing = () => db.Promise.map([
-  {type: 'tshirt', size: 'S', artist_id: 1},
-  {type: 'hat', size: 'one-size', artist_id: 2},
+  {type: 'tshirt', size: 'S', artist_id: 1, product_id: 3},
+  {type: 'hat', size: 'one-size', artist_id: 2, product_id: 4},
 ], clothing => db.model('clothing').create(clothing))
 
 db.didSync
