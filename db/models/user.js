@@ -44,6 +44,11 @@ const User = db.define('users', {
     beforeCreate: setEmailAndPassword,
     beforeUpdate: setEmailAndPassword,
   },
+  getterMethods: {
+    fullName(){
+      return `${this.firstName} ${this.lastName}`
+    }
+  },
   instanceMethods: {
     // This method is a Promisified bcrypt.compare
     authenticate (plaintext) {

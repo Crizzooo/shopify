@@ -11,7 +11,8 @@ const Artist = db.define('artists', {
   },
   imageURL: {
     type: Sequelize.STRING,
-    // defaultValue: // TODO: artist image placeholder
+    //TODO: change default value later
+    defaultValue: 'http://www.thebakerymadewithlove.com/wp-content/uploads/2014/08/placeholder.png'
   }
 })
 

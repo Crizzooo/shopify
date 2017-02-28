@@ -13,9 +13,14 @@ const Album = db.define('albums', {
     type: Sequelize.STRING,
     allowNull: false
   },
+  imageURL: {
+    type: Sequelize.STRING,
+    //TODO: change default value later
+    defaultValue: 'http://www.thebakerymadewithlove.com/wp-content/uploads/2014/08/placeholder.png'
+  },
   year: {
     type: Sequelize.INTEGER
-    // TODO: validate year digits
+    // TODO: validate year digits maybe?
   }
 })
 

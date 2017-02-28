@@ -13,8 +13,9 @@ const Product = db.define('products', {
   },
   description: Sequelize.TEXT,
   imageURL: {
-    type: Sequelize.STRING
-    // defaultValue: // TODO: product image placeholder
+    type: Sequelize.STRING,
+    //TODO: change default value later
+    defaultValue: 'http://www.thebakerymadewithlove.com/wp-content/uploads/2014/08/placeholder.png'
   },
   price: {
     type: Sequelize.DECIMAL(10, 2),
@@ -35,5 +36,6 @@ const Product = db.define('products', {
     type: Sequelize.ARRAY(Sequelize.STRING)
   }
 })
+//TODO: add product hook that truncates description for a quick description/product view.
 
 module.exports = Product

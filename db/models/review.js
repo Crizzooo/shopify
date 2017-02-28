@@ -20,6 +20,14 @@ const Review = db.define('reviews', {
     type: Sequelize.TEXT,
     allowNull: false
   }
+}, {
+  hooks: {
+    beforeCreate: function(review){
+      if (!review.title){
+        review.title = `${review.body.slice(0,24)}...`
+      }
+    }
+  }
 })
 
 module.exports = Review
