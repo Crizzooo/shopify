@@ -4,11 +4,11 @@ const db = require('APP/db');
 const router = require('express').Router();
 module.exports = router;
 
-const Products = db.products;
-const Reviews = db.reviews;
+const Products = db.models.products;
+const Reviews = db.models.reviews;
 // const Albums = db.model('albums');
 // const Artists = db.model('artists');
-
+console.log('DATABSE:  ', db);
 
 // PARAMS
 
@@ -118,4 +118,3 @@ router.delete('/:productId/reviews/:reviewId', function (req, res, next){
 	.then(() => res.status(204).send('Succesfully Deleted'))
 	.catch(next)
 });
-

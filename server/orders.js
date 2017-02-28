@@ -4,7 +4,7 @@ const db = require('APP/db');
 const router = require('express').Router();
 module.exports = router;
 
-const Orders = db.orders
+const Orders = db.models.orders
 // const Reviews = db.model('reviews');
 // const Albums = db.model('albums');
 // const Artists = db.model('artists');
@@ -84,4 +84,3 @@ router.delete('/:orderId', function (req, res, next){
 	.then( () => res.status(204).send('Succesfully Deleted'))
 	.catch(next)
 });
-

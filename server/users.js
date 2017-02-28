@@ -1,7 +1,7 @@
 'use strict'; // eslint-disable-line semi
 
 const db = require('APP/db')
-const User = db.users
+const User = db.models.users;
 
 const {mustBeLoggedIn, forbidden} = require('./auth.filters')
 
