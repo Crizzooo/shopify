@@ -11,6 +11,7 @@ const Clothing = db.define('clothing', {
   size: {
     type: Sequelize.ENUM('S', 'M', 'L', 'one-size')
   }
+  // TODO: CREATE price: Sequelize.DECIMAL(10, 2)
 })
 
 module.exports = Clothing

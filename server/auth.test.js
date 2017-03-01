@@ -16,7 +16,10 @@ describe('/api/auth', () => {
     db.didSync
       .then(() =>
         User.create(
-          {email: alice.username,
+          {
+          firstName: 'Alice',
+          lastName: 'Smith',
+          email: alice.username,
           password: alice.password
         })
       )

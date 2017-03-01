@@ -22,9 +22,10 @@ const Album = db.define('albums', {
   year: {
     type: Sequelize.INTEGER,
     validate: {
-      len: [4]
+      len: 4
     }
   }
+  // TODO: CREATE price: Sequelize.DECIMAL(10, 2)
 }, {
   //currently, the admin or whoever has to manually add the product
   //title. We want to make it so that if the product is an album,

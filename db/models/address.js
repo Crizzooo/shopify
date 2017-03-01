@@ -27,7 +27,7 @@ const Address = db.define('addresses', {
   zip: {
     type: Sequelize.INTEGER,
     validate: {
-      len: [5]
+      len: 5
     }
   }
 })
