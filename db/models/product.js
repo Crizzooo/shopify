@@ -15,7 +15,7 @@ const Product = db.define('products', {
   description: Sequelize.TEXT,
   imageURL: {
     type: Sequelize.STRING,
-    //TODO: change default value later
+    //TODO: CHANGE product image defaultValue
     defaultValue: 'http://www.thebakerymadewithlove.com/wp-content/uploads/2014/08/placeholder.png'
   },
   price: {
@@ -37,14 +37,18 @@ const Product = db.define('products', {
     type: Sequelize.ARRAY(Sequelize.STRING)
     }
   }, {
-    hooks: {
-      beforeCreate: function(product){
-        if (product.type === 'album'){
-          product.title = Album.getAlbumTitle()
-        }
+  hooks: {
+    beforeCreate: function(product){
+      if (product.type === 'album'){
+        product.title = Album.getAlbumTitle()
       }
+    }
+  },
+  instanceMethods: {
+    truncateDescription() {
+      return `${this.description.slice(0, 48)}...`
+    }
   }
 })
-//TODO: add product hook that truncates description for a quick description/product view.
 
 module.exports = Product

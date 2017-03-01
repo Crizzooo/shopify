@@ -9,21 +9,24 @@ const db = require('APP/db')
 const User = db.define('users', {
   firstName: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
       notEmpty: true
     }
   },
   lastName: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
       notEmpty: true
     }
   },
   email: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
 			isEmail: true,
-			notEmpty: true,
+			notEmpty: true
 		}
   },
   isAdmin: {
@@ -31,9 +34,11 @@ const User = db.define('users', {
     allowNull: false,
     defaultValue: false
   },
-  shippingAddress: {
-    type: Sequelize.STRING
-  },
+  // TODO: DELETE shippingAddress
+  // already associated with the address model
+  // shippingAddress: {
+  //   type: Sequelize.STRING
+  // },
 
   // We support oauth, so users may or may not have passwords.
   password_digest: Sequelize.STRING, // This column stores the hashed password in the DB, via the beforeCreate/beforeUpdate hooks
@@ -42,7 +47,20 @@ const User = db.define('users', {
 	indexes: [{fields: ['email'], unique: true}],
   hooks: {
     beforeCreate: setEmailAndPassword,
-    beforeUpdate: setEmailAndPassword,
+    beforeUpdate: setEmailAndPassword
+      // TODO: DELETE hook to format address
+      // function(user) {
+      //   if (!user.shippingAddress) {
+      //     return Address.findOne({
+      //       where: {
+      //         id: this.address_id
+      //       }
+      //     })
+      //     .then(function(userAddress) {
+      //       this.shippingAddress = `${userAddress.buildingNumber} \n${userAddress.city}, ${userAddress.state} ${userAddress.zip}`
+      //     })
+      //   }
+      // }
   },
   getterMethods: {
     fullName(){
@@ -65,7 +83,6 @@ const User = db.define('users', {
 function setEmailAndPassword(user) {
   user.email = user.email && user.email.toLowerCase()
   if (!user.password) return Promise.resolve(user)
-
   return new Promise((resolve, reject) =>
 	  bcrypt.hash(user.get('password'), 10, (err, hash) => {
 		  if (err) reject(err)

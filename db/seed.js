@@ -7,6 +7,11 @@ const seedUsers = () => db.Promise.map([
   {firstName: 'Barack', lastName: 'Obama', email: 'barack@example.gov', password: '1234'},
 ], user => db.model('users').create(user))
 
+const seedAddresses = () => db.Promise.map([
+  {buildingNumber: '1234 23rd Street', city: 'New York', state: 'NY', zip: '12345', user_id: 1},
+  {buildingNumber: '5432 85th Place', city: 'Seattle', state: 'WA', zip: '54321', user_id: 2},
+], address => db.model('addresses').create(address))
+
 const seedOrders = () => db.Promise.map([
   {status: 'Created', isActive: true, items: [1, 3, 4], user_id: 1},
   {status: 'Processing', isActive: true, items: [1, 2], user_id: 2},
@@ -42,6 +47,7 @@ const seedClothing = () => db.Promise.map([
 db.didSync
   .then(() => db.sync({force: true}))
   .then(seedUsers)
+  .then(seedAddresses)
   .then(seedOrders)
   .then(seedProducts)
   .then(seedReviews)
