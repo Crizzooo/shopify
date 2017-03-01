@@ -9,8 +9,6 @@ const Orders = db.models.orders
 // const Albums = db.model('albums');
 // const Artists = db.model('artists');
 
-
-
 // PARAMS
 
 router.param('orderId', function (req, res, next, orderId){
@@ -25,9 +23,8 @@ router.param('orderId', function (req, res, next, orderId){
 	  if (!order) {
 	    const err = Error('Order not found');
 	    err.status = 404;
-	    throw err;
+	    next(err);
 	  }
-		console.log('saving: ', order, ' to req.order');
 	  req.order = order;
 	  next();
 	})
@@ -37,10 +34,8 @@ router.param('orderId', function (req, res, next, orderId){
 /// ORDERS
 
 router.get('/', function (req, res, next){
-	console.log('in get orders /');
 	Orders.findAll()
 	.then( (orders) => {
-		// console.log('found orders', orders);
 		res.status(200).json(orders);
 	})
 	.catch(next);
@@ -58,7 +53,7 @@ router.put('/:orderId', function (req, res, next){
 
 router.post('/', function (req, res, next){
 	Orders.create(req.body)
-	.then( order => res.status(200).json(order))
+	.then( order => res.status(201).json(order))
 	.catch(next);
 });
 

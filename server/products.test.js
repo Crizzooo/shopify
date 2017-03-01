@@ -18,6 +18,7 @@ describe('/api/products', () => {
 
   describe('when logged in', () => {
 
+
     beforeEach('Add a product', () => {
        return Product.create({
         title: 'Cool jacket',
@@ -35,6 +36,7 @@ describe('/api/products', () => {
     )
 
     it('GET /:productId - retrieves a specified product', () =>
+
       request(app)
         .get(`/api/products/1`)
         .expect(200)
@@ -45,6 +47,7 @@ describe('/api/products', () => {
     )
 
     it('POST - creates a new product', () =>
+
       request(app)
         .post('/api/products')
         .send({
@@ -58,6 +61,7 @@ describe('/api/products', () => {
     )
 
     it('POST - redirects to the product it just created', () =>
+
       request(app)
         .post('/api/products')
         .send({
@@ -152,4 +156,3 @@ describe('/api/products', () => {
 //     )
 //   })
 // })
-
