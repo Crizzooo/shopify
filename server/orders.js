@@ -13,14 +13,14 @@ const Orders = db.models.orders
 
 // PARAMS
 
-router.param('orderId', function (req, res, next){
-	if (isNaN(req.params.orderId)) {
+router.param('orderId', function (req, res, next, orderId){
+	if (isNaN(orderId)) {
 		let err = Error('Invalid Order ID');
 		err.status = 404;
 		throw err;
 	}
 
-	Orders.findById(req.params.orderId)
+	Orders.findById(orderId)
 	.then(function (order) {
 	  if (!order) {
 	    const err = Error('Order not found');
@@ -40,7 +40,7 @@ router.get('/', function (req, res, next){
 	console.log('in get orders /');
 	Orders.findAll()
 	.then( (orders) => {
-		console.log('found orders', orders);
+		// console.log('found orders', orders);
 		res.status(200).json(orders);
 	})
 	.catch(next);

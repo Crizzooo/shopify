@@ -40,3 +40,16 @@ const app = require('./start');
 //     )
 //   })
 // })
+
+xit('POST creates a user', () =>
+     request(app)
+       .post('/api/users')
+       .send({
+         email: 'beth@secrets.org',
+         password: '12345'
+       })
+       .expect(201)
+       .then((res) =>{
+         console.log('do I have this??', res.body);
+       })
+   )
