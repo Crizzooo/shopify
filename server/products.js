@@ -21,16 +21,13 @@ router.param('productId', function (req, res, next, productId){
 		err.status = 404;
 		throw err;
 	}
-	console.log('Looking for product with this id:', req.params.productId);
 	Products.findById(productId)
 	.then( (product) => {
-		console.log(' I recovered this product:', product);
 	  if (!product) {
 	    const err = Error('product not found');
 	    err.status = 404;
 	    throw err;
 	  }
-	  console.log('Found product, attaching to Req!:', req.body)
 	  req.product = product;
 	  next();
 	})
@@ -84,7 +81,7 @@ router.post('/', function (req, res, next){
 	Products.create(req.body)
 	.then( product => {
 		console.log('created this product!:', product);
-		res.status(200).json(product);
+		res.status(201).json(product);
 	})
 	.catch(next);
 });
@@ -111,7 +108,7 @@ router.get('/:productId/reviews', function (req, res, next){
 router.post('/:productId/reviews', function (req, res, next){
 	Reviews.create(req.body)
 	.then( review => review.setProduct(req.product.id))
-	.then( review => res.status(200).json(review))
+	.then( review => res.status(201).json(review))
 	.catch(next)
 });
 
