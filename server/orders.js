@@ -27,6 +27,7 @@ router.param('orderId', function (req, res, next){
 	    err.status = 404;
 	    throw err;
 	  }
+		console.log('saving: ', order, ' to req.order');
 	  req.order = order;
 	  next();
 	})
@@ -36,8 +37,12 @@ router.param('orderId', function (req, res, next){
 /// ORDERS
 
 router.get('/', function (req, res, next){
+	console.log('in get orders /');
 	Orders.findAll()
-	.then( orders => res.status(200).json(orders))
+	.then( (orders) => {
+		console.log('found orders', orders);
+		res.status(200).json(orders);
+	})
 	.catch(next);
 });
 

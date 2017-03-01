@@ -8,7 +8,6 @@ const Products = db.models.products;
 const Reviews = db.models.reviews;
 // const Albums = db.model('albums');
 // const Artists = db.model('artists');
-console.log('DATABSE:  ', db);
 
 // PARAMS
 
