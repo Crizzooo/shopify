@@ -16,15 +16,13 @@
     "start-watch": "nodemon server/start.js --watch server",
     "start-dev": "NODE_ENV=development npm run start-watch",
     "dev": "NODE_ENV=development concurrently --kill-others --prefix \"[{name}]\" --names \"BUILD,SERVE\" -c \"bgBlue.bold.black,bgGreen.bold.black\" \"npm run build-dev\" \"npm run start-dev\"",
-    "test": "mocha --compilers js:babel-register db/**/*.test.js server/**/*.test.js",
+    "test": "mocha --compilers js:babel-register app**/*.js db/**/*.test.js server/**/*.test.js",
     "test-watch": "npm run test -- --watch",
     "lint": "eslint . --ext .js,.jsx --ignore-path .gitignore --format=node_modules/eslint-formatter-pretty",
     "seed": "node db/seed.js",
     "deploy-heroku": "bin/deploy-heroku.sh",
     "precommit": "npm run lint"
-
   },
-  "commentsForScripts": "Come back to test script and re-add 'app/**/*.test.js  app/**/*.test.jsx'",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/queerviolet/bones.git"

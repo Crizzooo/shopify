@@ -7,7 +7,7 @@ module.exports = router;
 const Products = db.models.products;
 const Reviews = db.models.reviews;
 // const Albums = db.model('albums');
-// const Artists = db.model('artists');s
+// const Artists = db.model('artists');
 
 // PARAMS
 
