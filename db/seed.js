@@ -29,6 +29,14 @@ const seedProducts = () => db.Promise.map([
   {title: 'Sick trucker hat', description: 'wear this hat to the beach', imageURL: 'www.google.com', price: 4.95, quantity: 10, product_type: 'clothing', tags: ['on sale']}
 ], product => db.model('products').create(product))
 
+const seedCartItems = () => db.Promise.map([
+  {product_id: 1, order_id: 1},
+  {product_id: 2, order_id: 1},
+  {product_id: 3, order_id: 1},
+  {product_id: 3, order_id: 2},
+  {product_id: 4, order_id: 2},
+], cartItem => db.model('cartItems').create(cartItem))
+
 const seedAlbums = () => db.Promise.map([
   {name: 'Zenith', genre: 'instrumental', year: 1995, artist_id: 1, product_id: 1},
   {name: 'Ghosts I-IV', genre: 'ambient', year: 2010, artist_id: 2, product_id: 2},
@@ -50,6 +58,7 @@ db.didSync
   .then(seedAddresses)
   .then(seedOrders)
   .then(seedProducts)
+  .then(seedCartItems)
   .then(seedReviews)
   .then(seedArtists)
   .then(seedAlbums)

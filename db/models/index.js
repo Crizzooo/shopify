@@ -9,29 +9,40 @@ const Address = require('./address')
 const Order = require('./order')
 const Review = require('./review')
 const Product = require('./product')
+const CartItem = require('./cartItem')
 const Album = require('./album')
 const Artist = require('./artist')
 const Clothing = require('./clothing')
 const OAuth = require('./oauth')
 
 User.hasMany(Order)
-User.hasMany(Review)
-User.hasMany(Address)
-Address.belongsTo(User)
 Order.belongsTo(User)
+
+User.hasMany(Review)
 Review.belongsTo(User)
+
+User.hasMany(Address)
+
 Product.hasMany(Review)
-Product.hasMany(Album)
-Product.hasMany(Clothing)
 Review.belongsTo(Product)
-Album.belongsTo(Artist)
+
+Product.hasMany(Album)
 Album.belongsTo(Product)
-Clothing.belongsTo(Artist)
+
+Product.hasMany(Clothing)
 Clothing.belongsTo(Product)
-Artist.hasMany(Album)
+
+Order.hasMany(CartItem)
+CartItem.belongsTo(Product)
+CartItem.belongsTo(Order)
+
+Clothing.belongsTo(Artist)
 Artist.hasMany(Clothing)
 
-OAuth.belongsTo(User)
-User.hasOne(OAuth)
+Artist.hasMany(Album)
+Album.belongsTo(Artist)
 
-module.exports = {User, Address, Order, Review, Product, Album, Artist, Clothing}
+User.hasOne(OAuth)
+OAuth.belongsTo(User)
+
+module.exports = {User, Address, Order, Review, Product, CartItem, Album, Artist, Clothing}

@@ -33,15 +33,10 @@ const Album = db.define('albums', {
   //TODO: CREATE write a function that grabs the album name and artist name and sends it to product name. Should it be a getter?
   getterMethods: {
     getAlbumTitle(){
-      return Artist.findOne({
-        where: {
-          id: this.artist_id
-        }
-      })
-      .then(function(foundArtist){
+      Artist.findById(this.artist_id)
+      .then((foundArtist) => {
         return this.name + ' - ' + foundArtist.name
       })
-      .catch(console.error)
     }
   }
 })

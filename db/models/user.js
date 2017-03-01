@@ -34,11 +34,6 @@ const User = db.define('users', {
     allowNull: false,
     defaultValue: false
   },
-  // TODO: DELETE shippingAddress
-  // already associated with the address model
-  // shippingAddress: {
-  //   type: Sequelize.STRING
-  // },
 
   // We support oauth, so users may or may not have passwords.
   password_digest: Sequelize.STRING, // This column stores the hashed password in the DB, via the beforeCreate/beforeUpdate hooks
@@ -48,19 +43,6 @@ const User = db.define('users', {
   hooks: {
     beforeCreate: setEmailAndPassword,
     beforeUpdate: setEmailAndPassword
-      // TODO: DELETE hook to format address
-      // function(user) {
-      //   if (!user.shippingAddress) {
-      //     return Address.findOne({
-      //       where: {
-      //         id: this.address_id
-      //       }
-      //     })
-      //     .then(function(userAddress) {
-      //       this.shippingAddress = `${userAddress.buildingNumber} \n${userAddress.city}, ${userAddress.state} ${userAddress.zip}`
-      //     })
-      //   }
-      // }
   },
   getterMethods: {
     fullName(){

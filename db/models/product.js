@@ -40,7 +40,10 @@ const Product = db.define('products', {
   hooks: {
     beforeCreate: function(product){
       if (product.type === 'album'){
-        product.title = Album.getAlbumTitle()
+        Album.getAlbumTitle(product)
+        .then((albumNameString) => {
+          product.title = albumNameString
+        })
       }
     }
   },
