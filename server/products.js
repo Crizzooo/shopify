@@ -7,25 +7,30 @@ module.exports = router;
 const Products = db.models.products;
 const Reviews = db.models.reviews;
 // const Albums = db.model('albums');
-// const Artists = db.model('artists');
-console.log('DATABSE:  ', db);
+// const Artists = db.model('artists');s
 
 // PARAMS
 
-router.param('productId', function (req, res, next){
+
+//Alex: I am very confused as to why this is not working. 
+// The get route is able to find /products/1, not sure why this cant
+
+router.param('productId', function (req, res, next, productId){
 	if (isNaN(req.params.productId)) {
-		let err = Error('Invalid Product ID');
+		let err = Error('Invalid Product ID')
 		err.status = 404;
 		throw err;
 	}
-
-	Products.findById(req.params.productId)
-	.then(function (product) {
+	console.log('Looking for product with this id:', req.params.productId);
+	Products.findById(productId)
+	.then( (product) => {
+		console.log(' I recovered this product:', product);
 	  if (!product) {
 	    const err = Error('product not found');
 	    err.status = 404;
 	    throw err;
 	  }
+	  console.log('Found product, attaching to Req!:', req.body)
 	  req.product = product;
 	  next();
 	})
@@ -77,7 +82,10 @@ router.put('/:productId', function (req, res, next){
 
 router.post('/', function (req, res, next){
 	Products.create(req.body)
-	.then( product => res.status(200).json(product))
+	.then( product => {
+		console.log('created this product!:', product);
+		res.status(200).json(product);
+	})
 	.catch(next);
 });
 

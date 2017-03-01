@@ -8,34 +8,49 @@ const app = require('./start');
 
 
 /* IMPLEMENT CUSTOM TESTS FOR EACH ROUTE */
-describe('/api/users', () => {
-  describe('when not logged in', () => {
-    it('GET /:id fails 401 (Unauthorized)', () =>
+describe('/api/products', () => {
+
+  describe('when logged in', () => {
+    
+    it('GET /', () =>
       request(app)
-        .get(`/api/users/1`)
-        .expect(401)
+        .get(`/api/products`)
+        .expect(200)
     )
 
-    it('POST creates a user', () =>
+    it('GET /:productId', () =>
       request(app)
-        .post('/api/users')
+        .get(`/api/products/1`)
+        .expect(200)
+    )
+
+    it('POST creates a product', () =>
+      request(app)
+        .post('/api/products')
         .send({
-          email: 'beth@secrets.org',
-          password: '12345'
+          title: 'Some Cool Pants',
+          description: 'Amazing pants',
+          price: 100.50,
+          quantity: 4,
+          product_type: 'clothing'
         })
-        .expect(201)
+        .expect(200)
     )
 
-    it('POST redirects to the user it just made', () =>
+
+    it('POST redirects to the product it just created', () =>
       request(app)
-        .post('/api/users')
+        .post('/api/products')
         .send({
-          email: 'eve@interloper.com',
-          password: '23456',
+          title: 'Some Cool Pants',
+          description: 'Amazing pants',
+          price: 100.50,
+          quantity: 4,
+          product_type: 'clothing'
         })
         .redirects(1)
         .then(res => expect(res.body).to.contain({
-          email: 'eve@interloper.com'
+          title: 'Some Cool Pants',
         }))
     )
   })

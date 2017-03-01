@@ -3,11 +3,12 @@
 const request = require('supertest-as-promised');
 const {expect} = require('chai');
 const db = require('APP/db');
-const Order = require('APP/db/models/orders');
+const Order = require('APP/db/models/order');
 const app = require('./start');
 
 
-/* IMPLEMENT CUSTOM TESTS FOR EACH ROUTE */
+// /* IMPLEMENT CUSTOM TESTS FOR EACH ROUTE */
+
 describe('/api/users', () => {
   describe('when not logged in', () => {
     it('GET /:id fails 401 (Unauthorized)', () =>
