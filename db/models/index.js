@@ -5,25 +5,44 @@
 // to get access to the User model.
 
 const User = require('./user')
+const Address = require('./address')
 const Order = require('./order')
 const Review = require('./review')
 const Product = require('./product')
+const CartItem = require('./cartItem')
 const Album = require('./album')
 const Artist = require('./artist')
 const Clothing = require('./clothing')
 const OAuth = require('./oauth')
 
 User.hasMany(Order)
-User.hasMany(Review)
 Order.belongsTo(User)
+
+User.hasMany(Review)
 Review.belongsTo(User)
+
+User.hasMany(Address)
+
 Product.hasMany(Review)
 Review.belongsTo(Product)
-Album.belongsTo(Artist)
+
+Product.hasMany(Album)
+Album.belongsTo(Product)
+
+Product.hasMany(Clothing)
+Clothing.belongsTo(Product)
+
+Order.hasMany(CartItem)
+CartItem.belongsTo(Product)
+CartItem.belongsTo(Order)
+
 Clothing.belongsTo(Artist)
-Artist.hasMany(Album)
 Artist.hasMany(Clothing)
 
-OAuth.belongsTo(User)
+Artist.hasMany(Album)
+Album.belongsTo(Artist)
+
 User.hasOne(OAuth)
-module.exports = {User, Order, Review, Product, Album, Artist, Clothing}
+OAuth.belongsTo(User)
+
+module.exports = {User, Address, Order, Review, Product, CartItem, Album, Artist, Clothing}

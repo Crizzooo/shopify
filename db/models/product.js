@@ -3,6 +3,7 @@
 
 const Sequelize = require('sequelize')
 const db = require('APP/db')
+const Album = require('./album')
 
 const Product = db.define('products', {
   title: {
@@ -13,13 +14,14 @@ const Product = db.define('products', {
   },
   description: Sequelize.TEXT,
   imageURL: {
-    type: Sequelize.STRING,
-    //TODO: change default value later
-    defaultValue: 'http://www.thebakerymadewithlove.com/wp-content/uploads/2014/08/placeholder.png'
+    type: Sequelize.BLOB,
+    defaultValue: '../images/product_image_coming_soon'
   },
   price: {
     type: Sequelize.DECIMAL(10, 2),
+    allowNull: false,
     validate: {
+      notEmpty: true,
       isDecimal: true,
       min: 0
     }
@@ -34,8 +36,23 @@ const Product = db.define('products', {
   product_type: Sequelize.ENUM('album', 'clothing'),
   tags: {
     type: Sequelize.ARRAY(Sequelize.STRING)
+    }
+  }, {
+  hooks: {
+    beforeCreate: function(product){
+      if (product.type === 'album'){
+        Album.getAlbumTitle(product)
+        .then((albumNameString) => {
+          product.title = albumNameString
+        })
+      }
+    }
+  },
+  instanceMethods: {
+    truncateDescription() {
+      return `${this.description.slice(0, 48)}...`
+    }
   }
 })
-//TODO: add product hook that truncates description for a quick description/product view.
 
 module.exports = Product
