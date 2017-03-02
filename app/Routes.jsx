@@ -30,7 +30,6 @@ class Routes extends React.Component {
     return (
       <Router history={browserHistory}>
         <Route path="/" component={Layout} onEnter={this.props.runTestDispatch}>
-          <Route path="login" component={LoginPage} />
         </Route>
       </Router>
     );

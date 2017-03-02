@@ -1,5 +1,5 @@
 body {
-    padding: 50px;
+    
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 
      background-image: url(../vinyl.jpg);
@@ -23,5 +23,28 @@ a {
 
 #loginForm {
 	margin-top: 20px
+}
+
+#logo {
+    font-size: 30px
+
+}
+
+.nav-item{
+    margin-top: 8px;
+    font-size: 16px;
+}
+
+.navbar {
+    padding: 27px;
+}
+
+.content {
+    padding-top: 40px;
+}
+
+#footer {
+    color: white;
+    text-align: center
 }
 
