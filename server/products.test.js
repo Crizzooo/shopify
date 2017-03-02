@@ -102,6 +102,8 @@ describe('/api/products', () => {
         .expect(204)
     )
 
+    // REVIEWS:
+
     it('GET /:productId/reviews - gets a products reviews', () =>
       request(app)
         .get(`/api/products/1/reviews`)
