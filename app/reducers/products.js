@@ -2,19 +2,34 @@ import axios from 'axios';
 
 /* -----------------    ACTIONS     ------------------ */
 
-const INITIALIZE = 'INITIALIZE_PRODUCTS';
+const LOAD_ALBUMS = 'LOAD_ALBUMS';
 const TEST       = 'TEST_CASE';
 
 
 /* ------------   ACTION CREATORS     ------------------ */
 
-const init   = products => ({ type: INITIALIZE, products });
+const loadAlbums   = albums => ({ type: LOAD_ALBUMS, albums });
 const test   = msg => ({ type: TEST, message: msg })
 
 /* ------------       REDUCERS     ------------------ */
 
 const initialState = {
-  products: [],
+  products: {
+    albums: [
+      { name: 'testAlbum',
+        genre: 'instrumental',
+        year: 1995,
+        desc: 'sample desc',
+        id: 1
+      },
+      { name: 'testAlbum2',
+        genre: 'instrumental',
+        year: 2000,
+        desc: 'sample desc AGAIN',
+        id: 2
+      }
+    ]
+  },
   message: ''
 }
 
@@ -25,10 +40,8 @@ export default ( state = initialState, action) => {
 
   switch (action.type) {
 
-    //We might want a newState const here
-
-    case INITIALIZE:
-      newState.products = action.products;
+    case LOAD_ALBUMS:
+      newState.products.albums = action.albums;
       return newState;
 
     case TEST:
@@ -47,7 +60,7 @@ export const fetchProducts = () => dispatch => {
   axios.get('/api/products')
        .then( (res) => {
          console.log('\n\n\nfetchProducts is dispatching with these resulting products:\n\n\n', res);
-         dispatch(init(res))
+         dispatch(loadAlbums(res))
        })
        .catch(err => console.error('Fetching products unsuccessful', err))
 };

@@ -5,17 +5,19 @@ export default class Album extends Component {
   // }
 
   render() {
+    const album = this.props.album;
+    console.log("rendering album with props", this.props);
+    console.log('album: ', this.props.album);
     return (
       <div>
-        <h1>ALBUMS</h1>
           <div className="card">
             <img className="card-img-top" src="http://www.designformusic.com/wp-content/uploads/2015/10/insurgency-digital-album-cover-design.jpg" alt="Card image cap" />
             <div className="card-block">
-              <h2 className="card-title albumName">Insurgency</h2>
-              <span className="productPrice">$19.99</span>
+              <h2 className="card-title albumName">{album.name}</h2>
+              <span className="productPrice">{album.price}</span>
               <h5 className="card-subtitle mb-2 text-muted albumArtist"><i>The Rebels, 1997</i></h5>
               <br />
-              <p className="card-text">{this.props.message}Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <p className="card-text">{album.desc}</p>
               <a href="#" className="btn btn-primary">Go somewhere</a>
             </div>
           </div>
