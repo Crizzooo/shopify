@@ -1,0 +1,24 @@
+.card {
+  width: 20rem;
+}
+
+.card-img-top {
+  padding: 0;
+  height: 267px;
+  max-width: 100%;
+}
+
+.albumName {
+  display: inline-block;
+}
+
+.albumArtist {
+  color: grey;
+}
+
+.productPrice {
+  float: right;
+  text-align: center;
+  line-height: 32px;
+  vertical-align: center;
+}

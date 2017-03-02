@@ -9,6 +9,8 @@ import Jokes from './components/Jokes'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 
+import Album from './components/Album'
+
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
 )(
@@ -24,11 +26,13 @@ const ExampleApp = connect(
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={ExampleApp}>
-        <IndexRedirect to="/jokes" />
-        <Route path="/jokes" component={Jokes} />
+      <Route path="/" component={ExampleApp} >
+        <Route path="/album" component={Album} />
       </Route>
     </Router>
   </Provider>,
   document.getElementById('main')
 )
+
+
+// <Route path="/" component={ExampleApp}>
