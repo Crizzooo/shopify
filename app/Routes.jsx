@@ -30,10 +30,11 @@ class Routes extends React.Component {
   render() {
     return (
       <Router history={browserHistory}>
-        <Route path="/" component={Layout} onEnter={this.props.runTestDispatch}
-          message={this.props.message} >
-          <Route path="login" component={LoginPage} />
-        </Route>
+        <Route
+          path="/" component={Layout}
+          onEnter={this.props.runTestDispatch}
+          message={this.props.message}
+        />
       </Router>
     );
   }
