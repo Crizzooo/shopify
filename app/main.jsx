@@ -12,15 +12,18 @@ import Albums from './containers/Albums';
 
 import {fetchProducts, testDispatcher} from './reducers/products';
 
-function onEnterHome() {
-  store.dispatch(testDispatcher('test msg'));
-}
+// function onEnterHome() {
+//   store.dispatch(testDispatcher('test msg'));
+// }
 
+function fetchInitialData() {
+  store.dispatch(fetchProducts());
+}
 
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={Layout} onEnter={onEnterHome}>
+      <Route path="/" component={Layout} onEnter={fetchInitialData}>
         <IndexRoute component={Albums} />
         <Route path="login" component={LoginPage} />
       </Route>

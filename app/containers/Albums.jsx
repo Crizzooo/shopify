@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Album from '../components/Album';
 
-export default class Albums extends Component {
+class Albums extends Component {
   // componentDidMount() {
   // }
   constructor(props) {
@@ -10,7 +11,7 @@ export default class Albums extends Component {
   }
 
   render() {
-    console.log('rendering albums!');
+    console.log('rendering albums!', this.props);
     return (
       <div>
         <h1>ALBUMS</h1>
@@ -22,18 +23,22 @@ export default class Albums extends Component {
       </div>
     )
   }
+
 }
 
+const mapProps = state => {
+  console.log('Mapping Props from state', state);
+  return {
+    message: state.products.message,
+    albums: state.products.products.albums
+  };
+};
 
-// render() {
-//   return (
-//     <div>
-//       <h1>ALBUMS</h1>
-        // {
-        //   this.props.albums.map(album => (
-        //     <Album album={album} key={album.id} />
-        //   ))
-        // }
-//     </div>
-//   )
-// }
+const mapDispatch = dispatch => ({
+  fetchInitialData: () => {
+    dispatch(fetchProducts());
+    // what other data might we want to fetch on app load?
+  }
+});
+
+export default connect(mapProps, mapDispatch)(Albums);

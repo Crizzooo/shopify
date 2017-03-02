@@ -60,7 +60,7 @@ export const fetchProducts = () => dispatch => {
   axios.get('/api/products')
        .then( (res) => {
          console.log('\n\n\nfetchProducts is dispatching with these resulting products:\n\n\n', res);
-         dispatch(loadAlbums(res))
+         dispatch(loadAlbums(res.data))
        })
        .catch(err => console.error('Fetching products unsuccessful', err))
 };
