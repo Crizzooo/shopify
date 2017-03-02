@@ -14,13 +14,14 @@ const Product = db.define('products', {
   },
   description: Sequelize.TEXT,
   imageURL: {
-    type: Sequelize.STRING,
-    //TODO: CHANGE product image defaultValue
-    defaultValue: 'http://www.thebakerymadewithlove.com/wp-content/uploads/2014/08/placeholder.png'
+    type: Sequelize.BLOB,
+    defaultValue: '../images/product_image_coming_soon'
   },
   price: {
     type: Sequelize.DECIMAL(10, 2),
+    allowNull: false,
     validate: {
+      notEmpty: true,
       isDecimal: true,
       min: 0
     }

@@ -18,6 +18,7 @@ const Order = db.define('orders', {
     type: Sequelize.ARRAY(Sequelize.INTEGER)
   }
 }, {
+  // TODO: QUESTION getter and instance methods still relevant?
   getterMethods: {
     cartContents(){
       const cart = {}

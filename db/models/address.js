@@ -7,18 +7,21 @@ const db = require('APP/db')
 const Address = db.define('addresses', {
   buildingNumber: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
       notEmpty: true
     }
   },
   city: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
       notEmpty: true
     }
   },
   state: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
       notEmpty: true,
       len: 2

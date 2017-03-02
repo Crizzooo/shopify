@@ -15,9 +15,8 @@ const Album = db.define('albums', {
     allowNull: false
   },
   imageURL: {
-    type: Sequelize.STRING,
-    //TODO: CHANGE album image defaultValue
-    defaultValue: 'http://www.thebakerymadewithlove.com/wp-content/uploads/2014/08/placeholder.png'
+    type: Sequelize.BLOB,
+    defaultValue: '../images/album_placeholder'
   },
   year: {
     type: Sequelize.INTEGER,
@@ -25,17 +24,17 @@ const Album = db.define('albums', {
       len: 4
     }
   }
-  // TODO: CREATE price: Sequelize.DECIMAL(10, 2)
+  // TODO: CREATE? price: Sequelize.DECIMAL(10, 2)
 }, {
   //currently, the admin or whoever has to manually add the product
   //title. We want to make it so that if the product is an album,
   //the product name is set using the album name and the artist name.
 
-  //TODO: CREATE write a function that grabs the album name and artist name and sends it to product name. Should it be a getter?
   getterMethods: {
     getAlbumTitle(){
-      Artist.findById(this.artist_id)
+      return Artist.findById(this.artist_id)
       .then((foundArtist) => {
+        console.log(this.name + ' - ' + foundArtist.name)
         return this.name + ' - ' + foundArtist.name
       })
     }

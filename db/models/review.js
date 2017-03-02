@@ -24,7 +24,7 @@ const Review = db.define('reviews', {
   hooks: {
     beforeCreate: function(review){
       if (!review.title){
-        review.title = `${review.body.slice(0,24)}...`
+        review.title = `${review.body.slice(0, 24)}...`
       }
     }
   }

@@ -16,11 +16,9 @@ describe('Order', () => {
   describe('Model', () => {
 
     it('inlcludes a status and isActive by default', () => {
-      console.log(newOrder)
       expect(newOrder.status).to.equal('Created')
       expect(newOrder.isActive).to.equal(true)
     })
-    //TODO: TEST tests for product
   })
 
 })

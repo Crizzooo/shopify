@@ -31,11 +31,9 @@ describe('User', () => {
     })
 
     it('`Name` and `email` cannot be blank or null', () => {
-
-      // TODO: TEST create null and '' tests separately? how to check whether error is thrown back?
-      newUser.firstName = 'John';
+      newUser.firstName = '';
       newUser.lastName = 'Hancock';
-      newUser.email = ' John.Hancock@therevolution.com';
+      newUser.email = null;
 
       return newUser.validate()
       .then(function(user) {
