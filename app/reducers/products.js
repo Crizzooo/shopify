@@ -68,3 +68,14 @@ export const fetchProducts = () => dispatch => {
 export const testDispatcher = (msg) => dispatch => {
   dispatch(test(msg));
 }
+
+export const fetchAlbums = () => dispatch => {
+  axios.get('/api/products/albums')
+  .then( (res) => {
+    console.log('\n\n Fetch Products received: ', res.data);
+    dispatch(loadAlbums(res.data))
+  })
+  .catch(err => console.error('Fetching albums unsuccessful', err));
+}
+
+/* ---------- Helper methods for Actions ---------- */

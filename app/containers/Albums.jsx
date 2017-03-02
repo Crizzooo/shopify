@@ -15,11 +15,13 @@ class Albums extends Component {
     return (
       <div>
         <h1>ALBUMS</h1>
+        <div className="flexContainer">
           {
             this.props.albums && this.props.albums.map(album => (
               <Album album={album} key={album.id} />
             ))
           }
+        </div>
       </div>
     )
   }

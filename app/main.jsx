@@ -10,14 +10,14 @@ import LoginPage from './components/LoginPage';
 import Layout from './containers/Layout';
 import Albums from './containers/Albums';
 
-import {fetchProducts, testDispatcher} from './reducers/products';
+import {fetchAlbums, testDispatcher} from './reducers/products';
 
 // function onEnterHome() {
 //   store.dispatch(testDispatcher('test msg'));
 // }
 
 function fetchInitialData() {
-  store.dispatch(fetchProducts());
+  store.dispatch(fetchAlbums());
 }
 
 render(

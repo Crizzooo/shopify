@@ -6,15 +6,10 @@ module.exports = router;
 
 const Products = db.models.products;
 const Reviews = db.models.reviews;
-// const Albums = db.model('albums');
-// const Artists = db.model('artists');
+const Albums = db.model('albums');
+const Artists = db.model('artists');
 
 // PARAMS
-
-
-//Alex: I am very confused as to why this is not working. 
-// The get route is able to find /products/1, not sure why this cant
-
 router.param('productId', function (req, res, next, productId){
 	if (isNaN(req.params.productId)) {
 		let err = Error('Invalid Product ID')
@@ -64,12 +59,22 @@ router.get('/', function (req, res, next){
 	.catch(next);
 });
 
+router.get('/albums', (req, res, next) => {
+	Albums.findAll({
+		include: [ Products, Artists ]
+	})
+	.then( (result) => {
+		console.log('get all albums route received:', result);
+		res.status(200).json(result);
+	})
+	.catch(next);
+})
+
 router.get('/:productId', function (req, res, next){
 	Products.findById(req.params.productId)
 	.then( product => res.status(200).json(product))
 	.catch(next);
 });
-
 
 router.put('/:productId', function (req, res, next){
 	req.product.update(req.body)
