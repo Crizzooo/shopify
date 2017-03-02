@@ -1,0 +1,50 @@
+body {
+    
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+     background-image: url(../vinyl.jpg);
+     background-size: 1440px 800px;
+     background-repeat:no-repeat;
+     display: compact;
+     font: 13px/18px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.form-control {
+	margin: 5px 0px;
+}
+
+.submitButton {
+	margin-top: 5px;
+}
+
+#loginForm {
+	margin-top: 20px
+}
+
+#logo {
+    font-size: 30px
+
+}
+
+.nav-item{
+    margin-top: 8px;
+    font-size: 16px;
+}
+
+.navbar {
+    padding: 27px;
+}
+
+.content {
+    padding-top: 40px;
+}
+
+#footer {
+    color: white;
+    text-align: center
+}
+

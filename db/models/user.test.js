@@ -53,6 +53,8 @@ describe('User', () => {
         expect(newUser.fullName).to.equal(fullName)
 
     })
+
+
   })
 
   describe('Password Authentication', () => {
