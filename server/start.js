@@ -56,7 +56,7 @@ module.exports = app
   .get('/*', (_, res) => res.sendFile(resolve(__dirname, '..', 'public', 'index.html')))
 
   .use((err, req, res, next) => {
-    console.log(prettyError.render(err))
+    console.log('made it to error handler\n\n\n', prettyError.render(err))
     res.status(500).send(err)
     next()
   })

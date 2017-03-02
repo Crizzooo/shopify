@@ -1,32 +1,24 @@
 'use strict'
 import React from 'react'
-import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
-import Layout from './Layout';
-import {connect, Provider} from 'react-redux'
-
+import {Provider} from 'react-redux'
 import store from './store'
-import Login from './components/Login'
-import WhoAmI from './components/WhoAmI'
+import Routes from './Routes.jsx';
+import Layout from './Layout';
+import LoginPage from './components/LoginPage';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import {fetchProducts, testDispatcher} from './reducers/products';
 
-const LoginPage = connect(
-  ({ auth }) => ({ user: auth })
-)(
-  ({ user, children }) =>
-    <div id="loginForm">
-      <nav>
-        {user ? <WhoAmI /> : <Login />}
-      </nav>
-      {children}
-    </div>
-)
+function onEnterHome() {
+  store.dispatch(testDispatcher('test msg'));
+}
+
 
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={Layout}>
-        <Route path="/login" component={LoginPage} />
-        
+      <Route path="/" component={Layout} onEnter={onEnterHome}>
+        <Route path="login" component={LoginPage} />
       </Route>
     </Router>
   </Provider>,
