@@ -15,7 +15,7 @@ export default class Album extends Component {
               <span className="productPrice">$19.99</span>
               <h5 className="card-subtitle mb-2 text-muted albumArtist"><i>The Rebels, 1997</i></h5>
               <br />
-              <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <p className="card-text">{this.props.message}Some quick example text to build on the card title and make up the bulk of the card's content.</p>
               <a href="#" className="btn btn-primary">Go somewhere</a>
             </div>
           </div>

@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import Album from './components/Album';
 import {login} from 'APP/app/reducers/auth'
 
-export default class Layout extends Component {
+class Layout extends Component {
+
+  constructor(props) {
+    super(props);
+    console.log('In Layout props', this.props);
+  }
 
   render () {
+    console.log('layout render', this.props)
     return (
       <div>
         <nav className="navbar navbar-toggleable-md navbar-inverse bg-inverse">
@@ -55,9 +62,30 @@ export default class Layout extends Component {
         <div id="footer" className="container">
           FINYL VINYL | 5 Hanover Square 11th Fl. New York, NY. 10022 | 212.333.4444
         </div>
-
-
       </div>
     );
   }
 }
+
+const mapProps = state => {
+  console.log('Mapping Props from ', state);
+  return {
+    message: state.products.message
+  };
+};
+
+const mapDispatch = dispatch => ({
+  fetchInitialData: () => {
+    dispatch(fetchProducts());
+    // what other data might we want to fetch on app load?
+  },
+  runTestDispatch: () => {
+    dispatch(testDispatcher('hi, test msg!'))
+  }
+});
+
+//removed onEnter={fetchInitialData} from '/' path
+
+// removed   <IndexRoute component={Layout} />
+
+export default connect(mapProps, mapDispatch)(Layout);
