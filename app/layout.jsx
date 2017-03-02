@@ -4,6 +4,11 @@ import Album from './components/Album';
 
 export default class Layout extends Component {
 
+  constructor(props) {
+    super(props);
+    console.log('In Layout props', this.props);
+  }
+
   render () {
     return (
       <div>

@@ -14,10 +14,12 @@ const test   = msg => ({ type: TEST, message: msg })
 /* ------------       REDUCERS     ------------------ */
 
 const initialState = {
-  products: []
+  products: [],
+  message: ''
 }
 
 export default ( state = initialState, action) => {
+  console.log('Current Reducer State', state);
   console.log('Reducer has been called with this action obj:', action);
   const newState = Object.assign({}, state);
 

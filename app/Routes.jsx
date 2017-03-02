@@ -23,13 +23,14 @@ import {fetchProducts, testDispatcher} from './reducers/products';
 class Routes extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props)
+    // this.message = props.message;
+    console.log('IN CONSTRUCTOR', this.props)
   }
 
   render() {
     return (
       <Router history={browserHistory}>
-        <Route path="/" component={Layout} onEnter={this.props.runTestDispatch}>
+        <Route path="/" component={Layout} onEnter={this.props.runTestDispatch} >
           <Route path="login" component={LoginPage} />
         </Route>
       </Router>
@@ -41,8 +42,9 @@ class Routes extends React.Component {
 /* -----------------    CONTAINER     ------------------ */
 
 const mapProps = state => {
+  console.log('Mapping Props from ', state);
   return {
-    message: state.message
+    message: state.products.message
   };
 };
 
