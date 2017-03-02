@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import Album from './components/Album';
 
-export default class Layout extends Component {
+class Layout extends Component {
 
   constructor(props) {
     super(props);
@@ -10,6 +11,7 @@ export default class Layout extends Component {
   }
 
   render () {
+    console.log('layout render', this.props)
     return (
       <div>
         <div className="navbar navbar-fixed-top navbar-inverse" role="navigation">
@@ -39,8 +41,31 @@ export default class Layout extends Component {
         <div id="footer" className="container text-muted">
           FINYL VINYL
         </div>
-        <Album />
+        <Album message={this.props.message}/>
       </div>
     );
   }
 }
+
+const mapProps = state => {
+  console.log('Mapping Props from ', state);
+  return {
+    message: state.products.message
+  };
+};
+
+const mapDispatch = dispatch => ({
+  fetchInitialData: () => {
+    dispatch(fetchProducts());
+    // what other data might we want to fetch on app load?
+  },
+  runTestDispatch: () => {
+    dispatch(testDispatcher('hi, test msg!'))
+  }
+});
+
+//removed onEnter={fetchInitialData} from '/' path
+
+// removed   <IndexRoute component={Layout} />
+
+export default connect(mapProps, mapDispatch)(Layout);
