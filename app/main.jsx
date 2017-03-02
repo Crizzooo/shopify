@@ -1,23 +1,30 @@
 'use strict'
 import React from 'react'
+import store from './store'
 import {render} from 'react-dom'
 import {Provider} from 'react-redux'
-import store from './store'
-import Routes from './Routes.jsx';
-import Layout from './Layout';
-import LoginPage from './components/LoginPage';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+
+import LoginPage from './components/LoginPage';
+
+import Layout from './containers/Layout';
+import Albums from './containers/Albums';
+
 import {fetchProducts, testDispatcher} from './reducers/products';
 
-function onEnterHome() {
-  store.dispatch(testDispatcher('test msg'));
-}
+// function onEnterHome() {
+//   store.dispatch(testDispatcher('test msg'));
+// }
 
+function fetchInitialData() {
+  store.dispatch(fetchProducts());
+}
 
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={Layout} onEnter={onEnterHome}>
+      <Route path="/" component={Layout} onEnter={fetchInitialData}>
+        <IndexRoute component={Albums} />
         <Route path="login" component={LoginPage} />
       </Route>
     </Router>

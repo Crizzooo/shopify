@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import Album from './components/Album';
+
+import Album from '../components/Album';
+import Albums from './Albums';
+
 import {login} from 'APP/app/reducers/auth'
 
 class Layout extends Component {
@@ -12,15 +15,14 @@ class Layout extends Component {
   }
 
   render () {
-    console.log('layout render', this.props)
     return (
       <div>
         <nav className="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-          
+
           <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
           </button>
-          
+
           <a className="navbar-brand" id="logo" href="#">Final Vinyl </a>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -54,7 +56,7 @@ class Layout extends Component {
         </nav>
 
         <div className="container content">
-          <Album />
+          { this.props.children }
         </div>
 
         <hr />
@@ -70,7 +72,8 @@ class Layout extends Component {
 const mapProps = state => {
   console.log('Mapping Props from ', state);
   return {
-    message: state.products.message
+    message: state.products.message,
+    albums: state.products.products.albums
   };
 };
 
