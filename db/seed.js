@@ -29,6 +29,12 @@ const seedProducts = () => db.Promise.map([
   {title: 'Sick trucker hat', description: 'wear this hat to the beach', price: 4.95, quantity: 10, product_type: 'clothing', tags: ['on sale']}
 ], product => db.model('products').create(product))
 
+const seedCategories = () => db.Promise.map([
+  {name: 'Featured'},
+  {name: 'Trending'},
+  {name: 'On Sale'}
+], category => db.model('category').create(category))
+
 const seedCartItems = () => db.Promise.map([
   {product_id: 1, order_id: 1},
   {product_id: 2, order_id: 1},
@@ -52,6 +58,12 @@ const seedClothing = () => db.Promise.map([
   {type: 'hat', size: 'one-size', artist_id: 2, product_id: 4},
 ], clothing => db.model('clothing').create(clothing))
 
+const categorySetter = () => db.Promise.map( products, (product) => {
+  product.setCategories([1, 2]);
+});
+
+let productsToCategorize;
+
 db.didSync
   .then(() => db.sync({force: true}))
   .then(seedUsers)
@@ -63,6 +75,26 @@ db.didSync
   .then(seedArtists)
   .then(seedAlbums)
   .then(seedClothing)
+  .then(seedCategories)
   .then(() => console.log(`Seeded OK`))
+  .then( () => {
+    return db.model('products').findAll()
+  })
+  .then( (products) => {
+    productsToCategorize = products;
+    return productsToCategorize[0].setCategories([1, 2]);
+  })
+  .then( () => {
+    return productsToCategorize[1].setCategories([2, 3]);
+  })
+  .then( () => {
+    return db.model('category').findById(2)
+  })
+  .then( (category) => {
+    return category.getProducts();
+  })
+  .then( (foundProducts) => {
+    console.log('found Products with category Trending', foundProducts);
+  })
   .catch(error => console.error(error))
   .finally(() => db.close())
