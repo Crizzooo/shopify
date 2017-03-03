@@ -8,6 +8,7 @@ const Products = db.models.products;
 const Reviews = db.models.reviews;
 const Albums = db.model('albums');
 const Artists = db.model('artists');
+const Clothing = db.model('clothing');
 
 // PARAMS
 router.param('productId', function (req, res, next, productId){
@@ -65,6 +66,17 @@ router.get('/albums', (req, res, next) => {
 	})
 	.then( (result) => {
 		console.log('get all albums route received:', result);
+		res.status(200).json(result);
+	})
+	.catch(next);
+})
+
+router.get('/clothing', (req, res, next) => {
+	Clothing.findAll({
+		include: [ Products, Artists ]
+	})
+	.then( (result) => {
+		console.log('get all clothing route received:', result);
 		res.status(200).json(result);
 	})
 	.catch(next);

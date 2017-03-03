@@ -8,23 +8,20 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import LoginPage from './components/LoginPage';
 
 import Layout from './containers/Layout';
-import Albums from './containers/Albums';
+import ProductContainer from './containers/Products';
 
-import {fetchAlbums, testDispatcher} from './reducers/products';
-
-// function onEnterHome() {
-//   store.dispatch(testDispatcher('test msg'));
-// }
+import {fetchAlbums, fetchClothing} from './reducers/products';
 
 function fetchInitialData() {
   store.dispatch(fetchAlbums());
+  store.dispatch(fetchClothing());
 }
 
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={Layout} onEnter={fetchInitialData}>
-        <IndexRoute component={Albums} />
+        <IndexRoute component={ProductContainer} />
         <Route path="login" component={LoginPage} />
       </Route>
     </Router>

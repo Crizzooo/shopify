@@ -13,8 +13,6 @@ class Albums extends Component {
   render() {
     console.log('rendering albums!', this.props);
     return (
-      <div>
-        <h1>ALBUMS</h1>
         <div className="flexContainer">
           {
             this.props.albums && this.props.albums.map(album => (
@@ -22,7 +20,6 @@ class Albums extends Component {
             ))
           }
         </div>
-      </div>
     )
   }
 
@@ -38,7 +35,6 @@ const mapProps = state => {
 
 const mapDispatch = dispatch => ({
   fetchInitialData: () => {
-    dispatch(fetchProducts());
     // what other data might we want to fetch on app load?
   }
 });

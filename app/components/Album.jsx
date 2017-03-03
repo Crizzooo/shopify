@@ -9,6 +9,7 @@ export default class Album extends Component {
     console.log("rendering album with props", this.props);
     console.log('product: ', album.product);
     if (album.product) {
+      //switch img to point to album.imageURL.data
       return (
         <div className="card flexBox">
             <img className="card-img-top" src="http://www.designformusic.com/wp-content/uploads/2015/10/insurgency-digital-album-cover-design.jpg" alt="Card image cap" />
