@@ -42,6 +42,10 @@ class Layout extends Component {
                 <a className="nav-link" href="#">Checkout</a>
               </li>
 
+              <li className="nav-item">
+                <a className="nav-link">Admin Page</a>
+              </li>
+
             </ul>
             <form className="form-inline my-2 my-lg-0"onSubmit={evt => {
               evt.preventDefault()

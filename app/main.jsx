@@ -9,6 +9,8 @@ import LoginPage from './components/LoginPage';
 
 import Layout from './containers/Layout';
 import ProductContainer from './containers/Products';
+import AdminPanel from './containers/AdminPanel';
+import User from './components/Admin/User';
 
 import {fetchAlbums, fetchClothing} from './reducers/products';
 
@@ -23,6 +25,8 @@ render(
       <Route path="/" component={Layout} onEnter={fetchInitialData}>
         <IndexRoute component={ProductContainer} />
         <Route path="login" component={LoginPage} />
+        <Route path="admin" component={AdminPanel} />
+        <Route path="user" component={User} />
       </Route>
     </Router>
   </Provider>,
