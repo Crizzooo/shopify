@@ -16,7 +16,7 @@ class Layout extends Component {
     return (
       <div>
         <nav className="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-          <div className="container">
+          <div id="navcontainer" className="container">
 
             <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon" />
