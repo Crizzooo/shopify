@@ -9,6 +9,7 @@ import LoginPage from './components/LoginPage';
 
 import Layout from './containers/Layout';
 import ProductContainer from './containers/Products';
+import SingleProductContainer from './containers/singleProduct';
 
 import {fetchAlbums, fetchClothing} from './reducers/products';
 
@@ -23,6 +24,7 @@ render(
       <Route path="/" component={Layout} onEnter={fetchInitialData}>
         <IndexRoute component={ProductContainer} />
         <Route path="login" component={LoginPage} />
+        <Route path="/product" component={SingleProductContainer} />
       </Route>
     </Router>
   </Provider>,

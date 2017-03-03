@@ -8,9 +8,9 @@ export default class ClothingItem extends Component {
     console.log('product: ', clothing.product);
     if (clothing.product) {
       return (
-        <div className="card flexBox">
+        <div className="card smallCard flexBox">
             <div className="cardImgHolder">
-              <img className="card-img-top" src="http://www.designformusic.com/wp-content/uploads/2015/10/insurgency-digital-album-cover-design.jpg" alt="Card image cap" />
+              <img className="card-img-top smallCardImage" src="http://www.designformusic.com/wp-content/uploads/2015/10/insurgency-digital-album-cover-design.jpg" alt="Card image cap" />
               <div className="cardOverlay">
                 <div className="cardControls">
                   <ul className="cardControlButtons">
@@ -25,7 +25,7 @@ export default class ClothingItem extends Component {
                 </div>
               </div>
             </div>
-            <div className="card-block">
+            <div className="card-block smallCardBlock">
               <h2 className="card-title albumName">{clothing.product.title}</h2>
               <span className="productPrice">{clothing.product.price}</span>
               <h5 className="card-subtitle mb-2 text-muted albumArtist">{clothing.artist.name}</h5>
