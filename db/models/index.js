@@ -9,6 +9,8 @@ const Address = require('./address')
 const Order = require('./order')
 const Review = require('./review')
 const Product = require('./product')
+const Category = require('./category')
+const productCatPivot = require('./productCategoryPivot');
 const CartItem = require('./cartItem')
 const Album = require('./album')
 const Artist = require('./artist')
@@ -25,6 +27,11 @@ User.hasMany(Address)
 
 Product.hasMany(Review)
 Review.belongsTo(Product)
+
+/* Setting Pivot table up for ManyToMany relationship
+http://docs.sequelizejs.com/en/latest/api/associations/belongs-to-many/ */
+Product.belongsToMany(Category, {through: productCatPivot});
+Category.belongsToMany(Product, {through: productCatPivot});
 
 Product.hasMany(Album)
 Album.belongsTo(Product)

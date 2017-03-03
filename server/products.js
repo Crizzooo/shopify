@@ -6,6 +6,8 @@ module.exports = router;
 
 const Products = db.models.products;
 const Reviews = db.models.reviews;
+const Pivot = db.models.productCategoryPivot;
+const Category = db.models.category;
 const Albums = db.model('albums');
 const Artists = db.model('artists');
 const Clothing = db.model('clothing');
@@ -55,7 +57,9 @@ router.param('reviewId', function (req, res, next){
 /// PRODUCTS
 
 router.get('/', function (req, res, next){
-	Products.findAll()
+	Products.findAll({
+		include: [ Category ]
+	})
 	.then( products => res.status(200).json(products))
 	.catch(next);
 });
