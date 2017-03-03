@@ -17,12 +17,15 @@ a {
 	margin: 5px 0px;
 }
 
-.submitButton {
-	margin-top: 5px;
+#loginform {
 }
 
-#loginForm {
-	margin-top: 20px
+#searchform {
+    margin-right: 60px
+}
+
+#searchbtn{
+    margin-left: 3 px;
 }
 
 #logo {
@@ -47,4 +50,6 @@ a {
     color: white;
     text-align: center
 }
+
+
 

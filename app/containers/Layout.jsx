@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-
-import Album from '../components/Album';
-import Albums from './Albums';
-
+import FilterInput from '../components/filterInput'
+import Login from '../components/Login'
 import {login} from 'APP/app/reducers/auth'
 
 class Layout extends Component {
 
   constructor(props) {
     super(props);
-    console.log('In Layout props', this.props);
   }
+
 
   render () {
     return (
@@ -23,34 +21,27 @@ class Layout extends Component {
             <span className="navbar-toggler-icon" />
           </button>
 
-          <a className="navbar-brand" id="logo" href="#">Final Vinyl </a>
+          <a className="navbar-brand" id="logo" href="#">Final Vinyl</a>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item dropdown">
-                      <a className="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Products
-                      </a>
+                      <Link className="nav-link dropdown-toggle" to='/products' id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products
+                      </Link>
                       <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a className="dropdown-item" href="#">Albums</a>
-                        <a className="dropdown-item" href="#">Artists</a>
-                        <a className="dropdown-item" href="#">Merchandise</a>
+                        <Link className="dropdown-item" to='/products'>All Products</Link>
+                        <Link className="dropdown-item" to='/albums'>Albums</Link>
+                        <Link className="dropdown-item" to='/merchandise'>Merchandise</Link>
                       </div>
               </li>
-
               <li className="nav-item">
-                <a className="nav-link" href="#">Checkout</a>
+                <Link className="nav-link" to='/cart'>Cart</Link>
               </li>
-
             </ul>
-            <form className="form-inline my-2 my-lg-0"onSubmit={evt => {
-              evt.preventDefault()
-              login(evt.target.username.value, evt.target.password.value)
-            } }>
-              <input className="form-control mr-sm-1" placeholder="Username" name="username" />
-              <input className="form-control mr-sm-1" placeholder="Password" name="password" type="password" />
-              <input className="btn btn-outline-success my-2 my-sm-0" type="submit" value="Login" />
-            </form>
+
+            <FilterInput />
+            <Login />
+
           </div>
 
         </nav>
@@ -62,7 +53,7 @@ class Layout extends Component {
         <hr />
 
         <div id="footer" className="container">
-          FINYL VINYL | 5 Hanover Square 11th Fl. New York, NY. 10022 | 212.333.4444
+          FINAL VINYL | 5 Hanover Square 11th Fl. New York, NY. 10022 | 212.333.4444
         </div>
       </div>
     );

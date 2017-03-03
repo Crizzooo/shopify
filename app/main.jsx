@@ -5,6 +5,7 @@ import {render} from 'react-dom'
 import {Provider} from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
+
 import LoginPage from './components/LoginPage';
 
 import Layout from './containers/Layout';
