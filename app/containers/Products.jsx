@@ -7,7 +7,6 @@ class ProductContainer extends Component {
 
   constructor(props) {
     super(props);
-    console.log('\n\n Products Container', props);
   }
 
 

@@ -33,11 +33,9 @@ const Product = db.define('products', {
       min: 0
     }
   },
-  product_type: Sequelize.ENUM('album', 'clothing'),
-  tags: {
-    type: Sequelize.ARRAY(Sequelize.STRING)
-    }
-  }, {
+  product_type: Sequelize.ENUM('album', 'clothing')
+  },
+  {
   hooks: {
     beforeCreate: function(product){
       if (product.type === 'album'){
