@@ -28,9 +28,9 @@ class UserCard extends Component {
         <form className="form-inline">
           <h1>{user.firstName} {user.lastName}</h1>
 
-          <Link to="/user" className="" onClick={this.editUser}>edit</Link> |
+          <Link to="/user" className="">edit</Link> |
 
-          <Link to="/users" onClick={this.deleteUser}>delete</Link>
+          <Link to="/users">delete</Link>
         </form>
         <User user={user} />
       </div>

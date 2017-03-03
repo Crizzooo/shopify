@@ -27,7 +27,7 @@ class Users extends Component {
           <label style={{fontSize: 36, color: 'white'}}>USERS</label>
           <input className="btn btn-sm" placeholder="Search for users..." />
         </div>
-        <UserCard user="user" />
+        <UserCard user={this.props.user} />
         <div className="flexContainer">
           {
             this.props.user.filter(this.filterUser)
@@ -36,18 +36,6 @@ class Users extends Component {
         </div>
       </div>
     )
-
-
-  }
-
-  filterUser(user) {
-    const nameMatch  = new RegExp(this.state.firstName, 'i');
-    const emailMatch = new RegExp(this.state.email, 'i');
-    // const phoneMatch = new RegExp(this.state., 'i');
-
-    return nameMatch.test(user.firstName)
-    && emailMatch.test(user.email)
-    // && phoneMatch.test(story.phone);
   }
 
 }
