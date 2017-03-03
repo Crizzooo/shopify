@@ -7,6 +7,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import LoginPage from './components/LoginPage';
 
+import CartContainer from './containers/CartContainer';
 import Layout from './containers/Layout';
 import ProductContainer from './containers/Products';
 
@@ -23,6 +24,7 @@ render(
       <Route path="/" component={Layout} onEnter={fetchInitialData}>
         <IndexRoute component={ProductContainer} />
         <Route path="login" component={LoginPage} />
+        <Route path='cart' component={CartContainer} />
       </Route>
     </Router>
   </Provider>,

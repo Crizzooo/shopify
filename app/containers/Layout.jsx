@@ -39,7 +39,7 @@ class Layout extends Component {
               </li>
 
               <li className="nav-item">
-                <a className="nav-link" href="#">Checkout</a>
+                <a className="nav-link" href="/cart">Cart</a>
               </li>
 
             </ul>
