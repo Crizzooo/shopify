@@ -62,12 +62,6 @@ a {
   padding-top: 40px;
 }
 
-/* Switch to column view when small */
-@media (max-width: 768px) {
-  .flexContainer {
-    flex-direction: column;
-  }
-}
 
 /* Atom Prototype: h: 267, w: 200
    Original Sizes: h: 468 , w: 318
@@ -78,6 +72,13 @@ a {
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-around;
+}
+
+/* Switch to column view when small */
+@media (max-width: 768px) {
+  .flexContainer {
+    flex-direction: column;
+  }
 }
 
 .flexBox {
@@ -187,4 +188,3 @@ a {
   color: white;
   text-align: center
 }
-
