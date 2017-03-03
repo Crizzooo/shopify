@@ -16,34 +16,41 @@ class Layout extends Component {
     return (
       <div>
         <nav className="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+          <div className="container">
 
-          <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon" />
-          </button>
+            <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon" />
+            </button>
 
-          <a className="navbar-brand" id="logo" href="#">Final Vinyl</a>
+            <a className="navbar-brand" id="logo" href="#">Final Vinyl</a>
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item dropdown">
-                      <Link className="nav-link dropdown-toggle" to='/products' id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products
-                      </Link>
-                      <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <Link className="dropdown-item" to='/products'>All Products</Link>
-                        <Link className="dropdown-item" to='/albums'>Albums</Link>
-                        <Link className="dropdown-item" to='/merchandise'>Merchandise</Link>
-                      </div>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to='/cart'>Cart</Link>
-              </li>
-            </ul>
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item dropdown">
+                        <Link className="nav-link dropdown-toggle" to='/products' id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products
+                        </Link>
+                        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <Link className="dropdown-item" to='/products'>All Products</Link>
+                          <Link className="dropdown-item" to='/albums'>Albums</Link>
+                          <Link className="dropdown-item" to='/clothing'>Clothing</Link>
+                        </div>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to='/cart'>Cart</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to='/signup'>Signup</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to='/login'>Login</Link>
+                </li>
+              </ul>
 
-            <FilterInput />
-            <Login />
+              <FilterInput />
+
+            </div>
 
           </div>
-
         </nav>
 
         <div className="container content">

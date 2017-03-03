@@ -1,7 +1,8 @@
-  import React from 'react'
+import React from 'react'
 
 export const Login = ({ login }) => (
-  <form id="loginform" className="form-inline my-2 my-lg-0"onSubmit={evt => {
+  
+  <form id="loginform" onSubmit={evt => {
     evt.preventDefault()
     login(evt.target.username.value, evt.target.password.value)
   } }>
