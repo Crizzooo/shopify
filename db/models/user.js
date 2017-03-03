@@ -7,6 +7,7 @@ const Sequelize = require('sequelize')
 const db = require('APP/db')
 
 const User = db.define('users', {
+
   firstName: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -14,6 +15,7 @@ const User = db.define('users', {
       notEmpty: true
     }
   },
+
   lastName: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -21,6 +23,7 @@ const User = db.define('users', {
       notEmpty: true
     }
   },
+
   email: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -29,6 +32,7 @@ const User = db.define('users', {
 			notEmpty: true
 		}
   },
+
   isAdmin: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
@@ -37,8 +41,15 @@ const User = db.define('users', {
 
   // We support oauth, so users may or may not have passwords.
   password_digest: Sequelize.STRING, // This column stores the hashed password in the DB, via the beforeCreate/beforeUpdate hooks
-	password: Sequelize.VIRTUAL // Note that this is a virtual, and not actually stored in DB
-}, {
+
+  password: Sequelize.VIRTUAL, // Note that this is a virtual, and not actually stored in DB
+
+  googleId: Sequelize.STRING,
+  githubId: Sequelize.STRING,
+  twitterId: Sequelize.STRING
+},
+
+{
 	indexes: [{fields: ['email'], unique: true}],
   hooks: {
     beforeCreate: setEmailAndPassword,

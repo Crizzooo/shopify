@@ -1,6 +1,12 @@
 body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
      /*background: linear-gradient(to top, #09203f 0%, #29323c 0%, #485563 100%, #537895 100%);*/
+<<<<<<< HEAD
+     background-size: 100% 100%;
+     background-repeat:no-repeat;
+     background-attachment: fixed;
+=======
+>>>>>>> 47854248efc0810335644e3dd61a1b6ed06491dd
      display: compact;
      font: 13px/18px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -27,12 +33,15 @@ a {
 	margin: 5px 0px;
 }
 
-.submitButton {
-	margin-top: 5px;
+#loginform {
 }
 
-#loginForm {
-	margin-top: 20px
+#searchform {
+    margin-right: 60px
+}
+
+#searchbtn{
+    margin-left: 3 px;
 }
 
 #logo {
@@ -178,3 +187,4 @@ a {
   color: white;
   text-align: center
 }
+
