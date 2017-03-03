@@ -52,16 +52,20 @@ class Layout extends Component {
 
           </div>
         </nav>
+        <div className="bodyBackground">
+               <div className="bodyOverlay">
 
-        <div className="container content">
-          { this.props.children }
-        </div>
+                 <div className="container content">
+                   { this.props.children }
+                 </div>
 
-        <hr />
+                 <hr />
 
-        <div id="footer" className="container">
-          FINAL VINYL | 5 Hanover Square 11th Fl. New York, NY. 10022 | 212.333.4444
-        </div>
+                 <div id="footer" className="container">
+                   FINYL VINYL | 5 Hanover Square 11th Fl. New York, NY. 10022 | 212.333.4444
+                 </div>
+               </div>
+         </div>
       </div>
     );
   }
