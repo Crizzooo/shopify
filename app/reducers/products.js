@@ -2,14 +2,16 @@ import axios from 'axios';
 
 /* -----------------    ACTIONS     ------------------ */
 
-const LOAD_ALBUMS = 'LOAD_ALBUMS';
-const TEST       = 'TEST_CASE';
+const TEST          = 'TEST_CASE';
+const LOAD_ALBUMS   = 'LOAD_ALBUMS';
+const LOAD_CLOTHING = 'LOAD_CLOTHING';
 
 
 /* ------------   ACTION CREATORS     ------------------ */
 
+const test         = msg => ({ type: TEST, message: msg })
 const loadAlbums   = albums => ({ type: LOAD_ALBUMS, albums });
-const test   = msg => ({ type: TEST, message: msg })
+const loadClothing = clothing => ({ type: LOAD_CLOTHING, clothing});
 
 /* ------------       REDUCERS     ------------------ */
 
@@ -28,7 +30,8 @@ const initialState = {
         desc: 'sample desc AGAIN',
         id: 2
       }
-    ]
+    ],
+    clothing: []
   },
   message: ''
 }
@@ -44,9 +47,8 @@ export default ( state = initialState, action) => {
       newState.products.albums = action.albums;
       return newState;
 
-    case TEST:
-      console.log('this is a test case', action.message);
-      newState.message = action.message;
+    case LOAD_CLOTHING:
+      newState.products.clothing = action.clothing;
       return newState;
 
     default:
@@ -56,15 +58,31 @@ export default ( state = initialState, action) => {
 
 /* ------------       DISPATCHERS     ------------------ */
 
-export const fetchProducts = () => dispatch => {
-  axios.get('/api/products')
-       .then( (res) => {
-         console.log('\n\n\nfetchProducts is dispatching with these resulting products:\n\n\n', res);
-         dispatch(loadAlbums(res.data))
-       })
-       .catch(err => console.error('Fetching products unsuccessful', err))
-};
+// export const fetchProducts = () => dispatch => {
+//   axios.get('/api/products')
+//    .then( (res) => {
+//      console.log('\n\n\nfetchProducts is dispatching with these resulting products:\n\n\n', res);
+//      dispatch(loadAlbums(res.data))
+//    })
+//    .catch(err => console.error('Fetching products unsuccessful', err))
+// };
 
-export const testDispatcher = (msg) => dispatch => {
-  dispatch(test(msg));
+export const fetchAlbums = () => dispatch => {
+  axios.get('/api/products/albums')
+  .then( (res) => {
+    console.log('\n\n Fetch Products received: ', res.data);
+    dispatch(loadAlbums(res.data))
+  })
+  .catch(err => console.error('Fetching albums unsuccessful', err));
 }
+
+export const fetchClothing = () => dispatch => {
+  axios.get('/api/products/clothing')
+  .then( (res) => {
+    console.log('\n\n Fetch Clothing received: ', res.data);
+    dispatch(loadClothing(res.data))
+  })
+  .catch(err => console.error('Fetching albums unsuccessful', err));
+}
+
+/* ---------- Helper methods for Actions ---------- */
