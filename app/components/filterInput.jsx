@@ -23,7 +23,7 @@ class FilterInput extends Component {
 
   render() {
 
-    // This needs to go into the products container and then filter
+    // This needs to go into the products container and then filteredArtists
     // const inputValue = this.state.inputValue;
     // const filteredArtists = this.props.artists.filter(artist => artist.name.match(inputValue));
 
