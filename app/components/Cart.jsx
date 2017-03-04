@@ -14,6 +14,7 @@ export default class Cart extends Component {
   render() {
 
     const cartItem = this.props.cartItem
+    console.log('in dumb component, cartItem is:', cartItem)
 
     return (
       <div>

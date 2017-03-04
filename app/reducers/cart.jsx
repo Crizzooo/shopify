@@ -14,25 +14,7 @@ const loadCart = cartItems =>  ({type: LOAD_CART, cartItems})
 
 /* ------------       REDUCERS     ------------------ */
 
-const initialState = {
-  cartItems: [
-    {
-      id: 1,
-      order_id: 1,
-      product_id: 2
-    },
-    {
-      id: 2,
-      order_id: 1,
-      product_id: 1
-    },
-    {
-      id: 3,
-      order_id: 2,
-      product_id: 3
-    }
-  ]
-}
+const initialState = {}
 
 export default (state = initialState, action) => {
   // console.log('Current Cart Reducer State', state);
@@ -57,6 +39,7 @@ export const fetchCart = (userId) => dispatch => {
   axios.get(`/api/cartItems/${userId}`)
     .then(res => res.data)
     .then(cartItems => {
+      console.log('in dispatcher, here are the cartItems', cartItems)
       dispatch(loadCart(cartItems))
     })
     .catch(err => console.error('Fetching cart items unsuccessful', err));
