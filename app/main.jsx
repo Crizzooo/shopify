@@ -13,7 +13,9 @@ import Layout from './containers/Layout';
 import Clothing from './containers/Clothing';
 import CartContainer from './containers/CartContainer';
 import ProductContainer from './containers/Products';
+import AdminPanel from './containers/AdminPanel';
 import SingleProductContainer from './containers/singleProduct';
+
 
 import {fetchAlbums, fetchClothing} from './reducers/products';
 import { fetchCart } from './reducers/cart';
@@ -36,7 +38,7 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={Layout} onEnter={fetchInitialData}>
-         <IndexRoute component={ProductContainer} />
+        <IndexRoute component={ProductContainer} />
         <Route path="/product" component={SingleProductContainer} />
         <Route path="/products" component={ProductContainer} />
         <Route path='/cart' component={CartContainer} onEnter ={fetchCartItems} />
@@ -44,7 +46,7 @@ render(
         <Route path="/signup" component={SignUpPage} />
         <Route path="/albums" component={Albums} />
         <Route path="/clothing" component={Clothing} />
-
+        <Route path="/admin" component={AdminPanel} />
       </Route>
     </Router>
   </Provider>,
