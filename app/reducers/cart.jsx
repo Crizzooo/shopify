@@ -35,14 +35,14 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  console.log('Current Cart Reducer State', state);
-  console.log('Cart Reducer has been called with this action obj:', action);
+  // console.log('Current Cart Reducer State', state);
+  // console.log('Cart Reducer has been called with this action obj:', action);
   const newState = Object.assign({}, state);
 
   switch(action.type) {
 
     case LOAD_CART:
-      // newState.cartItems = action.cartItems;
+      newState.cartItems = action.cartItems;
       return newState;
 
     default:
@@ -53,11 +53,11 @@ export default (state = initialState, action) => {
 
 /* ------------       DISPATCHERS     ------------------ */
 
-export const fetchCart = () => dispatch => {
-  axios.get('/api/cartItems')
+export const fetchCart = (userId) => dispatch => {
+  axios.get(`/api/cartItems/${userId}`)
     .then(res => res.data)
     .then(cartItems => {
-      console.log('found cartItems:', cartItems)
+      dispatch(loadCart(cartItems))
     })
     .catch(err => console.error('Fetching cart items unsuccessful', err));
 }

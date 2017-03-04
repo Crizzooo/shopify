@@ -8,11 +8,11 @@ const Orders = db.models.orders
 const CartItems = db.models.cartItems
 
 
-router.get('/', (req, res, next) => {
+router.get('/:userId', (req, res, next) => {
   Orders.findOne(
   {
     where: {
-      user_id: 1, //this is hard-coded for now
+      user_id: req.params.userId, //this is hard-coded for now
       status: 'Created'
     }
   })

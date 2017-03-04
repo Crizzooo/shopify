@@ -1,3 +1,5 @@
+//For a single cart item
+
 import React, { Component } from 'react'
 
 
@@ -11,16 +13,13 @@ export default class Cart extends Component {
 
   render() {
 
-    const cart = this.props.cart
+    const cartItem = this.props.cartItem
 
     return (
       <div>
-          <h2 className="text-success">Your Cart</h2>
-          <div>
-            {cart.map(cartItem => {
-              return <ul key={cartItem.id} className="text-muted"> product id: {cartItem.product_id} </ul>
-            })}
-          </div>
+            {
+              <ul key={cartItem} className="text-muted"> product id: {cartItem.product_id} </ul>
+            }
       </div>
     )
   }
