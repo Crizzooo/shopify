@@ -4,38 +4,46 @@ import { connect } from 'react-redux';
 
 import User from './User';
 
-const whiteFont = {color: "white"}
 
-class UserCard extends Component {
+export class UserCard extends Component {
 
   constructor(props) {
     super(props);
-  }
-
-  editUser() {
-    console.log('edited')
-  }
-
-  deleteUser() {
-    console.log('removed')
   }
 
   render() {
     const user = this.props.user
 
     return (
-      <div style={whiteFont}>
-        <form className="form-inline">
-          <h1>{user.firstName} {user.lastName}</h1>
-
-          <Link to="/user" className="">edit</Link> |
-
-          <Link to="/users">delete</Link>
-        </form>
-        <User user={user} />
+      <div className="list-group-item min-content user-item">
+        <div className="media">
+          <div className="media-left media-middle icon-container">
+            {/* <img className="media-object img-circle" src={user.photo} /> */}
+          </div>
+          <Link
+            className="media-body"
+            activeClassName="active"
+            to={`/users/${user.id}`}>
+            <h4 className="media-heading tucked">
+              <span placeholder="John Doe">{user.firstName} {user.lastName}</span>
+            </h4>
+            <h5 className="tucked">
+              <span>{user.email}</span>
+            </h5>
+          </Link>
+          <div className="media-right media-middle">
+            {/* {
+              authorized ?
+              <button
+                  className="btn btn-default">
+                  onClick={this.removeUserCallback}>
+                <span className="glyphicon glyphicon-remove" />
+              </button>
+              : null
+            } */}
+          </div>
+        </div>
       </div>
     )
   }
 }
-
-export default UserCard

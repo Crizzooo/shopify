@@ -13,7 +13,6 @@ import SignUpPage from './components/SignUpPage';
 import Clothing from './containers/Clothing';
 import ProductContainer from './containers/Products';
 import AdminPanel from './containers/AdminPanel';
-import User from './components/Admin/User';
 import SingleProductContainer from './containers/singleProduct';
 
 
@@ -28,15 +27,14 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={Layout} onEnter={fetchInitialData}>
-         <IndexRoute component={ProductContainer} />
+        <IndexRoute component={ProductContainer} />
         <Route path="/product" component={SingleProductContainer} />
         <Route path="/products" component={ProductContainer} />
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignUpPage} />
         <Route path="/albums" component={Albums} />
         <Route path="/clothing" component={Clothing} />
-        <Route path="admin" component={AdminPanel} />
-        <Route path="user" component={User} />
+        <Route path="/admin" component={AdminPanel} />
       </Route>
     </Router>
   </Provider>,

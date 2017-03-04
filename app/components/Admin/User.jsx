@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
-const whiteFont = {color: 'white'}
-
-class User extends Component {
+export class User extends Component {
 
   constructor(props) {
     super(props)
@@ -12,7 +10,8 @@ class User extends Component {
     const user = this.props.user;
 
     return (
-      <div style={whiteFont} className="form-group">
+
+      <div className="form-group">
         <form onSubmit={console.log('submittedADSfasdgasdg')}>
           {/* <h1>{user.firstName} {user.lastName}</h1> */}
           <div className="form-inline my-2 my-lg-0">
@@ -52,5 +51,3 @@ class User extends Component {
     )
   }
 }
-
-export default User

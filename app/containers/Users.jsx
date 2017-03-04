@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import UserCard from '../components/Admin/UserCard';
-// import User from '../components/Admin/User'
 
-const whiteFont = {color: "white"}
-
-class Users extends Component {
+export class Users extends Component {
 
   constructor(props) {
     super(props);
@@ -13,30 +10,76 @@ class Users extends Component {
       user: {
         firstName: 'John',
         lastName: 'Hancock',
-        email: 'johnnyHC@gmail.com'
+        email: 'johnnyHC@gmail.com',
+        id: 1
       }
     }
-    this.filterUser = this.filerUser.bind(this)
   }
 
   render() {
 
     return (
       <div>
-        <div>
-          <label style={{fontSize: 36, color: 'white'}}>USERS</label>
-          <input className="btn btn-sm" placeholder="Search for users..." />
+        <div className="user-query">
+          { this.searchUser() }
+          {/* { this.props.isAdmin ? this.renderNewUserWidget() : null } */}
         </div>
-        <UserCard user={this.props.user} />
-        <div className="flexContainer">
+        <br />
+        <br />
+        {/* ITERATE THROUGH USERCARDS */}
+        {/* <div className="user-list">
           {
-            this.props.user.filter(this.filterUser)
+            this.state.users
+            .filter(this.filterUser)
             .map(user => <UserCard user={user} key={user.id} />)
           }
-        </div>
+        </div> */}
+
+
+        <UserCard user={this.state.user} />
       </div>
     )
   }
 
+  searchUser() {
+    return (
+      <div className="list-group-item min-content user-item">
+        <div className="media">
+          <div className="media-left media-middle icon-container">
+            <span className="glyphicon glyphicon-search" />
+          </div>
+          <div className="media-body">
+            <h4 className="media-heading tucked">
+              <input
+                type="text"
+                placeholder="Jean Doe"
+                className="form-like"
+                // onChange={evt => this.setState({ name: evt.target.value })}
+              />
+            </h4>
+            <h5 className="tucked">
+              <input
+                 type="email"
+                 placeholder="email@website.com"
+                 className="form-like"
+                //  onChange={evt => this.setState({ email: evt.target.value })}
+              />
+            </h5>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
 }
-export default Users
+
+// const mapState = ({ users, currentUser }) => (
+//   {
+//     isAdmin: currentUser && currentUser.isAdmin,
+//     users
+//   }
+// );
+//
+// const mapDispatch = { addUser };
+//
+// export default connect(mapState, mapDispatch)(Users);
