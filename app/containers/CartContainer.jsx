@@ -10,6 +10,8 @@ class CartContainer extends React.Component {
     super(props)
     this.checkStock = this.checkStock.bind(this)
     this.subtotal = 0
+    this.dupItemsArray = []
+    this.shippingCost = 5.00
   }
 
 
@@ -19,21 +21,24 @@ class CartContainer extends React.Component {
     <span className="text-danger"><strong> Out of Stock </strong></span>
   }
 
+  duplicateItemsCheck (itemId) {
+    if (this.dupItemsArray.indexOf(itemId) === -1) {
+      this.dupItemsArray.push(itemId)
+      return true;
+    } else return false
+  }
+
+
   render () {
     const cart = this.props.cart;
     const priceArray = cart && cart.map(cartItem => +cartItem.product.price)
     console.log('cart is:', cart)
     let itemQty = {}
     itemQty = cart && Object.assign(itemQty, cart.forEach(cartItem => {
-          if(itemQty[cartItem.product_id]) itemQty[cartItem.product_id] ++
+          if (itemQty[cartItem.product_id]) itemQty[cartItem.product_id] ++
             else itemQty[cartItem.product_id] = 1
-        // Ternary set off linter
-        // itemQty[cartItem.product_id] ?
-        // itemQty[cartItem.product_id]++ :
-        // itemQty[cartItem.product_id] = 1
-    }))
-
-
+          }
+        ))
     return (
   <div className="container">
     <div className="row">
@@ -48,9 +53,15 @@ class CartContainer extends React.Component {
                         <th> </th>
                     </tr>
                 </thead>
-                <tbody> {
+                <tbody>{
                   cart && cart.map(cartItem => (
-                    <Cart cartItem={cartItem} checkStock={this.checkStock} key={cartItem.id} />
+                    this.duplicateItemsCheck(cartItem.product_id) ?
+                    <Cart
+                    cartItem={cartItem}
+                    checkStock={this.checkStock}
+                    itemQty = {itemQty}
+                    key={cartItem.id} /> :
+                    <tr key={cartItem.id} style={{display: 'none'}}/>
                 ))}
                     <tr>
                         <td>   </td>
@@ -68,14 +79,18 @@ class CartContainer extends React.Component {
                         <td>   </td>
                         <td>   </td>
                         <td><h5>Estimated shipping</h5></td>
-                        <td className="text-right"><h5><strong>$6.94</strong></h5></td>
+                        <td className="text-right"><h5><strong>${this.shippingCost.toFixed(2)}</strong></h5></td>
                     </tr>
                     <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td><h3>Total</h3></td>
-                        <td className="text-right"><h3><strong>$31.53</strong></h3></td>
+                        <td className="text-right"><h3><strong>${
+                          priceArray && (priceArray.reduce((total, price) => {
+                            return total + price
+                          }) + this.shippingCost).toFixed(2)
+                        }</strong></h3></td>
                     </tr>
                     <tr>
                         <td>   </td>

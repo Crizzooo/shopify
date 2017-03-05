@@ -15,20 +15,21 @@ export default class Cart extends Component {
 
     const cartItem = this.props.cartItem
     const checkStock = this.props.checkStock
-    const quantity = 2 //hard-coded for now
+    const itemQty = this.props.itemQty
+    const quantity = itemQty[cartItem.product_id]
 
     return (
         <tr>
           <td className="col-sm-8 col-md-6">
           <div className="media">
-              <a className="thumbnail pull-left" href="#"> <img className="media-object" src="http://www.designformusic.com/wp-content/uploads/2015/10/insurgency-digital-album-cover-design.jpg" width="50" height="50"/> </a>
+              <a className="thumbnail pull-left" href="#"> <img className="media-object" src="http://www.designformusic.com/wp-content/uploads/2015/10/insurgency-digital-album-cover-design.jpg" width="60" height="60" style={{marginRight: 20}} /> </a>
               <div>
                   <h4 className="media-heading"><a href="#" className="text-success">{cartItem.product.title}</a></h4>
                   <span>Status: </span>{checkStock(cartItem.product.quantity)}
               </div>
           </div></td>
           <td className="col-sm-1 col-md-1" >
-          <input type="email" className="form-control" id="exampleInputEmail1" value="1" />
+          <input type="email" className="form-control" id="exampleInputEmail1" value={quantity} />
           </td>
           <td className="col-sm-1 col-md-1 text-center"><strong>{`$${cartItem.product.price}`}</strong></td>
           <td className="col-sm-1 col-md-1 text-center"><strong>${(cartItem.product.price* quantity).toFixed(2)}</strong></td>
