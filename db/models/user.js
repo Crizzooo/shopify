@@ -44,9 +44,9 @@ const User = db.define('users', {
 
   password: Sequelize.VIRTUAL, // Note that this is a virtual, and not actually stored in DB
 
-  googleId: Sequelize.STRING,
-  githubId: Sequelize.STRING,
-  twitterId: Sequelize.STRING
+  // googleId: Sequelize.STRING,
+  // githubId: Sequelize.STRING,
+  // twitterId: Sequelize.STRING
 },
 
 {
