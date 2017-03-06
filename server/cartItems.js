@@ -6,26 +6,51 @@ module.exports = router;
 
 const Orders = db.models.orders
 const CartItems = db.models.cartItems
+const Product = db.models.products
 
 
-router.get('/', (req, res, next) => {
-  Orders.findOne(
-  {
-    where: {
-      user_id: 1, //this is hard-coded for now
+router.param('userId', (req, res, next, userId) => {
+  Orders.findOne({
+    where : {
+      user_id: userId,
       status: 'Created'
     }
   })
   .then(foundOrder => {
-    if(!foundOrder) res.status(404).send()
-    CartItems.findAll(
-    {
+    if(!foundOrder) {
+      res.sendStatus(404)
+    } else {
+      req.activeOrder = foundOrder
+      next();
+    }
+  })
+})
+
+//get all cart items
+router.get('/:userId', (req, res, next) => {
+    CartItems.findAll({
       where: {
-        order_id: foundOrder.id
-      }
+        order_id: req.activeOrder.id
+      }, include: [{model: Product}]
     })
     .then(foundCartItems => {
       res.json(foundCartItems)
     })
+    .catch(next)
   })
+
+
+//delete a single cart item
+
+router.delete('/:prodId', (req, res, next) => {
+  CartItems.destroy({
+    where: {
+      product_id: req.params.prodId
+    }
+  })
+  .then( () => {
+    res.sendStatus(204)
+  })
+  .catch(next)
 })
+
