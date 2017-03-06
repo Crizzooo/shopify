@@ -1,44 +1,56 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { addUser } from '../reducers/users'
 import UserCard from '../components/Admin/UserCard';
 
-export class Users extends Component {
+class Users extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      user: {
-        firstName: 'John',
-        lastName: 'Hancock',
-        email: 'johnnyHC@gmail.com',
-        id: 1
-      }
-    }
+    // this.state = {
+    //   id: 1,
+    //   name: 'John Hancock',
+    //   email: 'johnnyHC@gmail.com',
+    //   isAdmin: true
+    // }
+    console.log('users props ', this.props)
+    console.log('users state', this.state)
+    this.filterUser = this.filterUser.bind(this);
+    this.searchUser = this.searchUser.bind(this);
+    this.newUser = this.newUser.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
   render() {
-
     return (
-      <div>
+      <div className="container">
         <div className="user-query">
           { this.searchUser() }
-          {/* { this.props.isAdmin ? this.renderNewUserWidget() : null } */}
+          {/* { this.props.isAdmin ? this.newUser() : null } */}
+          {this.newUser()}
         </div>
         <br />
         <br />
         {/* ITERATE THROUGH USERCARDS */}
-        {/* <div className="user-list">
+        <div className="user-list">
           {
-            this.state.users
+            console.log('user props undefined?', this.props)
+            // this.props.users
             .filter(this.filterUser)
             .map(user => <UserCard user={user} key={user.id} />)
           }
-        </div> */}
-
-
-        <UserCard user={this.state.user} />
+        </div>
+        {/* <UserCard user={this.props} /> */}
       </div>
     )
+  }
+
+  filterUser(user) {
+    const nameMatch = new RegExp(this.state.name, 'i');
+    const emailMatch = new RegExp(this.state.email, 'i')
+    console.log('user name in filter', user.name)
+    return nameMatch.test(user.name)
+      && emailMatch.test(user.email)
   }
 
   searchUser() {
@@ -46,15 +58,15 @@ export class Users extends Component {
       <div className="list-group-item min-content user-item">
         <div className="media">
           <div className="media-left media-middle icon-container">
-            <span className="glyphicon glyphicon-search" />
+            {/* Font awesome icon here */}
           </div>
           <div className="media-body">
             <h4 className="media-heading tucked">
               <input
                 type="text"
-                placeholder="Jean Doe"
+                placeholder="Jane Doe"
                 className="form-like"
-                // onChange={evt => this.setState({ name: evt.target.value })}
+                onChange={evt => this.setState({ name: evt.target.value })}
               />
             </h4>
             <h5 className="tucked">
@@ -62,7 +74,7 @@ export class Users extends Component {
                  type="email"
                  placeholder="email@website.com"
                  className="form-like"
-                //  onChange={evt => this.setState({ email: evt.target.value })}
+                 onChange={evt => this.setState({ email: evt.target.value })}
               />
             </h5>
           </div>
@@ -71,15 +83,54 @@ export class Users extends Component {
     );
   }
 
+  newUser() {
+      return (
+        <div className="list-group-item min-content user-item">
+          <form className="media" onSubmit={this.submit}>
+            <div className="media-body">
+              <h4 className="media-heading tucked">
+                <input
+                  name="name"
+                  type="text"
+                  required
+                  placeholder="Jane Doe"
+                  className="form-like"
+                />
+              </h4>
+              <h5 className="tucked">
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="email@website.com"
+                  className="form-like"
+                />
+              </h5>
+            </div>
+            <div>
+              <button
+                className="btn btn-primary"
+                type="submit">Add
+              </button>
+            </div>
+          </form>
+        </div>
+      );
+    }
+
+  submit(event) {
+    event.preventDefault();
+    const user = {
+      name: event.target.name.value,
+      email: event.target.email.value
+    };
+    console.log('submit props from user', this.props.addUser(user))
+    // this.props.addUser(user);
+    event.target.name.value = '';
+    event.target.email.value = '';
+  }
 }
 
-// const mapState = ({ users, currentUser }) => (
-//   {
-//     isAdmin: currentUser && currentUser.isAdmin,
-//     users
-//   }
-// );
-//
-// const mapDispatch = { addUser };
-//
-// export default connect(mapState, mapDispatch)(Users);
+const mapDispatch = { addUser };
+
+export default connect(mapDispatch)(Users);

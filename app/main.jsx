@@ -14,6 +14,7 @@ import Clothing from './containers/Clothing';
 import CartContainer from './containers/CartContainer';
 import ProductContainer from './containers/Products';
 import AdminPanel from './containers/AdminPanel';
+import User from './components/Admin/User';
 import SingleProductContainer from './containers/singleProduct';
 
 
@@ -37,6 +38,7 @@ render(
         <Route path="/albums" component={Albums} />
         <Route path="/clothing" component={Clothing} />
         <Route path="/admin" component={AdminPanel} />
+        <Route path="/user/:id" component={User} />
       </Route>
     </Router>
   </Provider>,

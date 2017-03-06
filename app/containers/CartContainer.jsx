@@ -8,14 +8,18 @@ class CartContainer extends React.Component {
 
   constructor(props) {
     super(props)
+    console.log('cart props',props)
   }
 
 
   render () {
 
     return (
+      <div>
             <Cart cart = {this.props.cart}/>
-            )
+            {console.log('props for cart', this.props)}
+          </div>
+        )
   }
 }
 

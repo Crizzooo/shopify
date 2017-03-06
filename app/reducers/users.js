@@ -2,10 +2,10 @@ import axios from 'axios';
 
 /* -----------------    ACTIONS     ------------------ */
 
-const INITIALIZE    = 'INITIALIZE_USERS';
-const CREATE        = 'CREATE_USER';
-export const REMOVE = 'REMOVE_USER';
-const UPDATE        = 'UPDATE_USER';
+const INITIALIZE = 'INITIALIZE_USERS';
+const CREATE = 'CREATE_USER';
+const REMOVE = 'REMOVE_USER';
+const UPDATE = 'UPDATE_USER';
 
 
 /* ------------   ACTION CREATORS     ------------------ */
@@ -18,7 +18,27 @@ const update = user  => ({ type: UPDATE, user });
 
 /* ------------       REDUCER     ------------------ */
 
+const initialState = {
+  users: [
+    {
+      id: 1,
+      firstName: 'John',
+      lastName: 'Adams',
+      email: 'AdamsDeMan@usa.gov'
+    },
+    {
+      id: 2,
+      firstName: 'Thomas',
+      lastName: 'Jefferson',
+      email: 'tommyJeff@usa.gov'
+    }
+  ]
+}
+
 export default function reducer (users = [], action) {
+
+// const newState = Object.assign({}, state);
+
   switch (action.type) {
 
     case INITIALIZE:
