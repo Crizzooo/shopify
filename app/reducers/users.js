@@ -35,7 +35,7 @@ const initialState = {
   ]
 }
 
-export default function reducer (users = [], action) {
+export default function reducer (users = ['hi'], action) {
 
 // const newState = Object.assign({}, state);
 

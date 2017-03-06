@@ -9,13 +9,25 @@ class AdminPanel extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      isAdmin: true,
+      id: 100,
+      name: 'Alex Varona',
+      emai: 'email@gmail.com'
+    }
   }
 
   render() {
     return (
       <div>
         <h1>USERS</h1>
-        <Users />
+        <Users
+          currentUser= {{
+            isAdmin: true,
+            id: 100,
+            name: 'Alex Varona',
+            emai: 'email@gmail.com'
+          }} />
         <h1>ORDERS</h1>
         {/* <Orders /> */}
         <h1>PRODUCTS</h1>

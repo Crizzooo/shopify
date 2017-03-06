@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addUser } from '../reducers/users'
+import { addUser, fetchUsers } from '../reducers/users'
 import UserCard from '../components/Admin/UserCard';
 
 class Users extends Component {
@@ -13,8 +13,7 @@ class Users extends Component {
     //   email: 'johnnyHC@gmail.com',
     //   isAdmin: true
     // }
-    console.log('users props ', this.props)
-    console.log('users state', this.state)
+
     this.filterUser = this.filterUser.bind(this);
     this.searchUser = this.searchUser.bind(this);
     this.newUser = this.newUser.bind(this);
@@ -25,20 +24,24 @@ class Users extends Component {
     return (
       <div className="container">
         <div className="user-query">
+          Search User
           { this.searchUser() }
           {/* { this.props.isAdmin ? this.newUser() : null } */}
+          New User
           {this.newUser()}
         </div>
         <br />
         <br />
         {/* ITERATE THROUGH USERCARDS */}
         <div className="user-list">
-          {
-            console.log('user props undefined?', this.props)
-            // this.props.users
-            .filter(this.filterUser)
-            .map(user => <UserCard user={user} key={user.id} />)
-          }
+          All Users
+
+            {console.log('props at filter', this.props)}
+            {console.log('fetch users', this.props.fetchUsers())}
+{            // this.props.users
+            // .filter(this.filterUser)
+            // .map(user => <UserCard user={user} key={user.id} />)
+}
         </div>
         {/* <UserCard user={this.props} /> */}
       </div>
@@ -131,6 +134,13 @@ class Users extends Component {
   }
 }
 
-const mapDispatch = { addUser };
+const mapState = ({ users, currentUser }) => (
+  {
+    isAdmin: currentUser && currentUser.isAdmin,
+    users
+  }
+);
 
-export default connect(mapDispatch)(Users);
+const mapDispatch = { addUser, fetchUsers };
+
+export default connect(mapState, mapDispatch)(Users);
