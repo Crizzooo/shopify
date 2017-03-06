@@ -19,10 +19,12 @@ import SingleProductContainer from './containers/singleProduct';
 
 
 import {fetchAlbums, fetchClothing} from './reducers/products';
+import {fetchUsers} from './reducers/users';
 
 function fetchInitialData() {
   store.dispatch(fetchAlbums());
   store.dispatch(fetchClothing());
+  store.dispatch(fetchUsers());
 }
 
 render(
@@ -32,7 +34,7 @@ render(
         <IndexRoute component={ProductContainer} />
         <Route path="/product" component={SingleProductContainer} />
         <Route path="/products" component={ProductContainer} />
-        <Route path='/cart' component={CartContainer} />
+        <Route path="/cart" component={CartContainer} />
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignUpPage} />
         <Route path="/albums" component={Albums} />

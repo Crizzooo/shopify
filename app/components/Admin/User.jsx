@@ -18,12 +18,11 @@ class User extends Component {
     return (
       <div className="form-group">
         <form onSubmit={console.log('submittedADSfasdgasdg')}>
-          {/* <h1>{user.firstName} {user.lastName}</h1> */}
           <UserCard user={user} />
           <div className="form-inline my-2 my-lg-0">
             <h5>Name:
               <input className="form-control mr-sm-1" type="text" value={this.props.name} />
-              {console.log('user props this is it',this.props)}
+              {console.log('user props this is it', this.props)}
               <input className="form-control mr-sm-1" type="text" value={user.lastName} />
             </h5>
           </div>

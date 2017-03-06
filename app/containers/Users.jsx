@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addUser, fetchUsers } from '../reducers/users'
+import { addUser } from '../reducers/users';
 import UserCard from '../components/Admin/UserCard';
 
 class Users extends Component {
@@ -13,7 +13,7 @@ class Users extends Component {
     //   email: 'johnnyHC@gmail.com',
     //   isAdmin: true
     // }
-
+    console.log('PROPS IN USERS', props)
     this.filterUser = this.filterUser.bind(this);
     this.searchUser = this.searchUser.bind(this);
     this.newUser = this.newUser.bind(this);
@@ -35,13 +35,16 @@ class Users extends Component {
         {/* ITERATE THROUGH USERCARDS */}
         <div className="user-list">
           All Users
+          {/* {console.log('THIS IN USERS', this)}
+          {console.log('PROPS IN USERS FOR FILTER', this.props.users)} */}
 
-            {console.log('props at filter', this.props)}
-            {console.log('fetch users', this.props.fetchUsers())}
-{            // this.props.users
-            // .filter(this.filterUser)
-            // .map(user => <UserCard user={user} key={user.id} />)
-}
+          {/* {console.log(this.props.users)} */}
+          {console.log('THIS IS STATE',this.state)}
+          {
+            this.props.users
+            .filter(this.filterUser)
+            .map(user => <UserCard user={user} key={user.id} />)
+          }
         </div>
         {/* <UserCard user={this.props} /> */}
       </div>
@@ -49,9 +52,10 @@ class Users extends Component {
   }
 
   filterUser(user) {
+    console.log('state', this.state)
     const nameMatch = new RegExp(this.state.name, 'i');
     const emailMatch = new RegExp(this.state.email, 'i')
-    console.log('user name in filter', user.name)
+    // console.log('user name in filter', nameMatch.test(user.name))
     return nameMatch.test(user.name)
       && emailMatch.test(user.email)
   }
@@ -134,13 +138,17 @@ class Users extends Component {
   }
 }
 
-const mapState = ({ users, currentUser }) => (
-  {
-    isAdmin: currentUser && currentUser.isAdmin,
-    users
+const mapStateToProps = (state) => {
+  return {
+    users: state.users
   }
-);
+}
+// (
+//   {
+//     // isAdmin: currentUser && currentUser.isAdmin,
+//   }
+// );
 
-const mapDispatch = { addUser, fetchUsers };
+const mapPropsToDispatch = { addUser };
 
-export default connect(mapState, mapDispatch)(Users);
+export default connect(mapStateToProps, mapPropsToDispatch)(Users);

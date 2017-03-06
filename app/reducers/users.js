@@ -18,26 +18,9 @@ const update = user  => ({ type: UPDATE, user });
 
 /* ------------       REDUCER     ------------------ */
 
-const initialState = {
-  users: [
-    {
-      id: 1,
-      firstName: 'John',
-      lastName: 'Adams',
-      email: 'AdamsDeMan@usa.gov'
-    },
-    {
-      id: 2,
-      firstName: 'Thomas',
-      lastName: 'Jefferson',
-      email: 'tommyJeff@usa.gov'
-    }
-  ]
-}
+export default function reducer (state = [], action) {
 
-export default function reducer (users = ['hi'], action) {
-
-// const newState = Object.assign({}, state);
+// let newState = Object.assign({}, state);
 
   switch (action.type) {
 
@@ -45,18 +28,19 @@ export default function reducer (users = ['hi'], action) {
       return action.users;
 
     case CREATE:
-      return [action.user, ...users];
+      return [action.user, ...state];
 
     case REMOVE:
-      return users.filter(user => user.id !== action.id);
+      return state.filter(user => user.id !== action.id);
 
     case UPDATE:
-      return users.map(user => (
+      return state.map(user => (
         action.user.id === user.id ? action.user : user
       ));
 
     default:
-      return users;
+    console.log('REDUCER DEFAULT', state)
+      return state;
   }
 }
 
@@ -65,7 +49,7 @@ export default function reducer (users = ['hi'], action) {
 
 export const fetchUsers = () => dispatch => {
   axios.get('/api/users')
-       .then(res => dispatch(init(res.data)));
+      .then(res => dispatch(init(res.data)));
 };
 
 // optimistic

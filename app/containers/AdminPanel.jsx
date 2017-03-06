@@ -22,12 +22,8 @@ class AdminPanel extends Component {
       <div>
         <h1>USERS</h1>
         <Users
-          currentUser= {{
-            isAdmin: true,
-            id: 100,
-            name: 'Alex Varona',
-            emai: 'email@gmail.com'
-          }} />
+          currentUser={this.state}
+        />
         <h1>ORDERS</h1>
         {/* <Orders /> */}
         <h1>PRODUCTS</h1>
