@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 export default class ClothingItem extends Component {
 
@@ -26,7 +27,9 @@ export default class ClothingItem extends Component {
               </div>
             </div>
             <div className="card-block smallCardBlock">
+              <Link to={`/product/${clothing.product.id}`}>
               <h2 className="card-title albumName">{clothing.product.title}</h2>
+              </Link>
               <span className="productPrice">{clothing.product.price}</span>
               <h5 className="card-subtitle mb-2 text-muted albumArtist">{clothing.artist.name}</h5>
               <br />

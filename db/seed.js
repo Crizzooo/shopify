@@ -23,10 +23,12 @@ const seedReviews = () => db.Promise.map([
 ], review => db.model('reviews').create(review))
 
 const seedProducts = () => db.Promise.map([
-  {title: 'Some album', description: 'great album, you should buy it!', price: 19.99, quantity: 5, product_type: 'album', tags: []},
-  {title: 'Another album', description: 'decent album, you shouldn\'t buy it!', price: 19.99, quantity: 5, product_type: 'album', tags: []},
-  {title: 'Awesome T-Shirt', description: 't-shirt description here', price: 9.95, quantity: 10, product_type: 'clothing', tags: ['trending now']},
-  {title: 'Sick trucker hat', description: 'wear this hat to the beach', price: 4.95, quantity: 10, product_type: 'clothing', tags: ['on sale']}
+  {title: 'Some album', description: 'great album, you should buy it!', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 19.99, quantity: 5, product_type: 'album'},
+  {title: 'Another album', description: 'decent album, you shouldn\'t buy it!', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 19.99, quantity: 5, product_type: 'album'},
+  {title: 'Awesome T-Shirt', description: 't-shirt description here', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 9.95, quantity: 10, product_type: 'clothing'},
+  {title: 'Sick trucker hat', description: 'wear this hat to the beach', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 4.95, quantity: 10, product_type: 'clothing'},
+  {title: 'Generic Rock Album', description: 'wear this hat to the beach', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 4.95, quantity: 10, product_type: 'album'},
+  {title: 'Another Rock Album', description: 'wear this hat to the beach', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 4.95, quantity: 10, product_type: 'album'}
 ], product => db.model('products').create(product))
 
 const seedCategories = () => db.Promise.map([
@@ -46,6 +48,8 @@ const seedCartItems = () => db.Promise.map([
 const seedAlbums = () => db.Promise.map([
   {name: 'Zenith', genre: 'instrumental', year: 1995, artist_id: 1, product_id: 1},
   {name: 'Ghosts I-IV', genre: 'ambient', year: 2010, artist_id: 2, product_id: 2},
+  {name: 'ROCK ALBUM', genre: 'rock', year: 2010, artist_id: 2, product_id: 5},
+  {name: 'MORE ROCK', genre: 'rock', year: 2010, artist_id: 2, product_id: 6}
 ], album => db.model('albums').create(album))
 
 const seedArtists = () => db.Promise.map([
@@ -88,13 +92,26 @@ db.didSync
     return productsToCategorize[1].setCategories([2, 3]);
   })
   .then( () => {
-    return db.model('category').findById(2)
+    return productsToCategorize[2].setCategories([2, 3]);
+  })
+  .then( () => {
+    return productsToCategorize[5].setCategories([1]);
+  })
+  .then( () => {
+  /*  return db.model('category').findById(2)*/
   })
   .then( (category) => {
-    return category.getProducts();
+    //return category.getProducts();
+    db.model('productCategoryPivot').hasMany(db.model('category'));
   })
   .then( (foundProducts) => {
-    console.log('found Products with category Trending', foundProducts);
+    /*console.log('found Products with category Trending', foundProducts);*/
+    return db.model('productCategoryPivot').findAll({
+      include: [ db.model('category')/*, db.model('category') */]
+      })
+  })
+  .then( (possibleCategories) => {
+    console.log('\n\n\nDid this work?\n\n', possibleCategories);
   })
   .catch(error => console.error(error))
   .finally(() => db.close())

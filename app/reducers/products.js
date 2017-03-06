@@ -5,6 +5,7 @@ import axios from 'axios';
 const TEST          = 'TEST_CASE';
 const LOAD_ALBUMS   = 'LOAD_ALBUMS';
 const LOAD_CLOTHING = 'LOAD_CLOTHING';
+const LOAD_CURRENT_PRODUCT = 'LOAD_CURRENT_PRODUCT';
 
 
 /* ------------   ACTION CREATORS     ------------------ */
@@ -12,6 +13,7 @@ const LOAD_CLOTHING = 'LOAD_CLOTHING';
 const test         = msg => ({ type: TEST, message: msg })
 const loadAlbums   = albums => ({ type: LOAD_ALBUMS, albums });
 const loadClothing = clothing => ({ type: LOAD_CLOTHING, clothing});
+const loadCurrentProduct = product => ({ type: LOAD_CURRENT_PRODUCT, product });
 
 /* ------------       REDUCERS     ------------------ */
 
@@ -33,6 +35,7 @@ const initialState = {
     ],
     clothing: []
   },
+  currentProduct: null,
   message: ''
 }
 
@@ -49,6 +52,11 @@ export default ( state = initialState, action) => {
 
     case LOAD_CLOTHING:
       newState.products.clothing = action.clothing;
+      return newState;
+
+    case LOAD_CURRENT_PRODUCT:
+      console.log('reducer receives action for load current');
+      newState.currentProduct = action.product;
       return newState;
 
     default:
@@ -71,7 +79,7 @@ export const fetchAlbums = () => dispatch => {
   axios.get('/api/products/albums')
   .then( (res) => {
     console.log('\n\n Fetch Products received: ', res.data);
-    dispatch(loadAlbums(res.data))
+    dispatch(loadAlbums(res.data));
   })
   .catch(err => console.error('Fetching albums unsuccessful', err));
 }
@@ -80,9 +88,19 @@ export const fetchClothing = () => dispatch => {
   axios.get('/api/products/clothing')
   .then( (res) => {
     console.log('\n\n Fetch Clothing received: ', res.data);
-    dispatch(loadClothing(res.data))
+    dispatch(loadClothing(res.data));
   })
   .catch(err => console.error('Fetching albums unsuccessful', err));
+}
+
+export const fetchCurrentProduct = (id) => dispatch => {
+  console.log('Fetching Current Product!');
+  axios.get(`/api/products/${id}`)
+  .then( (res) => {
+    console.log('Got this selected product!', res.data);
+    dispatch(loadCurrentProduct(res.data));
+  })
+  .catch(err => console.error('Fetching current product failed!', err));
 }
 
 /* ---------- Helper methods for Actions ---------- */

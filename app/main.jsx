@@ -14,19 +14,24 @@ import Clothing from './containers/Clothing';
 import ProductContainer from './containers/Products';
 import SingleProductContainer from './containers/singleProduct';
 
-import {fetchAlbums, fetchClothing} from './reducers/products';
+import {fetchAlbums, fetchClothing, fetchCurrentProduct} from './reducers/products';
 
 function fetchInitialData() {
   store.dispatch(fetchAlbums());
   store.dispatch(fetchClothing());
 }
 
+function fetchCurrent(nextRouterState) {
+  console.log('Next Router:', nextRouterState);
+  store.dispatch(fetchCurrentProduct(nextRouterState.params.id));
+}
+
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={Layout} onEnter={fetchInitialData}>
-         <IndexRoute component={ProductContainer} />
-        <Route path="/product" component={SingleProductContainer} />
+        <IndexRoute component={ProductContainer} />
+        <Route path="/product/:id" component={SingleProductContainer} onEnter={fetchCurrent} />
         <Route path="/products" component={ProductContainer} />
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignUpPage} />
