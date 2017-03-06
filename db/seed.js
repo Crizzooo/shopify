@@ -37,6 +37,7 @@ const seedCategories = () => db.Promise.map([
 
 const seedCartItems = () => db.Promise.map([
   {product_id: 1, order_id: 1},
+  {product_id: 1, order_id: 1},
   {product_id: 2, order_id: 1},
   {product_id: 3, order_id: 1},
   {product_id: 3, order_id: 2},
@@ -92,9 +93,6 @@ db.didSync
   })
   .then( (category) => {
     return category.getProducts();
-  })
-  .then( (foundProducts) => {
-    console.log('found Products with category Trending', foundProducts);
   })
   .catch(error => console.error(error))
   .finally(() => db.close())
