@@ -32,7 +32,6 @@ class CartContainer extends Component {
   }
 
   render () {
-    console.log('this.props are:', this.props)
     const cart = this.props.cart;
     const priceArray = cart && cart.map(cartItem => +cartItem.product.price)
 

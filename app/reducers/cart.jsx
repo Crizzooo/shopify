@@ -18,8 +18,6 @@ const deleteItem = prodId => ({type: DELETE_CART_ITEM, prodId})
 const initialState = {}
 
 export default (state = initialState, action) => {
-  // console.log('Current Cart Reducer State', state);
-  // console.log('Cart Reducer has been called with this action obj:', action);
   const newState = Object.assign({}, state);
 
   switch(action.type) {
@@ -52,7 +50,6 @@ export const fetchCart = (userId) => dispatch => {
 
 export const deleteCartItem = (prodId) => dispatch => {
   prodId = +prodId
-  console.log('dispatching prodId', typeof prodId, prodId)
   dispatch(deleteItem(prodId))
   axios.delete(`/api/cartItems/${prodId}`)
     .catch(err => console.error(`deleting item ${prodId} unsuccessful`, err))
