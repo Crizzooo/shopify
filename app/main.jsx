@@ -5,25 +5,37 @@ import {render} from 'react-dom'
 import {Provider} from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
-
 import LoginPage from './components/LoginPage';
+import SignUpPage from './components/SignUpPage';
+
 import Albums from './containers/Albums';
 import Layout from './containers/Layout';
-import SignUpPage from './components/SignUpPage';
 import Clothing from './containers/Clothing';
+import CartContainer from './containers/CartContainer';
 import ProductContainer from './containers/Products';
+import AdminPanel from './containers/AdminPanel';
 import SingleProductContainer from './containers/singleProduct';
 
-import {fetchAlbums, fetchClothing, fetchCurrentProduct} from './reducers/products';
+import {fetchAlbums, fetchClothing} from './reducers/products';
+import { fetchCart } from './reducers/cart';
 
 function fetchInitialData() {
   store.dispatch(fetchAlbums());
   store.dispatch(fetchClothing());
 }
 
+
 function fetchCurrent(nextRouterState) {
   console.log('Next Router:', nextRouterState);
   store.dispatch(fetchCurrentProduct(nextRouterState.params.id));
+}
+
+function fetchCartItems() {
+  //TODO: the cart should reference the user id from the
+  //session in order to get the cart belonging to a user
+  //for now, the user id is hard-coded.
+  const userId = 1 //req.sessions.id?
+  store.dispatch(fetchCart(userId))
 }
 
 render(
@@ -33,10 +45,12 @@ render(
         <IndexRoute component={ProductContainer} />
         <Route path="/product/:id" component={SingleProductContainer} onEnter={fetchCurrent} />
         <Route path="/products" component={ProductContainer} />
+        <Route path="/cart" component={CartContainer} onEnter ={fetchCartItems} />
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignUpPage} />
         <Route path="/albums" component={Albums} />
         <Route path="/clothing" component={Clothing} />
+        <Route path="/admin" component={AdminPanel} />
       </Route>
     </Router>
   </Provider>,

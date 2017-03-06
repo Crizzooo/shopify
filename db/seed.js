@@ -39,6 +39,7 @@ const seedCategories = () => db.Promise.map([
 
 const seedCartItems = () => db.Promise.map([
   {product_id: 1, order_id: 1},
+  {product_id: 1, order_id: 1},
   {product_id: 2, order_id: 1},
   {product_id: 3, order_id: 1},
   {product_id: 3, order_id: 2},
@@ -103,15 +104,6 @@ db.didSync
   .then( (category) => {
     //return category.getProducts();
     db.model('productCategoryPivot').hasMany(db.model('category'));
-  })
-  .then( (foundProducts) => {
-    /*console.log('found Products with category Trending', foundProducts);*/
-    return db.model('productCategoryPivot').findAll({
-      include: [ db.model('category')/*, db.model('category') */]
-      })
-  })
-  .then( (possibleCategories) => {
-    console.log('\n\n\nDid this work?\n\n', possibleCategories);
   })
   .catch(error => console.error(error))
   .finally(() => db.close())
