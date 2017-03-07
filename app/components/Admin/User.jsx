@@ -8,13 +8,9 @@ class User extends Component {
 
   constructor(props) {
     super(props)
+    this.state = this.props.user
     this.saveUser = this.saveUser.bind(this);
-    console.log('this', this)
-    this.state = {
-      firstName: '',
-      lastName: ''
-    }
-    console.log('user.props', this.props)
+    this.handleChange = this.handleChange.bind(this);
   }
 
   render() {
@@ -25,18 +21,7 @@ class User extends Component {
 
     return (
       <div className="form-group">
-        Remove user card?
-        {/* <i className="material-icons">search</i> */}
-
-        <div className="media-left media-middle icon-container">
-          <button
-            onClick={this.removeUserCallback}
-            className="btn btn-danger">REMOVE
-          </button>
-        </div>
-
         <UserCard user={user} />
-        {console.log('props here',this.props)}
         <form onSubmit={this.saveUser}>
           <div className="form-inline my-2 my-lg-0">
             <h5>
@@ -45,33 +30,34 @@ class User extends Component {
                 <input
                   className="form-control mr-sm-1"
                   type="text"
-                  // defaultValue={user.firstName}
+                  defaultValue={user.firstName}
                   onChange={evt => {
-                    console.log('firstname state', this.state)
+                    console.log(this.state)
                     return this.setState({firstName: evt.target.value})
                   }
                 } />
                 <input
                   className="form-control mr-sm-1"
                   type="text"
-                  // defaultValue={user.lastName}
+                  defaultValue={user.lastName}
                   onChange={evt => this.setState({lastName: evt.target.value})} />
               </div>
-
               <div className="form-inline">
                 <label>Email</label>
                 <input
                   className="form-control mr-sm-1"
                   type="email"
-                  defaultValue={user.email} />
+                  defaultValue={user.email}
+                  onChange={evt => this.setState({email: evt.target.value})} />
               </div>
 
               <div className="form-inline">
                 <label>Admin Status</label>
-                <input
-                  className="form-control mr-sm-1"
-                  defaultValue={user.isAdmin}
-                  type="checkbox" />
+                  <input
+                    className="form-control mr-sm-1"
+                    type="checkbox"
+                    onChange={this.handleChange}
+                    checked={user.isAdmin} />
               </div>
             </h5>
             <button
@@ -79,6 +65,7 @@ class User extends Component {
             </button>
           </div>
         </form>
+        {console.log('USERS state before change', this.state)}
 
         {/* PASSWORD RESET */}
         <form onSubmit={this.passwordReset}>
@@ -97,25 +84,30 @@ class User extends Component {
               className="form-control mr-sm-1"
               style={{width: '100%'}}
               type="text"
-              placeholder="Address" />
-            <input
+              placeholder="Address"
+              onChange={evt => this.setState({address: evt.target.value})} />
+            {/* <input
               className="form-control mr-sm-1"
               style={{width: '100%'}}
               type="text"
-              placeholder="Address 2" />
+              placeholder="Address 2"
+              // onChange={evt => this.setState({lastName: evt.target.value})} /> */}
             <div className="form-inline">
               <input
                 className="form-control mr-sm-1"
                 type="text"
-                placeholder="City" />
+                placeholder="City"
+                onChange={evt => this.setState({city: evt.target.value})} />
               <input
                 className="btn btn-dropdown form-control mr-sm-1"
                 data-toggle="toggle"
-                placeholder="State" />
+                placeholder="State"
+                onChange={evt => this.setState({state: evt.target.value})} />
               <input
                 className="form-control mr-sm-1"
                 type="text"
-                placeholder="Zip Code" />
+                placeholder="Zip Code"
+                onChange={evt => this.setState({zip: evt.target.value})} />
             </div>
           </h5>
           <button
@@ -127,36 +119,40 @@ class User extends Component {
     )
   }
 
+  handleChange(event) {
+    // console.log('value', event.target.value)
+    console.log('admin',this.props.user.isAdmin)
+    if (this.props.user.isAdmin) {
+      this.setState({isAdmin: false})
+      // this.props.user.isAdmin = false
+      console.log('hit checked false', this.props)
+    } else {
+      this.setState({isAdmin: true})
+      // this.props.user.isAdmin = true
+      console.log('hit checked true', this.props)
+    }
+      this.props.user.isAdmin = this.state.isAdmin // allows the checkbox
+      console.log('props now', this.props)
+  }
+
    saveUser(event) {
-    event.preventDefault();
-    console.log('saving user', this.state);
-    console.log('saving props', this.props)
-
-      this.props.user.firstName = this.state.firstName
-      this.props.user.lastName = this.state.lastName
-
-    console.log(this.props.user)
-    this.props.updateUser(this.props.user.id, this.props.user)
-    // event.target.firstName.value = ''
-    // event.target.lastName.value = ''
+    // event.preventDefault();  // uncomment to not refrech page
+    this.props.user.firstName = this.state.firstName
+    this.props.user.lastName = this.state.lastName
+    this.props.user.email = this.state.email
+    this.props.user.isAdmin = this.state.isAdmin
+    console.log('being sent', this.props.user)
+    this.props.updateUser(this.props.user.id, this.props.user);
   }
 
 }
 
 const mapStateToProps = ({ users }, ownProps) => {
-  console.log('users map to state', users)
-  console.log('own props', ownProps)
-  const paramId = Number(ownProps.params.id);
-  for (let i = 0; i < users.length; i++) {
-    let user = {}
-    if (users[i].id === paramId) {
-      user = users[i]
-    }
-    console.log('props user', user);
-    return {
-      user: user
-    }
-  }
+  const param_id = Number(ownProps.params.id);
+  console.log(param_id)
+  return {
+    user: _.find(users, user => user.id === param_id)
+  };
 };
 
 const mapDispatchToProps = {updateUser};
