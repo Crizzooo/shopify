@@ -19,14 +19,22 @@ class Albums extends Component {
   }
 
   render() {
-    console.log('rendering albums!', this.props);
+    console.log('rendering albums!', this.props.albums);
     return (
-        <div className="flexContainer">
-          {
-            this.props.albums && this.props.albums.map(album => (
-              <Album album={album} key={album.id} handleAddToCart={this.handleAddToCart} printAlbum={this.printOutAlbum}/>
-            ))
-          }
+        <div>
+          <h1>Albums</h1>
+          <div className="flexContainer">
+            {
+              this.props.albums ?
+              this.props.albums.map(album => (
+                <Album album={album} key={album.id} handleAddToCart={this.handleAddToCart} printAlbum={this.printOutAlbum} />
+              ))
+              :
+              this.props.allAlbums.map(album => (
+                <Album album={album} key={album.id} handleAddToCart={this.handleAddToCart} printAlbum={this.printOutAlbum} />
+              ))
+            }
+          </div>
         </div>
     )
   }
@@ -37,7 +45,7 @@ const mapProps = state => {
   console.log('Mapping Props from state', state);
   return {
     message: state.products.message,
-    albums: state.products.products.albums
+    allAlbums: state.products.products.albums
   };
 };
 

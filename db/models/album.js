@@ -15,8 +15,8 @@ const Album = db.define('albums', {
     allowNull: false
   },
   imageURL: {
-    type: Sequelize.BLOB,
-    defaultValue: '../images/album_placeholder'
+    type: Sequelize.STRING,
+    defaultValue: 'http://geantav.hol.es/wogypyb.png'
   },
   year: {
     type: Sequelize.INTEGER,

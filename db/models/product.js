@@ -14,8 +14,7 @@ const Product = db.define('products', {
   },
   description: Sequelize.TEXT,
   imageURL: {
-    type: Sequelize.BLOB,
-    defaultValue: '../images/product_image_coming_soon'
+    type: Sequelize.STRING
   },
   price: {
     type: Sequelize.DECIMAL(10, 2),

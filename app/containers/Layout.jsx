@@ -22,15 +22,15 @@ class Layout extends Component {
               <span className="navbar-toggler-icon" />
             </button>
 
-            <a className="navbar-brand" id="logo" href="#">Final Vinyl</a>
+            <Link to="/"><a className="navbar-brand" id="logo" href="#">Final Vinyl</a></Link>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item dropdown">
-                        <Link className="nav-link dropdown-toggle" to='/products' id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products
+                        <Link className="nav-link dropdown-toggle" to='/' id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products
                         </Link>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <Link className="dropdown-item" to='/products'>All Products</Link>
+                          <Link className="dropdown-item" to='/'>All Products</Link>
                           <Link className="dropdown-item" to='/albums'>Albums</Link>
                           <Link className="dropdown-item" to='/clothing'>Clothing</Link>
                         </div>
@@ -66,11 +66,13 @@ class Layout extends Component {
                    { this.props.children }
                  </div>
 
-                 <hr />
 
-                 <div id="footer" className="container">
+                 <footer className="footer container">
+                   <hr className="footerHR"/>
+                   <div className="footerText">
                    FINYL VINYL | 5 Hanover Square 11th Fl. New York, NY. 10022 | 212.333.4444
                  </div>
+                 </footer>
                </div>
          </div>
       </div>
@@ -88,6 +90,7 @@ const mapProps = state => {
 
 const mapDispatch = dispatch => ({
   fetchInitialData: () => {
+    console.log('\n\ndispatching fetch products!!\n\n');
     dispatch(fetchProducts());
     // what other data might we want to fetch on app load?
   },

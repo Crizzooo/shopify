@@ -17,9 +17,10 @@ import AdminPanel from './containers/AdminPanel';
 import Users from './containers/Users';
 import User from './components/Admin/User';
 import SingleProductContainer from './containers/singleProduct';
+import FilterProductContainer from './containers/filteredProducts';
 
 
-import {fetchAlbums, fetchClothing} from './reducers/products';
+import {fetchAlbums, fetchClothing, fetchCurrentProduct, fetchCategories, fetchFilterAlbums} from './reducers/products';
 import {fetchUsers} from './reducers/users';
 import { fetchCart } from './reducers/cart';
 
@@ -27,6 +28,18 @@ import { fetchCart } from './reducers/cart';
 function fetchInitialData() {
   store.dispatch(fetchAlbums());
   store.dispatch(fetchClothing());
+  store.dispatch(fetchCategories());
+}
+
+function fetchFilteredData() {
+  console.log('fetching filtered albums?');
+  store.dispatch(fetchFilterAlbums());
+}
+
+
+function fetchCurrent(nextRouterState) {
+  console.log('Next Router:', nextRouterState);
+  store.dispatch(fetchCurrentProduct(nextRouterState.params.id));
   store.dispatch(fetchUsers());
 }
 
@@ -36,7 +49,6 @@ function fetchCartItems() {
   //for now, the user id is hard-coded.
   const userId = 1 //req.sessions.id?
   store.dispatch(fetchCart(userId))
-
 }
 
 render(
@@ -44,12 +56,13 @@ render(
     <Router history={browserHistory}>
       <Route path="/" component={Layout} onEnter={fetchInitialData}>
         <IndexRoute component={ProductContainer} />
-        <Route path="/product" component={SingleProductContainer} />
+        <Route path="/product/:id" component={SingleProductContainer} onEnter={fetchCurrent} />
         <Route path="/products" component={ProductContainer} />
-        <Route path='/cart' component={CartContainer} onEnter ={fetchCartItems} />
+        <Route path="/products/filtered" component={FilterProductContainer} />
+        <Route path="/cart" component={CartContainer} onEnter ={fetchCartItems} />
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignUpPage} />
-        <Route path="/albums" component={Albums} />
+        <Route path="/albums" component={Albums} onEnter={()=>store.dispatch(fetchAlbums())} />
         <Route path="/clothing" component={Clothing} />
         <Route path="/admin" component={AdminPanel} />
         <Route path="/users" component={Users} />

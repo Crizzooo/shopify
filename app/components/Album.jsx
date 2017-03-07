@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 export default class Album extends Component {
   // componentDidMount() {
@@ -25,7 +26,9 @@ export default class Album extends Component {
             </div>
           </div>
           <div className="card-block smallCardBlock">
-            <h2 className="card-title albumName">{album.name}</h2>
+            <Link to={`/product/${album.product.id}`}>
+              <h2 className="card-title albumName">{album.name}</h2>
+            </Link>
             <span className="productPrice">{album.product.price}</span>
             <h5 className="card-subtitle mb-2 text-muted albumArtist">{album.artist.name}, <i>{album.year}</i></h5>
             <br />
