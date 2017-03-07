@@ -8,6 +8,7 @@ const passport = require('passport')
 const User = require('APP/db/models/user')
 const OAuth = require('APP/db/models/oauth')
 const auth = require('express').Router() // eslint-disable-line new-cap
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 
 /*************************
@@ -38,16 +39,16 @@ const auth = require('express').Router() // eslint-disable-line new-cap
 
 // Facebook needs the FACEBOOK_CLIENT_ID and FACEBOOK_CLIENT_SECRET
 // environment variables.
-OAuth.setupStrategy({
-  provider: 'facebook',
-  strategy: require('passport-facebook').Strategy,
-  config: {
-    clientID: env.FACEBOOK_CLIENT_ID,
-    clientSecret: env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: `${app.baseUrl}/api/auth/login/facebook`,
-  },
-  passport
-})
+// OAuth.setupStrategy({
+//   provider: 'facebook',
+//   strategy: require('passport-facebook').Strategy,
+//   config: {
+//     clientID: env.FACEBOOK_CLIENT_ID,
+//     clientSecret: env.FACEBOOK_CLIENT_SECRET,
+//     callbackURL: `${app.baseUrl}/api/auth/login/facebook`,
+//   },
+//   passport
+// })
 
 // Google needs the GOOGLE_CLIENT_SECRET AND GOOGLE_CLIENT_ID
 // environment variables.
@@ -64,20 +65,23 @@ OAuth.setupStrategy({
 
 // Github needs the GITHUB_CLIENT_ID AND GITHUB_CLIENT_SECRET
 // environment variables.
+
 OAuth.setupStrategy({
   provider: 'github',
   strategy: require('passport-github2').Strategy,
   config: {
     clientID: env.GITHUB_CLIENT_ID,
-    clientSecrets: env.GITHUB_CLIENT_SECRET,
+    clientSecret: env.GITHUB_CLIENT_SECRET,
     callbackURL: `${app.baseUrl}/api/auth/login/github`,
   },
   passport
 })
 
+
 // Other passport configuration:
 // Passport review in the Week 6 Concept Review:
 // https://docs.google.com/document/d/1MHS7DzzXKZvR6MkL8VWdCxohFJHGgdms71XNLIET52Q/edit?usp=sharing
+
 passport.serializeUser((user, done) => {
   done(null, user.id)
 })
@@ -87,7 +91,8 @@ passport.deserializeUser(
     debug('will deserialize user.id=%d', id)
     User.findById(id)
       .then(user => {
-        debug('deserialize did ok user.id=%d', user.id)
+        if (!user) debug('deserialize retrieved null user for id=%d', id)
+        else debug('deserialize did ok user.id=%d', id)
         done(null, user)
       })
       .catch(err => {
@@ -113,7 +118,7 @@ passport.use(new (require('passport-local').Strategy)(
               debug('authenticate user(email: "%s") did fail: bad password')
               return done(null, false, { message: 'Login incorrect' })
             }
-            debug('authenticate user(email: "%s") did ok: user.id=%d', user.id)
+            debug('authenticate user(email: "%s") did ok: user.id=%d', email, user.id)
             done(null, user)
           })
       })
@@ -129,12 +134,13 @@ auth.get('/whoami', (req, res) => {
 // POST requests for local login:
 auth.post('/login/local', passport.authenticate('local', { successRedirect: '/' }))
 
+
 // GET requests for OAuth login:
 // Register this route as a callback URL with OAuth provider
 auth.get('/login/:strategy', (req, res, next) =>
   passport.authenticate(req.params.strategy, {
     scope: 'email',
-    successRedirect: '/',
+    successRedirect: '/login',
     // Specify other config here, such as "scope"
   })(req, res, next)
 )
@@ -143,6 +149,32 @@ auth.post('/logout', (req, res, next) => {
   req.logout()
   res.redirect('/api/auth/whoami')
 })
+
+
+auth.post('/signup', function (req, res, next) {
+
+  console.log('SIGNUP: ', req.body)
+
+  User.findOrCreate({
+    where: {
+      email: req.body.email
+    },
+    defaults: {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      password: req.body.password
+    }
+  })
+  .spread((user, created) => {
+    if (created) {
+      req.session.userId = user.id;
+      res.json(user)
+    } else {
+      res.sendStatus(401); // this user already exists, you cannot sign up
+    }
+  });
+});
+
 
 module.exports = auth
 

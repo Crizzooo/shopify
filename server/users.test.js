@@ -1,63 +1,57 @@
 'use strict'; // eslint-disable-line semi
 
-const request = require('supertest-as-promised')
+const request = require('supertest')
 const {expect} = require('chai')
 const db = require('APP/db')
-const User = require('APP/db/models/user')
 const app = require('./start')
 
 describe('/api/users', () => {
 
-  beforeEach('Synchronize and clear database', () => {
-    return db.sync({force: true});
+  before('Await database sync', () => db.didSync)
+  afterEach('Clear the tables', () => db.truncate({ cascade: true }))
+
+  describe('GET /:id', () => {
+
+    describe('when not logged in', () => {
+
+      it('fails with a 401 (Unauthorized)', () =>
+        request(app)
+          .get(`/api/users/1`)
+          .expect(401)
+      )
+
+    })
 
   })
 
+  describe('POST', () => {
 
-  describe('when not logged in', () => {
-    xit('GET /:id fails 401 (Unauthorized)', () =>
-      request(app)
-        .get(`/api/users/1`)
-        .expect(401)
-    )
+    describe('when not logged in', () => {
 
-    it('POST creates a user', () =>
-      request(app)
-        .post('/api/users')
-        .send({
-          firstName: 'Beth',
-          lastName: 'Jones',
-          email: 'beth@secrets.org',
-          password: '12345'
-        })
-        .expect(201)
-        .then( () => {
-          return request(app)
-                        .get('/api/users')
-                        .expect(200)
-                        .then( (res) => {
-                          expect(res.body.length).to.equal(1);
-                          expect(res.body[0]).to.have.property('email', 'beth@secrets.org')
-                        })
-        })
-    )
-
-    it('POST redirects to the user it just made', () =>
-      request(app)
-        .post('/api/users')
-        .send({
-          firstName: 'Christmas',
-          lastName: 'Eve',
-          email: 'eve@interloper.com',
-          password: '23456',
-        })
-        .redirects(1)
-        .then( (res) => {
-          console.log('received ', res)
-          expect(res.body).to.contain({
-          email: 'eve@interloper.com'
+      it('creates a user', () =>
+        request(app)
+          .post('/api/users')
+          .send({
+            email: 'beth@secrets.org',
+            password: '12345'
           })
-        })
-    )
+          .expect(201)
+      )
+
+      it('redirects to the user it just made', () =>
+        request(app)
+          .post('/api/users')
+          .send({
+            email: 'eve@interloper.com',
+            password: '23456',
+          })
+          .redirects(1)
+          .then(res => expect(res.body).to.contain({
+            email: 'eve@interloper.com'
+          }))
+      )
+
+    })
   })
+
 })
