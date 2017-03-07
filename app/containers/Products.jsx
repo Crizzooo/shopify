@@ -16,7 +16,7 @@ class ProductContainer extends Component {
         <h1>ALBUMS</h1>
         <Albums albums={this.props.albums} />
         <h1>CLOTHING</h1>
-        <Clothing clothing={this.props.clothing}/>
+        <Clothing clothing={this.props.clothing} />
       </div>
     )
   }

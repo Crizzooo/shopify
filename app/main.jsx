@@ -14,15 +14,20 @@ import Clothing from './containers/Clothing';
 import CartContainer from './containers/CartContainer';
 import ProductContainer from './containers/Products';
 import AdminPanel from './containers/AdminPanel';
+import Users from './containers/Users';
+import User from './components/Admin/User';
 import SingleProductContainer from './containers/singleProduct';
 
 
 import {fetchAlbums, fetchClothing} from './reducers/products';
+import {fetchUsers} from './reducers/users';
 import { fetchCart } from './reducers/cart';
+
 
 function fetchInitialData() {
   store.dispatch(fetchAlbums());
   store.dispatch(fetchClothing());
+  store.dispatch(fetchUsers());
 }
 
 function fetchCartItems() {
@@ -47,6 +52,8 @@ render(
         <Route path="/albums" component={Albums} />
         <Route path="/clothing" component={Clothing} />
         <Route path="/admin" component={AdminPanel} />
+        <Route path="/users" component={Users} />
+        <Route path="/users/:id" component={User} />
       </Route>
     </Router>
   </Provider>,

@@ -8,6 +8,7 @@ class CartContainer extends Component {
 
   constructor(props) {
     super(props)
+
     this.state = {updatedQty: ''}
     this.checkStock = this.checkStock.bind(this)
     this.subtotal = 0
@@ -23,6 +24,7 @@ class CartContainer extends Component {
     return qty > 0 ?
     <span className="text-success"><strong>In Stock </strong></span> :
     <span className="text-danger"><strong> Out of Stock </strong></span>
+
   }
 
   handleRemove (evt) {
@@ -47,6 +49,7 @@ class CartContainer extends Component {
     const totalArray = cart && cart.map(cartItem => +cartItem.product.price * cartItem.quantity)
 
     return (
+
   <div className="container">
     <div className="row">
         <div className="col-sm-12 col-md-10 col-md-offset-1">
