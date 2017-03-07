@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import AlbumDetail from '../components/albumDetail';
+import ClothingDetail from '../components/clothingDetail';
+
 
 class SingleProductContainer extends Component {
 
@@ -13,24 +16,11 @@ class SingleProductContainer extends Component {
   render() {
     console.log('Do we have a currentProduct', this.props.currentProduct);
     return (
-      <div>
-        { this.props.currentProduct ?
-          <div className="card singleProdCard">
-            <img className="card-img-top productImage" src={this.props.currentProduct.imageURL} alt="Card image cap" />
-            <div className="card-block">
-              <h1>{ this.props.currentProduct.title}</h1>
-              {
+         this.props.currentProduct ?
               this.props.currentProduct.product_type === 'album' ?
-              <h3>ALBUM DETAILS</h3>
+              <AlbumDetail album={this.props.currentProduct} />
               :
-              <h3>CLOTHING DETAILS</h3>
-              }
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item"><h3>Details</h3></li>
-                <li className="list-group-item"><h4>Reviews</h4></li>
-              </ul>
-            </div>
-          </div>
+              <ClothingDetail clothing={this.props.currentProduct} />
         :
         <div className="card singleProdCard">
           <img className="card-img-top productImage" src="http://www.designformusic.com/wp-content/uploads/2015/10/insurgency-digital-album-cover-design.jpg" alt="Card image cap" />
@@ -42,8 +32,6 @@ class SingleProductContainer extends Component {
             </ul>
           </div>
         </div>
-        }
-      </div>
     )
   }
 

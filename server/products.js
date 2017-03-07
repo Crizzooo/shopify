@@ -63,9 +63,11 @@ router.param('reviewId', function (req, res, next){
 
 router.get('/', function (req, res, next){
 	Products.findAll({
-		include: [ Category ]
+		include: [ Category, {model: Clothing, include: Artists}, {model: Albums, include: Artists} ]
 	})
-	.then( products => res.status(200).json(products))
+	.then( products =>
+		res.status(200).json(products)
+	)
 	.catch(next);
 });
 
@@ -74,15 +76,15 @@ router.get('/albums', (req, res, next) => {
 		include: [ {model: Products, include: Category}, Artists ]
 	})
 	.then( (result) => {
-		console.log('get all albums route received:', result);
-		res.status(200).json(result);
+		let resData = result.map( res2 => res2.dataValues );
+		res.status(200).json(resData);
 	})
 	.catch(next);
 })
 
 router.get('/clothing', (req, res, next) => {
 	Clothing.findAll({
-		include: [ Products, Artists ]
+		include: [ {model: Products, include: Category}, Artists ]
 	})
 	.then( (result) => {
 		console.log('get all clothing route received:', result);

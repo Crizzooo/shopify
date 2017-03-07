@@ -7,11 +7,11 @@ class Albums extends Component {
   // }
   constructor(props) {
     super(props);
-    console.log('\n\n\nALBUM COMPONENT', props);
+    console.log('\n\n\nALBUMS CONTAINER', props);
   }
 
   render() {
-    console.log('rendering albums!', this.props);
+    console.log('rendering albums!', this.props.albums);
     return (
         <div className="flexContainer">
           {
@@ -29,7 +29,7 @@ const mapProps = state => {
   console.log('Mapping Props from state', state);
   return {
     message: state.products.message,
-    albums: state.products.products.albums
+    allAlbums: state.products.products.albums
   };
 };
 

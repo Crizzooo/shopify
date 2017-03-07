@@ -22,7 +22,7 @@ class Layout extends Component {
               <span className="navbar-toggler-icon" />
             </button>
 
-            <a className="navbar-brand" id="logo" href="#">Final Vinyl</a>
+            <Link to="/"><a className="navbar-brand" id="logo" href="#">Final Vinyl</a></Link>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">

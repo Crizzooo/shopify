@@ -131,10 +131,19 @@ a {
 /* CARD for SINGLE PRODUCT PAGE */
 .singleProdCard {
   color: black;
+  margin: auto;
+  max-width: 600px;
+  background-image: linear-gradient(45deg, #93a5cf 0%, #e4efe9 100%);
+  padding: 0.7rem;
+  border-radius: .75rem;
 }
 
 .productImage {
-  max-height: 500px;
+  /*height: 450px;*/
+  /*width: 450px;*/
+  margin: auto;
+  height: 500px;
+  width: 500px;
 }
 
 /* 318 - 267 */

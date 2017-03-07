@@ -15,13 +15,20 @@ import CartContainer from './containers/CartContainer';
 import ProductContainer from './containers/Products';
 import AdminPanel from './containers/AdminPanel';
 import SingleProductContainer from './containers/singleProduct';
+import FilterProductContainer from './containers/filteredProducts';
 
-import {fetchAlbums, fetchClothing} from './reducers/products';
+import {fetchAlbums, fetchClothing, fetchCurrentProduct, fetchCategories, fetchFilterAlbums} from './reducers/products';
 import { fetchCart } from './reducers/cart';
 
 function fetchInitialData() {
   store.dispatch(fetchAlbums());
   store.dispatch(fetchClothing());
+  store.dispatch(fetchCategories());
+}
+
+function fetchFilteredData() {
+  console.log('fetching filtered albums?');
+  store.dispatch(fetchFilterAlbums());
 }
 
 
@@ -45,6 +52,7 @@ render(
         <IndexRoute component={ProductContainer} />
         <Route path="/product/:id" component={SingleProductContainer} onEnter={fetchCurrent} />
         <Route path="/products" component={ProductContainer} />
+        <Route path="/products/filtered" component={FilterProductContainer} />
         <Route path="/cart" component={CartContainer} onEnter ={fetchCartItems} />
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignUpPage} />

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Album from '../components/Album';
 
 import ClothingItem from '../components/ClothingItem';
 
@@ -9,6 +8,9 @@ class ClothingContainer extends Component {
   // }
   constructor(props) {
     super(props);
+    if (!this.props.clothing){
+      console.log('clothing component has nothing to render');
+    }
     console.log('\n\n CLOTHING COMPONENT', props);
   }
 
@@ -18,7 +20,12 @@ class ClothingContainer extends Component {
       <div>
         <div className="flexContainer">
           {
-            this.props.clothing && this.props.clothing.map(clothing => (
+            this.props.clothing ?
+            this.props.clothing.map(clothing => (
+              <ClothingItem clothing={clothing} key={clothing.id} />
+            ))
+            :
+            this.props.allClothing.map(clothing => (
               <ClothingItem clothing={clothing} key={clothing.id} />
             ))
           }
@@ -33,7 +40,7 @@ const mapProps = state => {
   console.log('Mapping Props from state', state);
   return {
     message: state.products.message,
-    clothing: state.products.products.clothing
+    allClothing: state.products.products.clothing
   };
 };
 
