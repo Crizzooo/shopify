@@ -2,48 +2,43 @@ import axios from 'axios';
 
 /* -----------------    ACTIONS     ------------------ */
 
-// const LOAD_ALBUMS = 'LOAD_ALBUMS';
-// const TEST       = 'TEST_CASE';
 const LOAD_CART = 'LOAD_CART';
+const ADD_TO_CART = 'ADD_TO_CART'
+const DELETE_CART_ITEM = 'DELETE_CART_ITEM'
+const UPDATE_QTY = 'UPDATE_QTY'
 
 
 /* ------------   ACTION CREATORS     ------------------ */
 
 
 const loadCart = cartItems =>  ({type: LOAD_CART, cartItems})
+const addItem = () => ({type: ADD_TO_CART})
+const deleteItem = prodId => ({type: DELETE_CART_ITEM, prodId})
+const updateQty = () => ({type: UPDATE_QTY})
 
 /* ------------       REDUCERS     ------------------ */
 
-const initialState = {
-  cartItems: [
-    {
-      id: 1,
-      order_id: 1,
-      product_id: 2
-    },
-    {
-      id: 2,
-      order_id: 1,
-      product_id: 1
-    },
-    {
-      id: 3,
-      order_id: 2,
-      product_id: 3
-    }
-  ]
-}
+const initialState = {}
 
 export default (state = initialState, action) => {
-  console.log('Current Cart Reducer State', state);
-  console.log('Cart Reducer has been called with this action obj:', action);
   const newState = Object.assign({}, state);
 
   switch(action.type) {
 
     case LOAD_CART:
-      // newState.cartItems = action.cartItems;
+      newState.cartItems = action.cartItems;
       return newState;
+
+    case ADD_TO_CART:
+      return newState
+
+    case DELETE_CART_ITEM:
+
+      newState.cartItems = newState.cartItems.filter(item => item.product_id !== parseInt(action.prodId, 10))
+      return newState
+
+    case UPDATE_QTY:
+      return newState
 
     default:
       return newState;
@@ -53,11 +48,40 @@ export default (state = initialState, action) => {
 
 /* ------------       DISPATCHERS     ------------------ */
 
-export const fetchCart = () => dispatch => {
-  axios.get('/api/cartItems')
+export const fetchCart = (userId) => dispatch => {
+  axios.get(`/api/cartItems/${userId}`)
     .then(res => res.data)
     .then(cartItems => {
-      console.log('found cartItems:', cartItems)
+      dispatch(loadCart(cartItems))
     })
     .catch(err => console.error('Fetching cart items unsuccessful', err));
+}
+
+export const addToCart = (userId, prodId) => dispatch => {
+  axios.post(`/api/cartItems/${userId}/${prodId}`)
+    .then(res => res.data)
+    .then(newCartItem => {
+      dispatch(addItem())
+    })
+    .then(() => {
+      dispatch(fetchCart(userId))
+    })
+    .catch(err => console.error('Adding item unsuccessful', err))
+}
+
+export const deleteCartItem = (prodId) => dispatch => {
+  prodId = +prodId
+  dispatch(deleteItem(prodId))
+  axios.delete(`/api/cartItems/${prodId}`)
+    .catch(err => console.error(`deleting item ${prodId} unsuccessful`, err))
+    }
+
+export const updateItemQty = (userId, cartItemId, newQty) => dispatch => {
+  axios.put(`api/cartItems/${cartItemId}/${newQty}`)
+  .then( () => {
+    dispatch(updateQty())
+  })
+  .then( () => {
+    dispatch(fetchCart(userId))
+  })
 }

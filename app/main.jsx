@@ -21,11 +21,22 @@ import SingleProductContainer from './containers/singleProduct';
 
 import {fetchAlbums, fetchClothing} from './reducers/products';
 import {fetchUsers} from './reducers/users';
+import { fetchCart } from './reducers/cart';
+
 
 function fetchInitialData() {
   store.dispatch(fetchAlbums());
   store.dispatch(fetchClothing());
   store.dispatch(fetchUsers());
+}
+
+function fetchCartItems() {
+  //TODO: the cart should reference the user id from the
+  //session in order to get the cart belonging to a user
+  //for now, the user id is hard-coded.
+  const userId = 1 //req.sessions.id?
+  store.dispatch(fetchCart(userId))
+
 }
 
 render(
@@ -35,7 +46,7 @@ render(
         <IndexRoute component={ProductContainer} />
         <Route path="/product" component={SingleProductContainer} />
         <Route path="/products" component={ProductContainer} />
-        <Route path="/cart" component={CartContainer} />
+        <Route path='/cart' component={CartContainer} onEnter ={fetchCartItems} />
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignUpPage} />
         <Route path="/albums" component={Albums} />

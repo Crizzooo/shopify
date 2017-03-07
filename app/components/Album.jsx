@@ -6,8 +6,8 @@ export default class Album extends Component {
 
   render() {
     const album = this.props.album;
-    console.log("rendering album with props", this.props);
-    console.log('product: ', album.product);
+    const handleAddToCart = this.props.handleAddToCart
+    const printAlbum = this.props.printAlbum
     if (album.product) {
       //switch img to point to album.imageURL.data
       return (
@@ -16,15 +16,11 @@ export default class Album extends Component {
             <img className="card-img-top smallCardImage" src="http://www.designformusic.com/wp-content/uploads/2015/10/insurgency-digital-album-cover-design.jpg" alt="Card image cap" />
             <div className="cardOverlay">
               <div className="cardControls">
-                <ul className="cardControlButtons">
+                <button className="cardControlButtons btn btn-success" onClick={(evt) =>handleAddToCart(album)} >
                   <li className="cardListItem">
                      Add To Cart
                   </li>
-                  <span>  ||  </span>
-                  <li className="cardListItem">
-                     Play
-                  </li>
-                </ul>
+                </button>
               </div>
             </div>
           </div>
