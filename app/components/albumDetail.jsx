@@ -19,7 +19,7 @@ export default class albumDetail extends Component {
               <ul>
                 <li>Genre: {this.props.album.albums[0].genre}</li>
                 <li>Price: ${this.props.album.price}</li>
-                <li>Quantity: {this.props.album.quantity}</li>
+                <li>Quantity: {this.props.album.inventory}</li>
               </ul>
             </li>
               <li className="list-group-item"><h3>Categories</h3>

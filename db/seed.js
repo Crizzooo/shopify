@@ -23,13 +23,13 @@ const seedReviews = () => db.Promise.map([
 ], review => db.model('reviews').create(review))
 
 const seedProducts = () => db.Promise.map([
-  {title: 'Some album', description: 'great album, you should buy it!', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 19.99, quantity: 5, product_type: 'album'},
-  {title: 'Another album', description: 'decent album, you shouldn\'t buy it!', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 19.99, quantity: 5, product_type: 'album'},
-  {title: 'Awesome T-Shirt', description: 't-shirt description here', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 9.95, quantity: 10, product_type: 'clothing'},
-  {title: 'Sick trucker hat', description: 'wear this hat to the beach', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 4.95, quantity: 10, product_type: 'clothing'},
-  {title: 'Generic Rock Album', description: 'wear this hat to the beach', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 4.95, quantity: 10, product_type: 'album'},
-  {title: 'Another Rock Album', description: 'wear this hat to the beach', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 4.95, quantity: 10, product_type: 'album'}
-  
+  {title: 'Some album', description: 'great album, you should buy it!', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 19.99, inventory: 5, product_type: 'album'},
+  {title: 'Another album', description: 'decent album, you shouldn\'t buy it!', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 19.99, inventory: 5, product_type: 'album'},
+  {title: 'Awesome T-Shirt', description: 't-shirt description here', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 9.95, inventory: 10, product_type: 'clothing'},
+  {title: 'Sick trucker hat', description: 'wear this hat to the beach', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 4.95, inventory: 10, product_type: 'clothing'},
+  {title: 'Generic Rock Album', description: 'wear this hat to the beach', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 4.95, inventory: 10, product_type: 'album'},
+  {title: 'Another Rock Album', description: 'wear this hat to the beach', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 4.95, inventory: 10, product_type: 'album'}
+
 ], product => db.model('products').create(product))
 
 const seedCategories = () => db.Promise.map([
