@@ -4,14 +4,25 @@ import React, { Component } from 'react'
 
 
 export default class Cart extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault()
+    this.props.submitUpdatedQty(this.props.cartItem.id)
+  }
 
   render() {
 
     const cartItem = this.props.cartItem
     const checkStock = this.props.checkStock
     const handleRemove = this.props.handleRemove
-    const itemQty = this.props.itemQty
-    const quantity = itemQty[cartItem.product_id]
+    const quantity = cartItem.quantity
+    const handleUpdatedQty = this.props.handleUpdatedQty
+    const submitUpdatedQty = this.props.submitUpdatedQty
+    const updateQty = this.props.updateQty
 
 
     return (
@@ -21,12 +32,12 @@ export default class Cart extends Component {
               <a className="thumbnail pull-left" href="#"> <img className="media-object" src="http://www.designformusic.com/wp-content/uploads/2015/10/insurgency-digital-album-cover-design.jpg" width="60" height="60" style={{marginRight: 20}} /> </a>
               <div>
                   <h4 className="media-heading"><a href="#" className="text-success">{cartItem.product.title}</a></h4>
-                  <span>Status: </span>{checkStock(cartItem.product.quantity)}
+                  <span>Status: </span>{checkStock(cartItem.product.inventory)}
               </div>
           </div></td>
           <td className="col-sm-1 col-md-1" >
-            <form >
-              <input type="email" className="form-control" id="exampleInputEmail1" value={quantity} />
+            <form onSubmit={this.handleSubmit}>
+              <input type="text" className="form-control" onChange={handleUpdatedQty} defaultValue={quantity}/>
               <button type="submit" className="btn btn-primary">
               update qty
               </button>

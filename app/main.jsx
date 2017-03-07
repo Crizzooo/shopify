@@ -14,11 +14,16 @@ import Clothing from './containers/Clothing';
 import CartContainer from './containers/CartContainer';
 import ProductContainer from './containers/Products';
 import AdminPanel from './containers/AdminPanel';
+import Users from './containers/Users';
+import User from './components/Admin/User';
 import SingleProductContainer from './containers/singleProduct';
 import FilterProductContainer from './containers/filteredProducts';
 
+
 import {fetchAlbums, fetchClothing, fetchCurrentProduct, fetchCategories, fetchFilterAlbums} from './reducers/products';
+import {fetchUsers} from './reducers/users';
 import { fetchCart } from './reducers/cart';
+
 
 function fetchInitialData() {
   store.dispatch(fetchAlbums());
@@ -35,6 +40,7 @@ function fetchFilteredData() {
 function fetchCurrent(nextRouterState) {
   console.log('Next Router:', nextRouterState);
   store.dispatch(fetchCurrentProduct(nextRouterState.params.id));
+  store.dispatch(fetchUsers());
 }
 
 function fetchCartItems() {
@@ -59,6 +65,8 @@ render(
         <Route path="/albums" component={Albums} onEnter={()=>store.dispatch(fetchAlbums())} />
         <Route path="/clothing" component={Clothing} />
         <Route path="/admin" component={AdminPanel} />
+        <Route path="/users" component={Users} />
+        <Route path="/users/:id" component={User} />
       </Route>
     </Router>
   </Provider>,

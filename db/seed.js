@@ -29,6 +29,7 @@ const seedProducts = () => db.Promise.map([
   {title: 'Sick trucker hat', description: 'wear this hat to the beach', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 4.95, quantity: 10, product_type: 'clothing'},
   {title: 'Generic Rock Album', description: 'wear this hat to the beach', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 4.95, quantity: 10, product_type: 'album'},
   {title: 'Another Rock Album', description: 'wear this hat to the beach', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 4.95, quantity: 10, product_type: 'album'}
+  
 ], product => db.model('products').create(product))
 
 const seedCategories = () => db.Promise.map([
@@ -38,8 +39,7 @@ const seedCategories = () => db.Promise.map([
 ], category => db.model('category').create(category))
 
 const seedCartItems = () => db.Promise.map([
-  {product_id: 1, order_id: 1},
-  {product_id: 1, order_id: 1},
+  {quantity: 3, product_id: 1, order_id: 1},
   {product_id: 2, order_id: 1},
   {product_id: 3, order_id: 1},
   {product_id: 3, order_id: 2},
