@@ -10,7 +10,7 @@ const User = db.define('users', {
 
   firstName: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     validate: {
       notEmpty: true
     }
@@ -18,7 +18,7 @@ const User = db.define('users', {
 
   lastName: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     validate: {
       notEmpty: true
     }
@@ -26,7 +26,7 @@ const User = db.define('users', {
 
   email: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     validate: {
 			isEmail: true,
 			notEmpty: true
