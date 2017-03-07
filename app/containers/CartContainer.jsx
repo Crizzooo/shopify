@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Cart from '../components/Cart';
-import { fetchCart, deleteCartItem } from '../reducers/cart'
-import {uniqBy} from 'lodash'
+import { deleteCartItem, updateItemQty } from '../reducers/cart'
 
 
 class CartContainer extends Component {
 
   constructor(props) {
     super(props)
+    this.state = {updatedQty: ''}
     this.checkStock = this.checkStock.bind(this)
     this.subtotal = 0
     this.shippingCost = 5.00
     this.handleRemove = this.handleRemove.bind(this)
+    this.handleUpdatedQty = this.handleUpdatedQty.bind(this)
+    this.submitUpdatedQty = this.submitUpdatedQty.bind(this)
+
 
   }
 
@@ -22,32 +25,26 @@ class CartContainer extends Component {
     <span className="text-danger"><strong> Out of Stock </strong></span>
   }
 
-  getQuantity(){}
-
   handleRemove (evt) {
-
     const productId = evt.target.value
     this.props.deleteItem(productId)
+  }
 
+  handleUpdatedQty (evt) {
+    const updatedQty = +evt.target.value || 0
+    this.setState({updatedQty: updatedQty})
+  }
+
+  submitUpdatedQty (itemId) {
+    const userId = 1 //hard-coded for now, replace with session user
+    this.props.updateQty(userId, itemId, this.state.updatedQty)
   }
 
   render () {
     const cart = this.props.cart;
+    console.log('cart is: ', cart)
     const priceArray = cart && cart.map(cartItem => +cartItem.product.price)
-
-
-    //get the quantity of each item in the cart
-    let itemQty = {}
-    itemQty = cart && Object.assign(itemQty, cart.forEach(cartItem => {
-          if (itemQty[cartItem.product_id]) itemQty[cartItem.product_id] ++
-            else itemQty[cartItem.product_id] = 1
-          }
-        ))
-
-    //only want to render items once, so create unique array
-    const uniqCart = cart && uniqBy(cart, cartItem => {
-        return cartItem.product_id
-    })
+    const totalArray = cart && cart.map(cartItem => +cartItem.product.price * cartItem.quantity)
 
     return (
   <div className="container">
@@ -64,22 +61,25 @@ class CartContainer extends Component {
                     </tr>
                 </thead>
                 <tbody>{
-                  cart && cart.length ? uniqCart.map(cartItem => (
+                  cart && cart.length ? cart.map(cartItem => (
                     <Cart
                     cartItem={cartItem}
                     checkStock={this.checkStock}
                     handleRemove={this.handleRemove}
-                    itemQty = {itemQty}
+                    handleUpdatedQty={this.handleUpdatedQty}
+                    submitUpdatedQty={this.submitUpdatedQty}
                     key={cartItem.id} />
                     )) :
-                    <h3>Your cart is empty </h3>}
+                    <tr>
+                      <td>Your cart is empty </td>
+                    </tr>}
                     <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td><h5>Subtotal</h5></td>
                         <td className="text-right"><h5><strong>${
-                          cart && cart.length && priceArray.reduce((total, price) => {
+                          cart && cart.length && totalArray.reduce((total, price) => {
                             return total + price
                           }).toFixed(2)
                         }</strong></h5></td>
@@ -97,7 +97,7 @@ class CartContainer extends Component {
                         <td>   </td>
                         <td><h3>Total</h3></td>
                         <td className="text-right"><h3><strong>${
-                          cart && cart.length && (priceArray.reduce((total, price) => {
+                          cart && cart.length && (totalArray.reduce((total, price) => {
                             return total + price
                           }) + this.shippingCost).toFixed(2)
                         }</strong></h3></td>
@@ -127,17 +127,19 @@ class CartContainer extends Component {
 const mapStateToProps = state => {
   return {
     cart: state.cart.cartItems,
-    selectedItem: state.selectedItem
+    selectedItem: state.selectedItem,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadCart(cart) {
-      dispatch(fetchCart(cart))
-    },
+
     deleteItem(selectedItem) {
       dispatch(deleteCartItem(selectedItem))
+    },
+
+    updateQty(userId, cartItemId, newQty) {
+      dispatch(updateItemQty(userId, cartItemId, newQty))
     }
   }
 

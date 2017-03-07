@@ -23,10 +23,10 @@ const seedReviews = () => db.Promise.map([
 ], review => db.model('reviews').create(review))
 
 const seedProducts = () => db.Promise.map([
-  {title: 'Some album', description: 'great album, you should buy it!', price: 19.99, quantity: 5, product_type: 'album', tags: []},
-  {title: 'Another album', description: 'decent album, you shouldn\'t buy it!', price: 19.99, quantity: 5, product_type: 'album', tags: []},
-  {title: 'Awesome T-Shirt', description: 't-shirt description here', price: 9.95, quantity: 10, product_type: 'clothing', tags: ['trending now']},
-  {title: 'Sick trucker hat', description: 'wear this hat to the beach', price: 4.95, quantity: 10, product_type: 'clothing', tags: ['on sale']}
+  {title: 'Some album', description: 'great album, you should buy it!', price: 19.99, inventory: 5, product_type: 'album', tags: []},
+  {title: 'Another album', description: 'decent album, you shouldn\'t buy it!', price: 19.99, inventory: 5, product_type: 'album', tags: []},
+  {title: 'Awesome T-Shirt', description: 't-shirt description here', price: 9.95, inventory: 10, product_type: 'clothing', tags: ['trending now']},
+  {title: 'Sick trucker hat', description: 'wear this hat to the beach', price: 4.95, inventory: 10, product_type: 'clothing', tags: ['on sale']}
 ], product => db.model('products').create(product))
 
 const seedCategories = () => db.Promise.map([
@@ -36,8 +36,7 @@ const seedCategories = () => db.Promise.map([
 ], category => db.model('category').create(category))
 
 const seedCartItems = () => db.Promise.map([
-  {product_id: 1, order_id: 1},
-  {product_id: 1, order_id: 1},
+  {quantity: 3, product_id: 1, order_id: 1},
   {product_id: 2, order_id: 1},
   {product_id: 3, order_id: 1},
   {product_id: 3, order_id: 2},
