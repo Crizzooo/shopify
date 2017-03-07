@@ -140,7 +140,7 @@ auth.post('/login/local', passport.authenticate('local', { successRedirect: '/' 
 auth.get('/login/:strategy', (req, res, next) =>
   passport.authenticate(req.params.strategy, {
     scope: 'email',
-    successRedirect: '/',
+    successRedirect: '/login',
     // Specify other config here, such as "scope"
   })(req, res, next)
 )
