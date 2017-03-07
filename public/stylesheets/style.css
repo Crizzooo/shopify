@@ -58,6 +58,11 @@ a {
   padding-top: 40px;
 }
 
+/* Filter Buttons */
+.filterButtons {
+  margin: auto;
+}
+
 
 /* Atom Prototype: h: 267, w: 200
    Original Sizes: h: 468 , w: 318

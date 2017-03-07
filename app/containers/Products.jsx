@@ -16,12 +16,14 @@ class ProductContainer extends Component {
     console.log('rendering products page with props:', this.props);
     return (
       <div>
-        <div className="btn-group btn-group-lg" role="group" aria-label="Basic example">
-          <button type="button" className="btn btn-secondary active" onClick={() => browserHistory.push('/')}>All Categories</button>
-          { this.props.categories && this.props.categories.map( (categoryObj) => {
-            return <button type="button" className="btn btn-secondary"
-              onClick={() => this.props.fetchFilteredProducts(categoryObj.name, categoryObj.id)}>{categoryObj.name}</button>;
-          })}
+        <div className="row">
+          <div className="btn-group btn-group-lg filterButtons" role="group" aria-label="Basic example">
+            <button type="button" className="btn btn-secondary active" onClick={() => browserHistory.push('/')}>All Categories</button>
+            { this.props.categories && this.props.categories.map( (categoryObj) => {
+              return <button key={categoryObj.id} type="button" className="btn btn-secondary"
+                onClick={() => this.props.fetchFilteredProducts(categoryObj.name, categoryObj.id)}>{categoryObj.name}</button>;
+            })}
+          </div>
         </div>
         <Albums albums={this.props.albums} />
         <Clothing clothing={this.props.clothing} />
