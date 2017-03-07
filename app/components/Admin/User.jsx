@@ -9,6 +9,7 @@ class User extends Component {
   constructor(props) {
     super(props)
     this.saveUser = this.saveUser.bind(this);
+    console.log('this', this)
     this.state = {
       firstName: '',
       lastName: ''
@@ -25,6 +26,8 @@ class User extends Component {
     return (
       <div className="form-group">
         Remove user card?
+        {/* <i className="material-icons">search</i> */}
+
         <div className="media-left media-middle icon-container">
           <button
             onClick={this.removeUserCallback}
@@ -33,6 +36,7 @@ class User extends Component {
         </div>
 
         <UserCard user={user} />
+        {console.log('props here',this.props)}
         <form onSubmit={this.saveUser}>
           <div className="form-inline my-2 my-lg-0">
             <h5>
@@ -43,7 +47,7 @@ class User extends Component {
                   type="text"
                   // defaultValue={user.firstName}
                   onChange={evt => {
-                    console.log(this.state)
+                    console.log('firstname state', this.state)
                     return this.setState({firstName: evt.target.value})
                   }
                 } />
@@ -126,27 +130,35 @@ class User extends Component {
    saveUser(event) {
     event.preventDefault();
     console.log('saving user', this.state);
-    const user = this.props = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName
-    }
-    this.props.updateUser(user.id, user);
-    event.target.firstName.value = ''
-    event.target.lastName.value = ''
+    console.log('saving props', this.props)
+
+      this.props.user.firstName = this.state.firstName
+      this.props.user.lastName = this.state.lastName
+
+    console.log(this.props.user)
+    this.props.updateUser(this.props.user.id, this.props.user)
+    // event.target.firstName.value = ''
+    // event.target.lastName.value = ''
   }
 
 }
 
 const mapStateToProps = ({ users }, ownProps) => {
-  const param_id = Number(ownProps.params.id);
-  console.log(param_id)
-  return {
-    user: _.find(users, user => user.id === param_id)
-  };
+  console.log('users map to state', users)
+  console.log('own props', ownProps)
+  const paramId = Number(ownProps.params.id);
+  for (let i = 0; i < users.length; i++) {
+    let user = {}
+    if (users[i].id === paramId) {
+      user = users[i]
+    }
+    console.log('props user', user);
+    return {
+      user: user
+    }
+  }
 };
 
-const mapDispatchToProps = {
-  updateUser
-};
+const mapDispatchToProps = {updateUser};
 
 export default connect(mapStateToProps, mapDispatchToProps)(User);

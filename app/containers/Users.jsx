@@ -50,6 +50,7 @@ class Users extends Component {
         <div className="media">
           <div className="media-left media-middle icon-container">
             {/* Font awesome icon here */}
+            <i className="fa fa-search fa-5x" aria-hidden="true" style={{color: 'black'}}></i>
           </div>
           <div className="media-body">
             <h4 className="media-heading tucked">

@@ -52,8 +52,11 @@ export const removeUser = id => dispatch => {
 };
 
 export const updateUser = (id, user) => dispatch => {
-  console.log('updating user at id', id, 'to ', user.firstName);
+  console.log('updating user at id', id, 'to ', user);
   axios.put(`/api/users/${id}`, user)
-       .then(res => dispatch(update(res.data)))
+      .then(res => {
+        console.log('reached updateUser')
+        dispatch(update(res.data))
+      })
        .catch(err => console.error(`Updating user: ${user} unsuccesful`, err));
 };
