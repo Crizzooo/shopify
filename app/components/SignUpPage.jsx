@@ -16,11 +16,6 @@ class SignUpPage extends Component {
     this.setState({ inputValue });
   }
 
-  // handleSubmit(evt) {
-  //   evt.preventDefault();
-  //   store.dispatch(submitSearch(this.state))
-  // }
-
   render() {
 
     // This needs to go into the products container and then filteredArtists
@@ -62,7 +57,7 @@ class SignUpPage extends Component {
 
             />
             <input
-              className="btn btn-outline-success my-2 my-sm-0" 
+              className="btn btn-outline-success my-2 my-sm-0"
               type="submit"
               value="Submit"
             />

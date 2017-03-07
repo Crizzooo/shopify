@@ -22,11 +22,15 @@ class FilteredProductContainer extends Component {
       <div>
         <div className="row">
           <div className="btn-group btn-group-lg filterButtons" role="group" aria-label="Basic example">
-            <button type="button" className="btn btn-secondary active" onClick={() => browserHistory.push('/')}>All Categories</button>
-            { this.props.categories && this.props.categories.map( (categoryObj) => {
-              return <button key={categoryObj.id}  type="button" className="btn btn-secondary"
-                onClick={() => this.props.fetchFilteredProducts(categoryObj.name, categoryObj.id)}>{categoryObj.name}</button>;
-            })}
+            <button type="button" className="btn btn-secondary" onClick={() => browserHistory.push('/')}>All Categories</button>
+              { this.props.categories && this.props.categories.map( (categoryObj) => {
+                 return (categoryObj.id === this.props.filterCategory) ?
+                  <button key={categoryObj.id} type="button" className="btn btn-secondary active"
+                  onClick={() => this.props.fetchFilteredProducts(categoryObj.name, categoryObj.id)}>{categoryObj.name}</button>
+                  :
+                  <button key={categoryObj.id} type="button" className="btn btn-secondary"
+                  onClick={() => this.props.fetchFilteredProducts(categoryObj.name, categoryObj.id)}>{categoryObj.name}</button>
+              })}
           </div>
         </div>
         <Albums albums={this.props.filteredAlbums} />

@@ -270,6 +270,62 @@ export const fetchCategories = () => dispatch => {
   .catch(err => console.error('Fetching Categories Failed!', err));
 }
 
+export const filterBySearch = (inputValue) => dispatch => {
+  inputValue = inputValue.toLowerCase();
+  dispatch(filterCategories(null));
+  console.log('filtering by Search Val:', inputValue);
+  //Get Albums
+      //Filter by each property including search text
+  let filteredAlbums, filteredClothing;
+  axios.get(`/api/products/albums`)
+  .then( (albumsRaw) => {
+    const albums = albumsRaw.data;
+    console.log("RAW DATA", albums);
+
+    filteredAlbums = albums.filter( (album) => {
+      return R.any( (prop) => {
+        console.log('PROP IN SEARCH', prop, typeof prop);
+        if (typeof prop === 'string'){
+          prop = prop.toLowerCase();
+          return prop.includes(inputValue);
+        } else if (typeof prop === 'number'){
+          return prop === parseInt(inputValue);
+        } else {
+          return false;
+        }
+      }, [album.name, album.genre, album.year])
+    });
+    return axios.get(`/api/products/clothing`)
+  })
+  .then( (clothingRaw) => {
+    const clothingArr = clothingRaw.data;
+    console.log("RAW DATA", clothing);
+
+    filteredClothing = clothingArr.filter( (clothingItem) => {
+      return R.any( (prop) => {
+        console.log('PROP IN SEARCH', prop, typeof prop);
+        if (typeof prop === 'string'){
+          prop = prop.toLowerCase();
+          return prop.includes(inputValue);
+        } else if (typeof prop === 'number'){
+          return prop === parseInt(inputValue);
+        } else {
+          return false;
+        }
+      }, [clothingItem.type, clothingItem.size] )});
+
+    const filteredProductsObj = {
+      albums: filteredAlbums,
+      clothing: filteredClothing
+    }
+
+    dispatch(filterProducts(filteredProductsObj));
+    browserHistory.push('/products/filtered');
+
+  })
+  .catch(console.log);
+  }
+
 
 /* ---------- Helper methods for Actions ---------- */
 // const normalizedProducts = normalize(products.data, schemaForFilteringProducts);

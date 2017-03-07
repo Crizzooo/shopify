@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import store from '../store.jsx';
+
+import { filterBySearch } from '../reducers/products.js';
 
 class FilterInput extends Component {
 
@@ -7,7 +10,7 @@ class FilterInput extends Component {
     super(props);
     this.state = { inputValue: '' };
     this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(evt) {
@@ -16,10 +19,11 @@ class FilterInput extends Component {
     this.setState({ inputValue });
   }
 
-  // handleSubmit(evt) {
-  //   evt.preventDefault();
-  //   store.dispatch(submitSearch(this.state))
-  // }
+  handleSubmit(evt) {
+    console.log('in handle submit');
+    evt.preventDefault();
+    store.dispatch(filterBySearch(this.state.inputValue));
+  }
 
   render() {
 
@@ -39,9 +43,10 @@ class FilterInput extends Component {
             />
             <input
               id="searchbtn"
-              className="btn btn-outline-success my-2 my-sm-0" 
+              className="btn btn-outline-success my-2 my-sm-0"
               type="submit"
               value="Go!"
+              onClick={this.handleSubmit}
             />
       </form>
     )
