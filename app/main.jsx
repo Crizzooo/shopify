@@ -56,7 +56,7 @@ render(
         <Route path="/cart" component={CartContainer} onEnter ={fetchCartItems} />
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignUpPage} />
-        <Route path="/albums" component={Albums} />
+        <Route path="/albums" component={Albums} onEnter={()=>store.dispatch(fetchAlbums())} />
         <Route path="/clothing" component={Clothing} />
         <Route path="/admin" component={AdminPanel} />
       </Route>

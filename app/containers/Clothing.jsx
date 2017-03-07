@@ -18,6 +18,7 @@ class ClothingContainer extends Component {
   render() {
     return (
       <div>
+        <h1>Clothing</h1>
         <div className="flexContainer">
           {
             this.props.clothing ?

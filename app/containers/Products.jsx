@@ -23,9 +23,7 @@ class ProductContainer extends Component {
               onClick={() => this.props.fetchFilteredProducts(categoryObj.name, categoryObj.id)}>{categoryObj.name}</button>;
           })}
         </div>
-        <h1>ALBUMS</h1>
         <Albums albums={this.props.albums} />
-        <h1>CLOTHING</h1>
         <Clothing clothing={this.props.clothing} />
       </div>
     )

@@ -27,10 +27,10 @@ class Layout extends Component {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item dropdown">
-                        <Link className="nav-link dropdown-toggle" to='/products' id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products
+                        <Link className="nav-link dropdown-toggle" to='/' id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products
                         </Link>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <Link className="dropdown-item" to='/products'>All Products</Link>
+                          <Link className="dropdown-item" to='/'>All Products</Link>
                           <Link className="dropdown-item" to='/albums'>Albums</Link>
                           <Link className="dropdown-item" to='/clothing'>Clothing</Link>
                         </div>

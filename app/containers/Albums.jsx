@@ -13,12 +13,20 @@ class Albums extends Component {
   render() {
     console.log('rendering albums!', this.props.albums);
     return (
-        <div className="flexContainer">
-          {
-            this.props.albums && this.props.albums.map(album => (
-              <Album album={album} key={album.id} />
-            ))
-          }
+        <div>
+          <h1>Albums</h1>
+          <div className="flexContainer">
+            {
+              this.props.albums ?
+              this.props.albums.map(album => (
+                <Album album={album} key={album.id} />
+              ))
+              :
+              this.props.allAlbums.map(album => (
+                <Album album={album} key={album.id} />
+              ))
+            }
+          </div>
         </div>
     )
   }
