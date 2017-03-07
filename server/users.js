@@ -26,6 +26,21 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
+router.put('/:id', (req, res, next) => {
+  console.log(req.body)
+  User.findById(req.params.id)
+    .then( (user) => {
+      user.update(req.body)
+      .then(console.log(req.body))
+      console.log(req.body)
+      console.log('Redirecting...');
+      console.log('to /' + user.id);
+      // res.redirect(201, '/' + user.id);
+      res.redirect(201, `/1`);
+    })
+    .catch(next);
+});
+
 router.get('/:id', /*mustBeLoggedIn,*/ (req, res, next) => {
   // console.log('\n\n\nmade it to get id route with', req.params.id, '\n\n\n')
   User.findById(req.params.id)

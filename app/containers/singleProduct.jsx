@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import AlbumDetail from '../components/albumDetail';
+import ClothingDetail from '../components/clothingDetail';
+
 
 class SingleProductContainer extends Component {
 
@@ -11,8 +14,14 @@ class SingleProductContainer extends Component {
 
 
   render() {
+    console.log('Do we have a currentProduct', this.props.currentProduct);
     return (
-      <div>
+         this.props.currentProduct ?
+              this.props.currentProduct.product_type === 'album' ?
+              <AlbumDetail album={this.props.currentProduct} />
+              :
+              <ClothingDetail clothing={this.props.currentProduct} />
+        :
         <div className="card singleProdCard">
           <img className="card-img-top productImage" src="http://www.designformusic.com/wp-content/uploads/2015/10/insurgency-digital-album-cover-design.jpg" alt="Card image cap" />
           <div className="card-block">
@@ -23,23 +32,23 @@ class SingleProductContainer extends Component {
             </ul>
           </div>
         </div>
-      </div>
     )
   }
 
 }
 
 const mapProps = state => {
-  console.log('Mapping Props from state', state);
+  console.log('Mapping Props for Single Prod', state);
   return {
     message: state.products.message,
     clothing: state.products.clothing,
-    albums: state.products.albums
+    albums: state.products.albums,
+    currentProduct: state.products.currentProduct
   };
 };
 
 const mapDispatch = dispatch => ({
-  fetchInitialData: () => {
+  fetchCurrentProduct: () => {
     // what other data might we want to fetch on app load?
   }
 });

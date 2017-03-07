@@ -12,7 +12,7 @@ describe('Review', () => {
   beforeEach(() => {
     newReview = Review.build({
       rating: 5,
-      body: 'This is an excellent review, probably the best I\'ve ever given to any product. This shit is top notch! Buy it now, or else...Don\'t want to end with elipses'
+      body: 'This is an excellent review, probably the best I\'ve ever given to any product. This bad boy is top notch! Buy it now, or else...Don\'t want to end with elipses'
     })
   });
 

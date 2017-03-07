@@ -12,6 +12,9 @@ const Albums = db.model('albums');
 const Artists = db.model('artists');
 const Clothing = db.model('clothing');
 
+const normalize = require('normalizr').normalize;
+const schema = require('normalizr').schema;
+
 // PARAMS
 router.param('productId', function (req, res, next, productId){
 	if (isNaN(req.params.productId)) {
@@ -19,7 +22,9 @@ router.param('productId', function (req, res, next, productId){
 		err.status = 404;
 		throw err;
 	}
-	Products.findById(productId)
+	Products.findById(productId, {
+		include: [ Category, {model: Clothing, include: Artists}, {model: Albums, include: Artists} ]
+	})
 	.then( (product) => {
 	  if (!product) {
 	    const err = Error('product not found');
@@ -58,26 +63,28 @@ router.param('reviewId', function (req, res, next){
 
 router.get('/', function (req, res, next){
 	Products.findAll({
-		include: [ Category ]
+		include: [ Category, {model: Clothing, include: Artists}, {model: Albums, include: Artists} ]
 	})
-	.then( products => res.status(200).json(products))
+	.then( products =>
+		res.status(200).json(products)
+	)
 	.catch(next);
 });
 
 router.get('/albums', (req, res, next) => {
 	Albums.findAll({
-		include: [ Products, Artists ]
+		include: [ {model: Products, include: Category}, Artists ]
 	})
 	.then( (result) => {
-		// console.log('get all albums route received:', result);
-		res.status(200).json(result);
+		let resData = result.map( res2 => res2.dataValues );
+		res.status(200).json(resData);
 	})
 	.catch(next);
 })
 
 router.get('/clothing', (req, res, next) => {
 	Clothing.findAll({
-		include: [ Products, Artists ]
+		include: [ {model: Products, include: Category}, Artists ]
 	})
 	.then( (result) => {
 		// console.log('get all clothing route received:', result);
@@ -87,9 +94,7 @@ router.get('/clothing', (req, res, next) => {
 })
 
 router.get('/:productId', function (req, res, next){
-	Products.findById(req.params.productId)
-	.then( product => res.status(200).json(product))
-	.catch(next);
+		res.status(200).json(req.product);
 });
 
 router.put('/:productId', function (req, res, next){
