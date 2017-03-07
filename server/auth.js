@@ -153,7 +153,7 @@ auth.post('/logout', (req, res, next) => {
 
 auth.post('/signup', function (req, res, next) {
 
-  console.log('hi', req.body)
+  console.log('SIGNUP: ', req.body)
 
   User.findOrCreate({
     where: {

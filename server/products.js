@@ -69,7 +69,7 @@ router.get('/albums', (req, res, next) => {
 		include: [ Products, Artists ]
 	})
 	.then( (result) => {
-		console.log('get all albums route received:', result);
+		// console.log('get all albums route received:', result);
 		res.status(200).json(result);
 	})
 	.catch(next);
@@ -80,7 +80,7 @@ router.get('/clothing', (req, res, next) => {
 		include: [ Products, Artists ]
 	})
 	.then( (result) => {
-		console.log('get all clothing route received:', result);
+		// console.log('get all clothing route received:', result);
 		res.status(200).json(result);
 	})
 	.catch(next);
@@ -101,7 +101,7 @@ router.put('/:productId', function (req, res, next){
 router.post('/', function (req, res, next){
 	Products.create(req.body)
 	.then( product => {
-		console.log('created this product!:', product);
+		// console.log('created this product!:', product);
 		res.status(201).json(product);
 	})
 	.catch(next);
