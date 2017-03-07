@@ -11,7 +11,9 @@ class UserCard extends Component {
   constructor(props) {
     super(props);
     this.removeUserCallback = this.removeUserCallback.bind(this);
-    console.log('usercard props', this.props.user)
+    this.state = {
+
+    }
   }
 
   render() {
@@ -20,15 +22,13 @@ class UserCard extends Component {
     return (
       <div className="list-group-item min-content user-item">
         <div className="media">
-          <div className="media-left media-middle icon-container">
-            {/* <img className="media-object img-circle" src={user.photo} /> */}
-          </div>
+
           <Link
             className="media-body"
             activeClassName="active"
             to={`/users/${user.id}`}>
             <h4 className="media-heading tucked">
-              <span placeholder="John Doe">{user.name}</span>
+              <span placeholder="John Doe">{user.fullName}</span>
             </h4>
             <h5 className="tucked">
               <span>{user.email}</span>
@@ -57,8 +57,8 @@ class UserCard extends Component {
   }
 }
 
-const mapState = ({ currentUser }) => ({ currentUser });
+const mapStateToDispatch = ({ currentUser }) => ({ currentUser });
 
-const mapDispatch = { removeUser };
+const mapDispatchToProps = { removeUser };
 
-export default connect(mapState, mapDispatch)(UserCard);
+export default connect(mapStateToDispatch, mapDispatchToProps)(UserCard);

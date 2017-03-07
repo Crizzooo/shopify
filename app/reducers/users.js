@@ -3,7 +3,6 @@ import axios from 'axios';
 /* -----------------    ACTIONS     ------------------ */
 
 const INITIALIZE = 'INITIALIZE_USERS';
-const CREATE = 'CREATE_USER';
 const REMOVE = 'REMOVE_USER';
 const UPDATE = 'UPDATE_USER';
 
@@ -11,7 +10,6 @@ const UPDATE = 'UPDATE_USER';
 /* ------------   ACTION CREATORS     ------------------ */
 
 const init = users => ({ type: INITIALIZE, users });
-export const create = user => ({ type: CREATE, user });
 const remove = id => ({ type: REMOVE, id });
 const update = user  => ({ type: UPDATE, user });
 
@@ -20,15 +18,10 @@ const update = user  => ({ type: UPDATE, user });
 
 export default function reducer (state = [], action) {
 
-// let newState = Object.assign({}, state);
-
   switch (action.type) {
 
     case INITIALIZE:
       return action.users;
-
-    case CREATE:
-      return [action.user, ...state];
 
     case REMOVE:
       return state.filter(user => user.id !== action.id);
@@ -39,7 +32,6 @@ export default function reducer (state = [], action) {
       ));
 
     default:
-    console.log('REDUCER DEFAULT', state)
       return state;
   }
 }
@@ -59,13 +51,8 @@ export const removeUser = id => dispatch => {
        .catch(err => console.error(`Removing user: ${id} unsuccesful`, err));
 };
 
-export const addUser = user => dispatch => {
-  axios.post('/api/users', user)
-       .then(res => dispatch(create(res.data)))
-       .catch(err => console.error(`Creating user: ${user} unsuccesful`, err));
-};
-
 export const updateUser = (id, user) => dispatch => {
+  console.log('updating user at id', id, 'to ', user.firstName);
   axios.put(`/api/users/${id}`, user)
        .then(res => dispatch(update(res.data)))
        .catch(err => console.error(`Updating user: ${user} unsuccesful`, err));
