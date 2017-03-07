@@ -39,14 +39,14 @@ const User = db.define('users', {
     defaultValue: false
   },
 
+  googleId: Sequelize.STRING,
+
   // We support oauth, so users may or may not have passwords.
   password_digest: Sequelize.STRING, // This column stores the hashed password in the DB, via the beforeCreate/beforeUpdate hooks
 
   password: Sequelize.VIRTUAL, // Note that this is a virtual, and not actually stored in DB
 
-  // googleId: Sequelize.STRING,
-  // githubId: Sequelize.STRING,
-  // twitterId: Sequelize.STRING
+
 },
 
 {

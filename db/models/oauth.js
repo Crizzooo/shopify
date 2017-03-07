@@ -28,6 +28,8 @@ const OAuth = db.define('oauths', {
 
 // OAuth.V2 is a default argument for the OAuth.setupStrategy method - it's our callback function that will execute when the user has successfully logged in
 OAuth.V2 = (accessToken, refreshToken, profile, done) =>
+  console.log(profile)
+
   OAuth.findOrCreate({
     where: {
       provider: profile.provider,

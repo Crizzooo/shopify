@@ -37,7 +37,12 @@ a {
 	margin: 5px 0px;
 }
 
-#loginform {
+#btngoogle {
+  display: inline;
+}
+
+#loginbtn {
+  display: inline;
 }
 
 #searchform {
