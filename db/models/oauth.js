@@ -1,6 +1,7 @@
 'use strict'; // eslint-disable-line semi
 
-const debug = require('debug')('oauth')
+const app = require('APP')
+const debug = require('debug')(`${app.name}:oauth`)
 const Sequelize = require('sequelize')
 const db = require('APP/db')
 const User = require('./user')
@@ -28,14 +29,16 @@ const OAuth = db.define('oauths', {
 
 // OAuth.V2 is a default argument for the OAuth.setupStrategy method - it's our callback function that will execute when the user has successfully logged in
 OAuth.V2 = (accessToken, refreshToken, profile, done) =>
+  
   OAuth.findOrCreate({
     where: {
       provider: profile.provider,
-      uid: profile.id,
+      uid: profile.id
     }
   })
   .spread(oauth => {
     console.log(profile)
+    debug(profile)
     debug('provider:%s will log in user:{name=%s uid=%s}',
       profile.provider,
       profile.displayName,
@@ -54,7 +57,9 @@ OAuth.V2 = (accessToken, refreshToken, profile, done) =>
   })
   .then(({ oauth, user }) => user ||
     User.create({
-      name: profile.displayName,
+      lastName: profile.name.familyName,
+      firstName: profile.name.givenName,
+      email: profile.emails[0].value
     })
     .then(createdUser => db.Promise.props({
       user,

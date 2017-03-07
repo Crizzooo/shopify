@@ -25,11 +25,20 @@ a {
     color: #00B7FF;
 }
 
+#navcontainer{
+  width: 100%
+}
+
 .form-control {
 	margin: 5px 0px;
 }
 
-#loginform {
+#btngoogle {
+  display: inline;
+}
+
+#loginbtn {
+  display: inline;
 }
 
 #searchform {

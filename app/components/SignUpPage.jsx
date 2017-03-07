@@ -1,57 +1,49 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { signup } from '../reducers/auth'
+import { browserHistory } from 'react-router'
+
+console.log('singup page')
 
 class SignUpPage extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { inputValue: '' };
-    this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(evt) {
-    const inputValue = evt.target.value;
-    console.log(inputValue);
-    this.setState({ inputValue });
+    this.onSignupSubmit = this.onSignupSubmit.bind(this);
   }
 
   render() {
 
-    // This needs to go into the products container and then filteredArtists
-    // const inputValue = this.state.inputValue;
-    // const filteredArtists = this.props.artists.filter(artist => artist.name.match(inputValue));
-
     return (
-      <form>
+      <form onSubmit={this.onSignupSubmit} >
+
             <input
               onChange={this.handleChange}
-              id="name"
-              type="text"
+              name="firstName"
+              type="firstName"
               className="form-control mr-sm-1"
               placeholder="First Name"
-
             />
             <input
               onChange={this.handleChange}
-              id="name"
-              type="text"
+              name="lastName"
+              type="lastName"
               className="form-control mr-sm-1"
               placeholder="Last Name"
 
             />
             <input
               onChange={this.handleChange}
-              id="name"
-              type="text"
+              name="email"
+              type="email"
               className="form-control mr-sm-1"
               placeholder="Email"
 
             />
             <input
               onChange={this.handleChange}
-              id="name"
-              type="text"
+              name="password"
+              type="password"
               className="form-control mr-sm-1"
               placeholder="Password"
 
@@ -64,6 +56,34 @@ class SignUpPage extends Component {
       </form>
     )
   }
+
+
+  onSignupSubmit(event) {
+    
+    event.preventDefault();
+    const user = {
+      firstName: event.target.firstName.value,
+      lastName: event.target.lastName.value,
+      email: event.target.email.value,
+      password: event.target.password.value
+    }
+
+    this.props.signup_wrapper(user)
+    browserHistory.push(`/login`)
+
+  }
 }
 
-export default SignUpPage;
+const mapState = () => ({ message: 'Sign up' });
+
+const mapDispatch = (dispatch) => {
+  return {
+    signup_wrapper: function (user) {
+      dispatch(signup(user));
+    }
+  };
+};
+
+
+export default connect(mapState, mapDispatch)(SignUpPage);
+
