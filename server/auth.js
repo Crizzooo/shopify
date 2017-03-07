@@ -65,16 +65,18 @@ OAuth.setupStrategy({
 
 // Github needs the GITHUB_CLIENT_ID AND GITHUB_CLIENT_SECRET
 // environment variables.
-// OAuth.setupStrategy({
-//   provider: 'github',
-//   strategy: require('passport-github2').Strategy,
-//   config: {
-//     clientID: env.GITHUB_CLIENT_ID,
-//     clientSecrets: env.GITHUB_CLIENT_SECRET,
-//     callbackURL: `${app.baseUrl}/api/auth/login/github`,
-//   },
-//   passport
-// })
+
+OAuth.setupStrategy({
+  provider: 'github',
+  strategy: require('passport-github2').Strategy,
+  config: {
+    clientID: env.GITHUB_CLIENT_ID,
+    clientSecret: env.GITHUB_CLIENT_SECRET,
+    callbackURL: `${app.baseUrl}/api/auth/login/github`,
+  },
+  passport
+})
+
 
 // Other passport configuration:
 // Passport review in the Week 6 Concept Review:
@@ -89,7 +91,8 @@ passport.deserializeUser(
     debug('will deserialize user.id=%d', id)
     User.findById(id)
       .then(user => {
-        debug('deserialize did ok user.id=%d', user.id)
+        if (!user) debug('deserialize retrieved null user for id=%d', id)
+        else debug('deserialize did ok user.id=%d', id)
         done(null, user)
       })
       .catch(err => {
@@ -115,7 +118,7 @@ passport.use(new (require('passport-local').Strategy)(
               debug('authenticate user(email: "%s") did fail: bad password')
               return done(null, false, { message: 'Login incorrect' })
             }
-            debug('authenticate user(email: "%s") did ok: user.id=%d', user.id)
+            debug('authenticate user(email: "%s") did ok: user.id=%d', email, user.id)
             done(null, user)
           })
       })
