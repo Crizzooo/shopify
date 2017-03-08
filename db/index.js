@@ -8,7 +8,7 @@ const Sequelize = require('sequelize')
 const name = (process.env.DATABASE_NAME || app.name) +
   (app.isTesting ? '_test' : '')
 
-const url = process.env.DATABASE_URL || 'postgresql-corrugated-67984';
+const url = process.env.DATABASE_URL || 'postgres://pibzvhdopdhqzj:142d969073f3f810cbe8088c6e90fc4dd7becba965b4a5b0c7daee4d16550207@ec2-54-204-32-145.compute-1.amazonaws.com:5432/d57iiu8dhete2n';
 
 debugDB(chalk.yellow(`Opening database connection to ${url}`))
 
