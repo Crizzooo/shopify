@@ -22,13 +22,35 @@ const seedReviews = () => db.Promise.map([
   {rating: '5', title: 'DOPE SHIRT', body: 'sick brah', user_id: 2, product_id: 2},
 ], review => db.model('reviews').create(review))
 
+/*
+Requested Albums
+Nirvana - Nevermind
+Darude -
+Animal Collective - Spirity They've Gone Spirit They've Vanished
+Beach House - Bloom
+The Magnetic Fields - 69 Love Songs
+Yoshimi Battles the Pink Robots - The Flaming Lips
+Phish - Billy breahtes
+The National - High Violet
+Sigur Ros - Takk
+Rick Astley - Whenever you need somebody
+Mercury Rev - Yer SElf is Steam
+Lucius - Wildewoman
+Blink 182 - Enema of the state
+California honeydrops - honeydrops live
+Abraxas - Santana
+2pac - all eyez on me
+sugar ray - 14:52
+*/
 const seedProducts = () => db.Promise.map([
-  {title: 'Some album', description: 'great album, you should buy it!', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 19.99, inventory: 5, product_type: 'album'},
-  {title: 'Another album', description: 'decent album, you shouldn\'t buy it!', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 19.99, inventory: 5, product_type: 'album'},
-  {title: 'Awesome T-Shirt', description: 't-shirt description here', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 9.95, inventory: 10, product_type: 'clothing'},
-  {title: 'Sick trucker hat', description: 'wear this hat to the beach', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 4.95, inventory: 10, product_type: 'clothing'},
-  {title: 'Generic Rock Album', description: 'wear this hat to the beach', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 4.95, inventory: 10, product_type: 'album'},
-  {title: 'Another Rock Album', description: 'wear this hat to the beach', imageURL: 'http://geantav.hol.es/wogypyb.png', price: 4.95, inventory: 10, product_type: 'album'}
+  {title: 'Nirvana - Nevermind', description: 'great album, you should buy it!', imageURL: 'https://i0.wp.com/www.rockandrollgps.com/wp-content/uploads/2014/06/Nirvana-Nevermind-Album-Cover.jpg', price: 19.99, inventory: 5, product_type: 'album'},
+  {title: '69 Love Songs - The Magnetic Fields', description: 'decent album, you shouldn\'t buy it!', imageURL: 'http://cdn4.pitchfork.com/albums/4977/homepage_large.a2ede6ae.jpg', price: 19.99, inventory: 5, product_type: 'album'},
+  {title: 'Beach House - Bloom', description: 'best album ever', imageURL: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/Beach_House_-_Bloom.png/220px-Beach_House_-_Bloom.png', price: 9.95, inventory: 10, product_type: 'album'},
+  {title: 'Nirvana - Logo T-Shirt', description: 'support your favorite band with their classic Tee', imageURL: 'http://www.teevault.com/vault/img/tees/img/o4/nirvana_smile_az_t_shirt.jpg', price: 4.95, inventory: 10, product_type: 'clothing'},
+  {title: 'Blink 182 - Enema of the State', description: 'throwback to your punk rock high school days', imageURL: 'https://i.scdn.co/image/13f894c1300cbdda027ff948ee963640c5126d29', price: 4.95, inventory: 10, product_type: 'album'},
+  {title: 'The Beatles - Abbey Road', description: 'you know you want to recreate this album pic', imageURL: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Beatles_-_Abbey_Road.jpg/220px-Beatles_-_Abbey_Road.jpg', price: 4.95, inventory: 10, product_type: 'album'},
+  {title: 'Blink 182 - The Rebel Tee', description: 'X )', imageURL: 'http://images.sportsdirect.com/images/imgzoom/59/59490403_xxl.jpg', price: 4.95, inventory: 10, product_type: 'clothing'},
+  {title: 'Notorious B.I.G - Ready to Die', description: 'the rap classic', imageURL: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/97/Ready_To_Die.jpg/220px-Ready_To_Die.jpg', price: 4.95, inventory: 10, product_type: 'album'}
 
 ], product => db.model('products').create(product))
 
@@ -38,34 +60,32 @@ const seedCategories = () => db.Promise.map([
   {name: 'On Sale'}
 ], category => db.model('category').create(category))
 
-const seedCartItems = () => db.Promise.map([
-  {quantity: 3, product_id: 1, order_id: 1},
-  {product_id: 2, order_id: 1},
-  {product_id: 3, order_id: 1},
-  {product_id: 3, order_id: 2},
-  {product_id: 4, order_id: 2},
-], cartItem => db.model('cartItems').create(cartItem))
+const seedCartItems = () => db.Promise.map([], cartItem => db.model('cartItems').create(cartItem))
 
 const seedAlbums = () => db.Promise.map([
-  {name: 'Zenith', genre: 'instrumental', year: 1995, artist_id: 1, product_id: 1},
-  {name: 'Ghosts I-IV', genre: 'ambient', year: 2010, artist_id: 2, product_id: 2},
-  {name: 'ROCK ALBUM', genre: 'rock', year: 2010, artist_id: 2, product_id: 5},
-  {name: 'MORE ROCK', genre: 'rock', year: 2010, artist_id: 2, product_id: 6}
+  {name: 'Nevermind', genre: 'Rock', year: 1990, artist_id: 1, product_id: 1},
+  {name: '69 Love Songs', genre: 'Ambient', year: 1999, artist_id: 2, product_id: 2},
+  {name: 'Bloom', genre: 'Dream pop', year: 2012, artist_id: 3, product_id: 3},
+  {name: 'Enema of the State', genre: 'Punk Rock', year: 1999, artist_id: 4, product_id: 5},
+  {name: 'Abbey Road', genre: 'Rock', year: 1969, artist_id: 5, product_id: 6},
+  {name: 'Ready to Die', genre: 'Rap', year: 1994 , artist_id: 6 , product_id: 8}
 ], album => db.model('albums').create(album))
 
 const seedArtists = () => db.Promise.map([
-  {name: 'Dexter Britain', imageURL: 'www.something.com'},
-  {name: 'Nine Inch Nails', imageURL: 'www.anotherone.com'},
+  {name: 'Nirvana', imageURL: 'http://images.gibson.com/Lifestyle/2014/grunge/nirvana.jpg'},
+  {name: 'The Magnetic Fields', imageURL: 'https://img.discogs.com/KqXLMw6kFwGExba7sqlh_wdAUPY=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-41095-1113002604.jpg.jpg'},
+  {name: 'Beach House', imageURL: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Beach_House_Roundhouse_2012.jpg/300px-Beach_House_Roundhouse_2012.jpg'},
+  {name: 'Blink 182', imageURL: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Blink-182%2C_June_2016.jpg/300px-Blink-182%2C_June_2016.jpg'},
+  {name: 'The Beatles', imageURL:
+'https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg'},
+  {name: 'Notorious B.I.G', imageURL: 'https://yt3.ggpht.com/-yeICFnx3XmA/AAAAAAAAAAI/AAAAAAAAAAA/JnC-j_viFgA/s900-c-k-no-mo-rj-c0xffffff/photo.jpg'}
 ], artist => db.model('artists').create(artist))
 
 const seedClothing = () => db.Promise.map([
-  {type: 'tshirt', size: 'S', artist_id: 1, product_id: 3},
-  {type: 'hat', size: 'one-size', artist_id: 2, product_id: 4},
+  {type: 'tshirt', size: 'S', artist_id: 1, product_id: 4},
+  {type: 'tshirt', size: 'one-size', artist_id: 4, product_id: 7},
 ], clothing => db.model('clothing').create(clothing))
 
-const categorySetter = () => db.Promise.map( products, (product) => {
-  product.setCategories([1, 2]);
-});
 
 let productsToCategorize;
 
