@@ -5,8 +5,8 @@ export default class ClothingItem extends Component {
 
   render() {
     const clothing = this.props.clothing;
-    console.log("rendering clothing with props", this.props);
-    console.log('product: ', clothing.product);
+    const handleAddToCart = this.props.handleAddToCart
+
     if (clothing.product) {
       return (
         <div className="card smallCard flexBox">
@@ -14,15 +14,11 @@ export default class ClothingItem extends Component {
               <img className="card-img-top smallCardImage" src={clothing.product.imageURL} />
               <div className="cardOverlay">
                 <div className="cardControls">
-                  <ul className="cardControlButtons">
+                  <button className="cardControlButtons btn btn-success" onClick={(evt) => handleAddToCart(clothing)} >
                     <li className="cardListItem">
-                       Add To Cart
+                     Add To Cart
                     </li>
-                    <span>  ||  </span>
-                    <li className="cardListItem">
-                       Play
-                    </li>
-                  </ul>
+                  </button>
                 </div>
               </div>
             </div>

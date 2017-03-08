@@ -13,7 +13,7 @@ class ProductContainer extends Component {
   }
 
   render() {
-    console.log('rendering products page with props:', this.props);
+
     return (
       <div>
         <div className="row">
@@ -38,7 +38,7 @@ class ProductContainer extends Component {
 }
 
 const mapProps = state => {
-  console.log('Mapping Props from state for Products Page', state);
+
   return {
     message: state.products.message,
     clothing: state.products.products.clothing,

@@ -64,8 +64,7 @@ const initialState = {
 }
 
 export default ( state = initialState, action) => {
-  console.log('Current Reducer State', state);
-  console.log('Reducer has been called with this action obj:', action);
+
   const newState = Object.assign({}, state);
 
   switch (action.type) {
@@ -79,33 +78,32 @@ export default ( state = initialState, action) => {
       return newState;
 
     case LOAD_CURRENT_PRODUCT:
-      console.log('reducer receives action for load current');
+
       newState.currentProduct = action.product;
       return newState;
 
     case LOAD_FILTERED_ALBUMS:
-      console.log("reducer receives filtered albums", action.filteredAlbums);
-      console.log('Current Reducer filter category is:', newState.currentCategoryFilter);
+
       newState.filteredProducts.albums = action.filteredAlbums;
       return newState;
 
     case LOAD_FILTERED_CLOTHING:
-      console.log('reducer recieves filtered clothing', action.filteredClothing);
+
       return newState;
 
     case FILTER_PRODUCTS:
-      console.log('reducer recieves action for filtering products ', action.filtered);
+
       newState.filteredProducts.albums = action.filtered.albums;
       newState.filteredProducts.clothing = action.filtered.clothing;
       return newState;
 
     case LOAD_CATEGORIES:
-      console.log('reducer receives category data', action.categories);
+
       newState.categories = action.categories;
       return newState;
 
     case FILTER_CATEGORIES:
-      console.log('Setting current filtered categories to', action.categoryId);
+
       newState.currentCategoryFilter = action.categoryId;
       return newState;
 
@@ -129,7 +127,7 @@ export const fetchAlbums = (catId) => dispatch => {
   axios.get('/api/products/albums')
   .then( (res) => {
     var albumsArr = res.data;
-    console.log('\n\n Fetch Albums received: ', res.data);
+
     if (catId) {
       albumsArr = albumsArr.filter( (album) => {
         return R.none( (category) =>
@@ -145,17 +143,17 @@ export const fetchAlbums = (catId) => dispatch => {
 export const fetchClothing = () => dispatch => {
   axios.get('/api/products/clothing')
   .then( (res) => {
-    console.log('\n\n Fetch Clothing received: ', res.data);
+
     dispatch(loadClothing(res.data));
   })
   .catch(err => console.error('Fetching albums unsuccessful', err));
 }
 
 export const fetchCurrentProduct = (id) => dispatch => {
-  console.log('Fetching Current Product!');
+
   axios.get(`/api/products/${id}`)
   .then( (res) => {
-    console.log('Got this selected product!', res.data);
+
     dispatch(loadCurrentProduct(res.data));
   })
   .catch(err => console.error('Fetching current product failed!', err));
@@ -190,19 +188,19 @@ const albumSchema = [ album ];
 const schemaForFilteringProducts = [ productForFilter ]
 
 export const setFilterCategory = (categoryId) => dispatch => {
-  console.log('setting category id as current filter: ', categoryId);
+
   dispatch(filterCategories(categoryId));
   browserHistory.push('/products/filtered');
 }
 
 export const fetchFilteredProducts = (categoryName, categoryId) => dispatch => {
   dispatch(filterCategories(categoryId));
-  console.log('filtering product by: ', categoryName, categoryId);
+
   let filteredAlbums, filteredClothing;
   axios.get(`/api/products/albums`)
   .then( (albumsRaw) => {
     const albums = albumsRaw.data;
-    console.log("RAW DATA", albums);
+
 
     filteredAlbums = albums.filter( (album) => {
       return R.none( (category) => {
@@ -210,14 +208,14 @@ export const fetchFilteredProducts = (categoryName, categoryId) => dispatch => {
       }, album.product.categories);
     })
 
-    console.log('FILTERED DATA', filteredAlbums);
+
     return axios.get(`/api/products/clothing`)
     //TODO: Write a function to manually filter the raw data
     //TODO: Or, write a function to pull in album and clothing data and filter those based on category
   })
   .then( (clothingRaw) => {
     const clothing = clothingRaw.data;
-    console.log('CHECK MY SWAG', clothing);
+
     filteredClothing = clothing.filter( (clothingObj) => {
       return R.none( (category) => {
         return category.id === categoryId;
@@ -234,30 +232,10 @@ export const fetchFilteredProducts = (categoryName, categoryId) => dispatch => {
   })
   .catch(console.err);
 }
-/*
-export const fetchFilterAlbums = () => dispatch => {
-  axios.get('/api/products/albums')
-  .then( (res) => {
-    console.log('\n\n Fetch Products received: ', res.data);
-    const normalizedAlbums = normalize(res.data, albumSchema);
-    console.log('normalized album data: ', normalizedAlbums);
-    // const albumsToReturn = normalizedAlbums.filter
-    dispatch(loadFilteredAlbums(normalizedAlbums));
-  })
-  .catch(err => console.error('Fetching filtered albums unsuccessful', err));
-}
 
-export const fetchFilterClothing = () => dispatch => {
-  axios.get('/api/products/clothing')
-  .then( (res) => {
-    console.log('\n\n Fetch Clothing received: ', res.data);
-    dispatch(loadClothing(res.data));
-  })
-  .catch(err => console.error('Fetching albums unsuccessful', err));
-}
-*/
+
 export const fetchCategories = () => dispatch => {
-  console.log('Fetching Categories!');
+
   axios.get(`/api/products`)
   .then( (products) => {
     const normalizedProducts = normalize(products.data, productsSchemaForGettingCategories);
@@ -273,18 +251,18 @@ export const fetchCategories = () => dispatch => {
 export const filterBySearch = (inputValue) => dispatch => {
   inputValue = inputValue.toLowerCase();
   dispatch(filterCategories(null));
-  console.log('filtering by Search Val:', inputValue);
+
   //Get Albums
       //Filter by each property including search text
   let filteredAlbums, filteredClothing;
   axios.get(`/api/products/albums`)
   .then( (albumsRaw) => {
     const albums = albumsRaw.data;
-    console.log("RAW DATA", albums);
+
 
     filteredAlbums = albums.filter( (album) => {
       return R.any( (prop) => {
-        console.log('PROP IN SEARCH', prop, typeof prop);
+
         if (typeof prop === 'string'){
           prop = prop.toLowerCase();
           return prop.includes(inputValue);
@@ -299,11 +277,11 @@ export const filterBySearch = (inputValue) => dispatch => {
   })
   .then( (clothingRaw) => {
     const clothingArr = clothingRaw.data;
-    console.log("RAW DATA", clothing);
+
 
     filteredClothing = clothingArr.filter( (clothingItem) => {
       return R.any( (prop) => {
-        console.log('PROP IN SEARCH', prop, typeof prop);
+
         if (typeof prop === 'string'){
           prop = prop.toLowerCase();
           return prop.includes(inputValue);

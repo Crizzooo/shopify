@@ -51,6 +51,16 @@ router.put('/:orderId', function (req, res, next){
 	.catch(next)
 });
 
+//change order status
+router.put('/:orderId/:orderStatus', (req, res, next) => {
+	req.order.status = req.params.orderStatus
+	return req.order.save()
+	.then(savedOrder => {
+		console.log(`order saved, new status: ${savedOrder.status}`)
+		res.sendStatus(204)
+	})
+})
+
 router.post('/', function (req, res, next){
 	Orders.create(req.body)
 	.then( order => res.status(201).json(order))

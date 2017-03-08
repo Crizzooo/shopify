@@ -7,6 +7,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
+import OrderSubmitted from './components/OrderSubmitted';
 
 import Albums from './containers/Albums';
 import Layout from './containers/Layout';
@@ -65,6 +66,7 @@ render(
         <Route path="/albums" component={Albums} onEnter={()=>store.dispatch(fetchAlbums())} />
         <Route path="/clothing" component={Clothing} />
         <Route path="/admin" component={AdminPanel} />
+        <Route path="/ordersubmitted" component={OrderSubmitted} />
         <Route path="/users" component={Users} />
         <Route path="/users/:id" component={User} />
       </Route>

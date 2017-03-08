@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Cart from '../components/Cart';
-import { deleteCartItem, updateItemQty } from '../reducers/cart'
+import { deleteCartItem, updateItemQty, changeOrderStatus } from '../reducers/cart'
+import { Link } from 'react-router'
 
 
 class CartContainer extends Component {
@@ -14,6 +15,7 @@ class CartContainer extends Component {
     this.subtotal = 0
     this.shippingCost = 5.00
     this.handleRemove = this.handleRemove.bind(this)
+    this.handleSubmitOrder = this.handleSubmitOrder.bind(this)
     this.handleUpdatedQty = this.handleUpdatedQty.bind(this)
     this.submitUpdatedQty = this.submitUpdatedQty.bind(this)
 
@@ -32,10 +34,23 @@ class CartContainer extends Component {
     this.props.deleteItem(productId)
   }
 
+  handleSubmitOrder (evt) {
+    if(!this.props.cart || !this.props.cart.length){
+      alert('Your cart is empty!')
+    } else {
+      const orderId = this.props.cart[0].order_id
+      const orderStatus = 'Processing'
+      this.props.changeOrder(orderId, orderStatus)
+
+
+      }
+  }
+
   handleUpdatedQty (evt) {
     const updatedQty = +evt.target.value || 0
     this.setState({updatedQty: updatedQty})
   }
+
 
   submitUpdatedQty (itemId) {
     const userId = 1 //hard-coded for now, replace with session user
@@ -44,7 +59,7 @@ class CartContainer extends Component {
 
   render () {
     const cart = this.props.cart;
-    console.log('cart is: ', cart)
+
     const priceArray = cart && cart.map(cartItem => +cartItem.product.price)
     const totalArray = cart && cart.map(cartItem => +cartItem.product.price * cartItem.quantity)
 
@@ -110,13 +125,16 @@ class CartContainer extends Component {
                         <td>   </td>
                         <td>   </td>
                         <td>
-                        <button type="button" className="btn btn-default">
+                        <a type="button" className="btn btn-default" href="/">
                             <span className="glyphicon glyphicon-shopping-cart" /> Continue Shopping
-                        </button></td>
+                        </a></td>
                         <td>
-                        <button type="button" className="btn btn-success">
-                            Checkout <span className="glyphicon glyphicon-play" />
-                        </button></td>
+                          <Link to={cart && cart.length ? "/OrderSubmitted" : "/cart"} >
+                            <button type="button" className="btn btn-success" onClick={this.handleSubmitOrder}>
+                                Checkout <span className="glyphicon glyphicon-play" />
+                            </button>
+                          </Link>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -143,6 +161,10 @@ const mapDispatchToProps = dispatch => {
 
     updateQty(userId, cartItemId, newQty) {
       dispatch(updateItemQty(userId, cartItemId, newQty))
+    },
+
+    changeOrder(orderId, orderStatus) {
+      dispatch(changeOrderStatus(orderId, orderStatus))
     }
   }
 
