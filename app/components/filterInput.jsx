@@ -15,12 +15,12 @@ class FilterInput extends Component {
 
   handleChange(evt) {
     const inputValue = evt.target.value;
-    console.log(inputValue);
+
     this.setState({ inputValue });
   }
 
   handleSubmit(evt) {
-    console.log('in handle submit');
+
     evt.preventDefault();
     store.dispatch(filterBySearch(this.state.inputValue));
   }

@@ -81,7 +81,7 @@ class Layout extends Component {
 }
 
 const mapProps = state => {
-  console.log('Mapping Props from ', state);
+
   return {
     message: state.products.message,
     albums: state.products.products.albums
@@ -90,17 +90,13 @@ const mapProps = state => {
 
 const mapDispatch = dispatch => ({
   fetchInitialData: () => {
-    console.log('\n\ndispatching fetch products!!\n\n');
     dispatch(fetchProducts());
-    // what other data might we want to fetch on app load?
+
   },
   runTestDispatch: () => {
     dispatch(testDispatcher('hi, test msg!'))
   }
 });
 
-//removed onEnter={fetchInitialData} from '/' path
-
-// removed   <IndexRoute component={Layout} />
 
 export default connect(mapProps, mapDispatch)(Layout);

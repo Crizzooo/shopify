@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import ClothingItem from '../components/ClothingItem';
+import { addToCart } from '../reducers/cart'
 
 class ClothingContainer extends Component {
-  // componentDidMount() {
-  // }
+
   constructor(props) {
     super(props);
-    if (!this.props.clothing){
-      console.log('clothing component has nothing to render');
-    }
-    console.log('\n\n CLOTHING COMPONENT', props);
+    this.handleAddToCart = this.handleAddToCart.bind(this)
+  }
+
+  handleAddToCart (clothing) {
+    const userId = 1 //will need to take this off the session eventually
+    this.props.addItem(userId, clothing.product_id)
   }
 
 
@@ -23,7 +24,7 @@ class ClothingContainer extends Component {
           {
             this.props.clothing ?
             this.props.clothing.map(clothing => (
-              <ClothingItem clothing={clothing} key={clothing.id} />
+              <ClothingItem clothing={clothing} key={clothing.id} handleAddToCart={this.handleAddToCart} />
             ))
             :
             this.props.allClothing.map(clothing => (
@@ -38,7 +39,6 @@ class ClothingContainer extends Component {
 }
 
 const mapProps = state => {
-  console.log('Mapping Props from state', state);
   return {
     message: state.products.message,
     allClothing: state.products.products.clothing
@@ -47,7 +47,10 @@ const mapProps = state => {
 
 const mapDispatch = dispatch => ({
   fetchInitialData: () => {
-    // what other data might we want to fetch on app load?
+
+  },
+  addItem: (userId, productId) => {
+    dispatch(addToCart(userId, productId))
   }
 });
 

@@ -8,23 +8,21 @@ const Orders = db.models.orders
 const CartItems = db.models.cartItems
 const Product = db.models.products
 
-
+// update this so that cart items update quantity properly
 router.param('userId', (req, res, next, userId) => {
-  Orders.findOne({
+  Orders.findOrCreate({
     where: {
       user_id: userId,
       status: 'Created'
     }
   })
-  .then(foundOrder => {
-    if(!foundOrder) {
-      res.sendStatus(404)
-    } else {
+  .spread((foundOrder, created) => {
       req.activeOrder = foundOrder
       next();
-    }
   })
 })
+
+
 
 //get all cart items
 router.get('/:userId', (req, res, next) => {
@@ -47,21 +45,17 @@ router.post('/:userId/:prodId', (req, res, next) => {
     }
   })
   .spread((cartItem, created) => {
-    if (created){
-      res.json(cartItem)
-    } else {
+    if (!created){
       cartItem.quantity++
       return cartItem.save()
-    }
-  })
-  .then( () => {
-    res.sendStatus(204)
+      }
+   })
+    .then( (cartItem) => {
+        res.json(cartItem)
   })
   .catch(next)
 })
 
-//delete a single cart item
-//should change this to "/:cartItemId"
 router.delete('/:prodId', (req, res, next) => {
   CartItems.destroy({
     where: {
@@ -74,8 +68,7 @@ router.delete('/:prodId', (req, res, next) => {
   .catch(next)
 })
 
-//tests hook to make sure that when cart qty is 0, the item is removed
-//will probably delete this after update quantity is working.
+//update cart qty
 router.put('/:cartItemId/:newQty', (req, res, next) => {
   CartItems.findById(req.params.cartItemId)
     .then(foundCartItem => {
@@ -83,8 +76,8 @@ router.put('/:cartItemId/:newQty', (req, res, next) => {
       return foundCartItem.save()
     })
     .then( () => {
-
       res.sendStatus(204)
     })
+    .catch(next)
 })
 
