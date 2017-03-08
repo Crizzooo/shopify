@@ -293,7 +293,7 @@ export const filterBySearch = (inputValue) => dispatch => {
         } else {
           return false;
         }
-      }, [album.name, album.genre, album.year])
+      }, [album.name, album.genre, album.year, album.artist.name])
     });
     return axios.get(`/api/products/clothing`)
   })
@@ -312,7 +312,7 @@ export const filterBySearch = (inputValue) => dispatch => {
         } else {
           return false;
         }
-      }, [clothingItem.type, clothingItem.size] )});
+      }, [clothingItem.type, clothingItem.size, clothingItem.artist.name] )});
 
     const filteredProductsObj = {
       albums: filteredAlbums,
