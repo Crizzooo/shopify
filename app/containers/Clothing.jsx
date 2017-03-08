@@ -11,7 +11,7 @@ class ClothingContainer extends Component {
   }
 
   handleAddToCart (clothing) {
-    const userId = 1 //will need to take this off the session eventually
+    const userId = this.props.user.id || 99//will need to take this off the session eventually
     this.props.addItem(userId, clothing.product_id)
   }
 
@@ -41,7 +41,8 @@ class ClothingContainer extends Component {
 const mapProps = state => {
   return {
     message: state.products.message,
-    allClothing: state.products.products.clothing
+    allClothing: state.products.products.clothing,
+    user: state.auth
   };
 };
 
