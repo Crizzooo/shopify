@@ -11,7 +11,7 @@ export default class ClothingItem extends Component {
       return (
         <div className="card smallCard flexBox">
             <div className="cardImgHolder">
-              <img className="card-img-top smallCardImage" src={clothing.imageURL} />
+              <img className="card-img-top smallCardImage" src={clothing.product.imageURL} />
               <div className="cardOverlay">
                 <div className="cardControls">
                   <ul className="cardControlButtons">

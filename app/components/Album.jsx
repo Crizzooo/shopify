@@ -14,7 +14,7 @@ export default class Album extends Component {
       return (
         <div className="card smallCard flexBox">
           <div className="cardImgHolder">
-            <img className="card-img-top smallCardImage" src={album.imageURL} />
+            <img className="card-img-top smallCardImage" src={album.product.imageURL} />
             <div className="cardOverlay">
               <div className="cardControls">
                 <button className="cardControlButtons btn btn-success" onClick={(evt) =>handleAddToCart(album)} >
