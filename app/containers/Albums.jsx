@@ -8,10 +8,12 @@ class Albums extends Component {
   constructor(props) {
     super(props);
     this.handleAddToCart = this.handleAddToCart.bind(this)
+
   }
 
   handleAddToCart (album) {
-    const userId = 1 //will need to take this off the session eventually
+    const userId = this.props.user.id || 99
+
     this.props.addItem(userId, album.product_id)
   }
 
@@ -42,7 +44,8 @@ const mapProps = state => {
 
   return {
     message: state.products.message,
-    allAlbums: state.products.products.albums
+    allAlbums: state.products.products.albums,
+    user: state.auth
   };
 };
 

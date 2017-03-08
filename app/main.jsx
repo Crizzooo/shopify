@@ -5,6 +5,7 @@ import {render} from 'react-dom'
 import {Provider} from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
+
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
 import OrderSubmitted from './components/OrderSubmitted';
@@ -30,10 +31,12 @@ function fetchInitialData() {
   store.dispatch(fetchAlbums());
   store.dispatch(fetchClothing());
   store.dispatch(fetchCategories());
+  store.dispatch(fetchUsers());
+
 }
 
 function fetchFilteredData() {
-  console.log('fetching filtered albums?');
+
   store.dispatch(fetchFilterAlbums());
 }
 
@@ -45,11 +48,8 @@ function fetchCurrent(nextRouterState) {
 }
 
 function fetchCartItems() {
-  //TODO: the cart should reference the user id from the
-  //session in order to get the cart belonging to a user
-  //for now, the user id is hard-coded.
-  const userId = 1 //req.sessions.id?
-  store.dispatch(fetchCart(userId))
+
+  store.dispatch(fetchCart())
 }
 
 render(
@@ -74,3 +74,4 @@ render(
   </Provider>,
   document.getElementById('main')
 )
+

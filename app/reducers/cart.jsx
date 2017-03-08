@@ -53,7 +53,10 @@ export default (state = initialState, action) => {
 
 /* ------------       DISPATCHERS     ------------------ */
 
-export const fetchCart = (userId) => dispatch => {
+export const fetchCart = () => (dispatch, getState) => {
+  const state = getState();
+  const userId = state.auth ? state.auth.id : 99 // 99 should be replaced with session id
+
   axios.get(`/api/cartItems/${userId}`)
     .then(res => res.data)
     .then(cartItems => {

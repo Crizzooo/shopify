@@ -14,6 +14,7 @@ class CartContainer extends Component {
     this.checkStock = this.checkStock.bind(this)
     this.subtotal = 0
     this.shippingCost = 5.00
+
     this.handleRemove = this.handleRemove.bind(this)
     this.handleSubmitOrder = this.handleSubmitOrder.bind(this)
     this.handleUpdatedQty = this.handleUpdatedQty.bind(this)
@@ -53,12 +54,13 @@ class CartContainer extends Component {
 
 
   submitUpdatedQty (itemId) {
-    const userId = 1 //hard-coded for now, replace with session user
+    const userId = this.props.user.id || 99 //hard-coded for now, replace with session user
     this.props.updateQty(userId, itemId, this.state.updatedQty)
   }
 
   render () {
     const cart = this.props.cart;
+    console.log('render props:', this.props)
 
     const priceArray = cart && cart.map(cartItem => +cartItem.product.price)
     const totalArray = cart && cart.map(cartItem => +cartItem.product.price * cartItem.quantity)
@@ -149,6 +151,8 @@ const mapStateToProps = state => {
   return {
     cart: state.cart.cartItems,
     selectedItem: state.selectedItem,
+    user: state.auth
+
   }
 }
 
