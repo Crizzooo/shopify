@@ -67,14 +67,14 @@ class Layout extends Component {
                  </div>
 
 
-                 <footer className="footer container">
-                   <hr className="footerHR"/>
-                   <div className="footerText">
-                   FINYL VINYL | 5 Hanover Square 11th Fl. New York, NY. 10022 | 212.333.4444
-                 </div>
-                 </footer>
                </div>
          </div>
+         <footer className="footer container">
+           <hr className="footerHR"/>
+           <div className="footerText">
+             FINYL VINYL | 5 Hanover Square 11th Fl. New York, NY. 10022 | 212.333.4444
+           </div>
+         </footer>
       </div>
     );
   }

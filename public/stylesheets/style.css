@@ -5,6 +5,7 @@ body {
      font: 13px/18px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+
 .bodyBackground {
    background-image: url(../assets/vinyl2.jpg);
    background-size: 100% 100%;
@@ -80,8 +81,8 @@ a {
 .flexContainer {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 /* Switch to column view when small */
