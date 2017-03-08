@@ -11,7 +11,7 @@ export default class ClothingItem extends Component {
       return (
         <div className="card smallCard flexBox">
             <div className="cardImgHolder">
-              <img className="card-img-top smallCardImage" src="http://www.designformusic.com/wp-content/uploads/2015/10/insurgency-digital-album-cover-design.jpg" alt="Card image cap" />
+              <img className="card-img-top smallCardImage" src={clothing.imageURL} />
               <div className="cardOverlay">
                 <div className="cardControls">
                   <ul className="cardControlButtons">
