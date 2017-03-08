@@ -5,6 +5,12 @@ const db = require('APP/db')
 const seedUsers = () => db.Promise.map([
   {firstName: 'so', lastName: 'many', email: 'god@example.com', password: '1234'},
   {firstName: 'Barack', lastName: 'Obama', email: 'barack@example.gov', password: '1234'},
+  {firstName: 'dwight', lastName: 'einsenhower', email: 'hello@email.com', password: '1234'},
+  {firstName: 'john', lastName: 'kennedy', email: '123@email.com', password: '1234'},
+  {firstName: 'george', lastName: 'bush', email: '1234@email.com', password: '1234'},
+  {firstName: 'alexander', lastName: 'hamilton', email: '12345@email.com', password: '1234'},
+  {firstName: 'george', lastName: 'washington', email: '123456@email.com', password: '1234'},
+  {firstName: 'thomas', lastName: 'jefferson', email: '1234567@email.com', password: '1234'},
 ], user => db.model('users').create(user))
 
 const seedAddresses = () => db.Promise.map([

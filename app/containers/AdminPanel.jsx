@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Users from './Users';
-// import Products from './Products';
+import Products from './Products';
 // import Orders from './Orders';
 
 class AdminPanel extends Component {
@@ -15,6 +15,7 @@ class AdminPanel extends Component {
       name: 'Alex Varona',
       emai: 'email@gmail.com'
     }
+    console.log('this.props', this.props)
   }
 
   render() {
@@ -27,7 +28,7 @@ class AdminPanel extends Component {
         <h1>ORDERS</h1>
         {/* <Orders /> */}
         <h1>PRODUCTS</h1>
-        {/* <Products /> */}
+        <Products />
       </div>
     )
   }
