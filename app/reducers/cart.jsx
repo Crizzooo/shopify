@@ -6,6 +6,7 @@ const LOAD_CART = 'LOAD_CART';
 const ADD_TO_CART = 'ADD_TO_CART'
 const DELETE_CART_ITEM = 'DELETE_CART_ITEM'
 const UPDATE_QTY = 'UPDATE_QTY'
+const ORDER_STATUS_CHANGED = 'ORDER_STATUS_CHANGED'
 
 
 /* ------------   ACTION CREATORS     ------------------ */
@@ -15,6 +16,7 @@ const loadCart = cartItems =>  ({type: LOAD_CART, cartItems})
 const addItem = () => ({type: ADD_TO_CART})
 const deleteItem = prodId => ({type: DELETE_CART_ITEM, prodId})
 const updateQty = () => ({type: UPDATE_QTY})
+const changeOrder = () => ({type: ORDER_STATUS_CHANGED})
 
 /* ------------       REDUCERS     ------------------ */
 
@@ -40,6 +42,9 @@ export default (state = initialState, action) => {
     case UPDATE_QTY:
       return newState
 
+    case ORDER_STATUS_CHANGED:
+      return newState
+
     default:
       return newState;
   }
@@ -48,7 +53,10 @@ export default (state = initialState, action) => {
 
 /* ------------       DISPATCHERS     ------------------ */
 
-export const fetchCart = (userId) => dispatch => {
+export const fetchCart = () => (dispatch, getState) => {
+  const state = getState();
+  const userId = state.auth ? state.auth.id : 99 // 99 should be replaced with session id
+
   axios.get(`/api/cartItems/${userId}`)
     .then(res => res.data)
     .then(cartItems => {
@@ -73,6 +81,7 @@ export const deleteCartItem = (prodId) => dispatch => {
   prodId = +prodId
   dispatch(deleteItem(prodId))
   axios.delete(`/api/cartItems/${prodId}`)
+    .then(() => {})
     .catch(err => console.error(`deleting item ${prodId} unsuccessful`, err))
     }
 
@@ -83,5 +92,12 @@ export const updateItemQty = (userId, cartItemId, newQty) => dispatch => {
   })
   .then( () => {
     dispatch(fetchCart(userId))
+  })
+}
+
+export const changeOrderStatus = (orderId, orderStatus) => dispatch => {
+  axios.put(`/api/orders/${orderId}/${orderStatus}`)
+  .then( () => {
+    dispatch(changeOrder())
   })
 }

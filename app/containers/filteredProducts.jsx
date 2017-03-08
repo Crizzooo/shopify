@@ -16,8 +16,7 @@ class FilteredProductContainer extends Component {
   }
 
   render() {
-    console.log('rendering filtered products page with props:', this.props);
-    console.log('THIS PROPS FILTER CATEGORY:', this.props.filterCategory);
+
     return (
       <div>
         <div className="row">
@@ -42,7 +41,7 @@ class FilteredProductContainer extends Component {
 }
 
 const mapProps = state => {
-  console.log('Mapping Props from state for Filtered Products Page', state);
+
   return {
     message: state.products.message,
     clothing: state.products.clothing,

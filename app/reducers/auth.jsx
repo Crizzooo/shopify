@@ -50,7 +50,7 @@ export const logout = () =>
 export const signup = user => dispatch => {
   console.log('signup route')
   console.log(user)
-  
+
   axios.post('/api/auth/signup', user)
   .then(res => res.data)
   .then(user => {
