@@ -19,10 +19,12 @@ class UserCard extends Component {
     return (
       <div className="list-group-item min-content user-item">
         <div className="media-left media-middle icon-container">
-          <button
-            onClick={this.deleteUser}
-            className="btn btn-danger">REMOVE
-          </button>
+          <Link to="/users">
+            <i className="fa fa-trash-o fa-4x"
+              style={{color: 'red', margin: '0 50px 0 0'}}
+              onClick={this.deleteUser}
+            />
+          </Link>
         </div>
         <div className="media">
           <Link
@@ -36,17 +38,6 @@ class UserCard extends Component {
               <span>{user.email}</span>
             </h5>
           </Link>
-          <div className="media-right media-middle">
-            {
-              authorized ?
-              <button
-                  className="btn btn-default"
-                  onClick={this.removeUserCallback}>
-                <span className="glyphicon glyphicon-remove" />
-              </button>
-              : null
-            }
-          </div>
         </div>
       </div>
     )

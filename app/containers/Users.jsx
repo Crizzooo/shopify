@@ -53,15 +53,19 @@ class Users extends Component {
         <div className="media">
           <div className="media-left media-middle icon-container">
             {/* Font awesome icon here */}
-            {/* <i className="fa fa-search fa-5x" aria-hidden="true" style={{color: 'black'}}></i> */}
+            <i className="fa fa-search fa-5x"
+              aria-hidden="true"
+              style={{color: 'grey', padding: '0 50px 0 0'}}
+            />
           </div>
           <div className="media-body">
             <h4 className="media-heading tucked">
               <input
                 type="text"
-                placeholder="Jane Doe"
+                placeholder="John Doe"
                 className="form-like"
                 onChange={evt => this.setState({ name: evt.target.value })}
+                style={{outline: 'none', border: 'none'}}
               />
             </h4>
             <h5 className="tucked">
@@ -70,6 +74,7 @@ class Users extends Component {
                  placeholder="email@website.com"
                  className="form-like"
                  onChange={evt => this.setState({ email: evt.target.value })}
+                 style={{outline: 'none', border: 'none'}}
               />
             </h5>
           </div>
